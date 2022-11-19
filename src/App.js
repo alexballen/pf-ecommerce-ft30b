@@ -1,10 +1,14 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./components/home/Index";
 
 function App() {
   return (
-    <div className="App">
-      <p>Ecommerce Henry</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
