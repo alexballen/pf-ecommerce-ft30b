@@ -17,7 +17,7 @@ function Searchbar() {
   }
 
   return (
-    <div className="  ">
+    <div className="mr-20">
       <div className="form-control pr-1">
         <input
           onChange={searched}
