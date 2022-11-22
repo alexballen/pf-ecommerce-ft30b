@@ -16,7 +16,7 @@ const FilterContainer = () => {
   };
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 ml-10">
       <div className="flex-1">
         <select className="select min-w-0 btn-ghost">
           <option disabled selected>
