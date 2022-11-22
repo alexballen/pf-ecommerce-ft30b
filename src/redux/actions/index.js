@@ -1,13 +1,34 @@
-import axios from "axios";
-// import { getEjemploSlice } from "../reducers/getEjemploSlice";
+/* eslint-disable no-unused-vars */
+//import axios from "axios";
+import { allProducts, byOrder, byPrice } from "../reducers/getProductsSlice";
+//import dbLocal from "../../hooks/dbLocal";
+import db from "../../hooks/db";
+const api = 'http://localhost:3001';
 
-const api = 'http://localhost:3001'
+// get ejemplo
+export const getProducts = () => async (dispatch) =>
+{
+  const dbL = db;
+  dispatch(allProducts(dbL));
+};
 
-// // get ejemplo
-// export const getEjemAll = () => async (dispatch) =>
-// {
-//   dispatch(getEjemploSlice());
-// };
+export const byOrderProducts = (data) => async (dispatch) =>
+{
+  dispatch(byOrder(data));
+};
+
+export const byOrderPrice = (data) => async (dispatch) =>
+{
+  dispatch(byPrice(data));
+};
+
+export const GetProductSearched = (searched) =>
+{
+  return async function (dispatch)
+  {
+    dispatch("acctionreducer(searched)");
+  };
+};
 
 export const createNewUser = (data) => async () =>
 {
