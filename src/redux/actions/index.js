@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-//import axios from "axios";
+import axios from "axios";
 import { allProducts, byOrder, byPrice } from "../reducers/getProductsSlice";
 //import dbLocal from "../../hooks/dbLocal";
 import db from "../../hooks/db";
