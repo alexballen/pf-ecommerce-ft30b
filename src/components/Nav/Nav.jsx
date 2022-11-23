@@ -19,11 +19,7 @@ const Nav = () => {
       <Searchbar />
       <div>
         <Link to={"/"}>
- 
-          <span className="btn btn-ghost normal-case hover:bg-purple-600  text-white text-xl   ">
-            Products
-          </span>
- 
+          <span className="btn btn-ghost normal-case text-xl">Products</span>
         </Link>
       </div>
       {!loged && (

@@ -1,18 +1,9 @@
-/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 import axios from "axios";
- 
-import {
-  allProducts,
-  byOrder,
-  byPrice,
-  GetProductlocal,
-} from "../reducers/getProductsSlice";
+import { allProducts, byOrder, byPrice } from "../reducers/getProductsSlice";
 //import dbLocal from "../../hooks/dbLocal";
 import db from "../../hooks/db";
- 
 const api = 'http://localhost:3001';
- 
 
 // get ejemplo
 export const getProducts = () => async (dispatch) =>
@@ -39,23 +30,6 @@ export const GetProductSearched = (searched) =>
   };
 };
 
- 
-// export const GetProductById = (id) => {
-//   return async function (dispatch) {
-//     const data = await axios.get(`/Products/${id}`);
-
-//     dispatch("actionreducer(id)");
-//   };
-// };
-
-export const GetProductByIdlocal = (id) => {
-  return async function (dispatch) {
-    const data = db.filter((e) => e.id == id);
-
-    dispatch(GetProductlocal(data[0]));
-  };
-};
- 
 export const createNewUser = (data) => async () =>
 {
   await axios({
@@ -64,4 +38,3 @@ export const createNewUser = (data) => async () =>
     data: data
   }).catch((e) => console.log(e));
 }
- 
