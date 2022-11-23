@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./views/Home";
- 
+import AdminRoutes from "./AdminRoutes"
+import ProtectedRoutes from './ProtectedRoutes'
 import ProductDetail from "./components/CardDetail/ProductDetail";
  
  
@@ -14,15 +15,15 @@ function App()
  
   return (
     <BrowserRouter>
-      <Nav />
       <Routes>
-        <Route path="/" element={<Home />} />
- 
+        <Route path='/' element={<Nav />} >
+          <Route path="/" element={<Home />} />
+  
 
-        <Route path="/Products/:id" element={<ProductDetail />} />
- 
-        <Route path="/registerUser" element={<RegisterUser />} />
- 
+          <Route path="/Products/:id" element={<ProductDetail />} />
+  
+          <Route path="/registerUser" element={<RegisterUser />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
