@@ -1,12 +1,28 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./components/home/Index";
+import "./index.css";
+import Home from "./views/Home";
+ 
+import ProductDetail from "./components/CardDetail/ProductDetail";
+ 
+ 
+import Nav from "./components/Nav/Nav";
+import RegisterUser from "./views/Register"
 
-function App() {
+function App()
+{
+ 
   return (
     <BrowserRouter>
+      <Nav />
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Home />} />
+ 
+
+        <Route path="/Products/:id" element={<ProductDetail />} />
+ 
+        <Route path="/registerUser" element={<RegisterUser />} />
+ 
       </Routes>
     </BrowserRouter>
   );
