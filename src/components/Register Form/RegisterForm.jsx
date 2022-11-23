@@ -197,7 +197,7 @@ const RegisterForm = () =>
     return (
         <div>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <h1 >Regístate!</h1>
+                <h1 className="font-bold">Regístate!</h1>
                 <div>
                     <div>
                         <label>Nombre</label>
