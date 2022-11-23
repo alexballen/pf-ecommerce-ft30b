@@ -1,11 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../redux/actions";
 import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
-import ProductDetail from "../components/CardDetail/ProductDetail";
 
 const Home = () => {
   const dispatch = useDispatch();
