@@ -40,7 +40,7 @@ const ProductDetail = () => {
   // };
   return (
     <section className="body-font overflow-hidden   bg-base-500   ">
-      <Nav />
+      
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap p-10 m-10">
           <div className="h-96 carousel carousel-vertical rounded-box">
