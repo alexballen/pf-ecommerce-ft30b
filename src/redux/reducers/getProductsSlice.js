@@ -15,7 +15,7 @@ const productSlice = createSlice({
         action.payload === "Asc"
           ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
           : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
-      state.products = orderProducts;
+      state.products = [...state.products, orderProducts];
     },
     byPrice: (state, action) => {
       const orderPrice =

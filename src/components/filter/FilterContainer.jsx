@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { byOrderProducts, byOrderPrice } from "../../redux/actions";
 
 const FilterContainer = () => {
   const dispatch = useDispatch();
 
+  const [order, setOrder] = useState("");
+
   const handleByOrder = (e) => {
     e.preventDefault();
     dispatch(byOrderProducts(e.target.value));
+    setOrder(e.target.value);
   };
 
   const handleByOrderPrice = (e) => {
     e.preventDefault();
     dispatch(byOrderPrice(e.target.value));
+    setOrder(e.target.value);
   };
 
   return (

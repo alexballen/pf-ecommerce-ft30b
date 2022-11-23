@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Card = ({ name, description, image, unitPrice, id }) => {
   return (
-    <div className="card card-compact w-96 bg-base-100 shadow-xl m-8">
+    <div className="card card-compact w-96 h-96 bg-base-100 shadow-xl m-8">
       <figure className="mt-5">
-        <img src={image} alt="Not found" width={100} height={70} />
+        <img src={image} alt="Not found" width={350} height={300} />
       </figure>
       <div className="card-body">
         <Link to={`/Products/${id}`}>
