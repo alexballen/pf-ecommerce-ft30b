@@ -27,27 +27,6 @@ const Paginated = ({ productsByPage, products, paginated }) => {
       </nav>
     </>
   );
-
-  /* return (
-    <>
-      <nav className="m-2 bg-base-100 pt-5 pr-1 pb-0 pl-5">
-        <ul className="text-center list-none">
-          {numPages &&
-            numPages.map((num) => (
-              <li key={num} className="inline-block mr-2 p-0 h-8 w-8">
-                <a
-                  className="block p-2 rounded-md bg-red-600 mb-5 no-underline text-lime-500"
-                  href="#"
-                  onClick={() => paginated(num)}
-                >
-                  {num}
-                </a>
-              </li>
-            ))}
-        </ul>
-      </nav>
-    </>
-  ); */
 };
 
 export default Paginated;
