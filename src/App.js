@@ -5,23 +5,23 @@ import Home from "./views/Home";
 import AdminRoutes from "./AdminRoutes"
 import ProtectedRoutes from './ProtectedRoutes'
 import ProductDetail from "./components/CardDetail/ProductDetail";
- 
- 
+
+
 import Nav from "./components/Nav/Nav";
 import RegisterUser from "./views/Register"
 
 function App()
 {
- 
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Nav />} >
           <Route path="/" element={<Home />} />
-  
+
 
           <Route path="/Products/:id" element={<ProductDetail />} />
-  
+
           <Route path="/registerUser" element={<RegisterUser />} />
         </Route>
       </Routes>
