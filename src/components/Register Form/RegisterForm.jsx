@@ -196,42 +196,46 @@ const RegisterForm = () =>
 
     return (
         <div>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <h1 className="font-bold">Regístate!</h1>
-                <div>
+            <div className="flex justify-center mt-8">
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <h1 className="font-bold flex justify-center text-lg">Regístrate!</h1>
                     <div>
-                        <label>Nombre</label>
-                        <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full max-w-xs" name="firstName" onChange={(e) => handleInputChange(e)} value={input.firstName} />
-                        {!error.firstName ? null : <span>{error.firstName}</span>}
+                        <div className="flex flex-col">
+                            <label>Nombre</label>
+                            <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full" name="firstName" onChange={(e) => handleInputChange(e)} value={input.firstName} />
+                            {!error.firstName ? null : <span>{error.firstName}</span>}
+                        </div>
+                        <div className="flex flex-col mt-2">
+                            <label>Apellido</label>
+                            <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full" name="lastName" onChange={(e) => handleInputChange(e)} value={input.lastName} />
+                            {!error.lastName ? null : <span>{error.lastName}</span>}
+                        </div>
+                        <div className="flex flex-col mt-2">
+                            <label>Nombre de usuario</label>
+                            <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full" name="username" onChange={(e) => handleInputChange(e)} value={input.username} />
+                            {!error.username ? null : <span>{error.username}</span>}
+                        </div>
+                        <div className="flex flex-col mt-2">
+                            <label>Email</label>
+                            <input placeholder="Escribe aquí" className="input input-bordered w-full" name="email" onChange={(e) => handleInputChange(e)} value={input.email} />
+                            {!error.email ? null : <span>{error.email}</span>}
+                        </div>
+                        <div className="flex flex-col mt-2">
+                            <label>Teléfono</label>
+                            <input placeholder="Escribe aquí" className="input input-bordered w-full" name="phoneNumber" onChange={(e) => handleInputChange(e)} value={input.phoneNumber} />
+                            {!error.phoneNumber ? null : <span>{error.phoneNumber}</span>}
+                        </div>
+                        <div className="flex flex-col mt-2">
+                            <label>Contraseña</label>
+                            <input type="password" placeholder="Escribe aquí" className="input input-bordered w-full" name="password" onChange={(e) => handleInputChange(e)} value={input.password} />
+                            {!error.password ? null : <span>{error.password}</span>}
+                        </div>
+                        <div className="mt-6 flex justify-center">
+                            <button className="btn" type="submit">Crear</button>
+                        </div>
                     </div>
-                    <div>
-                        <label>Apellido</label>
-                        <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full max-w-xs" name="lastName" onChange={(e) => handleInputChange(e)} value={input.lastName} />
-                        {!error.lastName ? null : <span>{error.lastName}</span>}
-                    </div>
-                    <div>
-                        <label>Nombre de usuario</label>
-                        <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full max-w-xs" name="username" onChange={(e) => handleInputChange(e)} value={input.username} />
-                        {!error.username ? null : <span>{error.username}</span>}
-                    </div>
-                    <div>
-                        <label>Email</label>
-                        <input placeholder="Escribe aquí" className="input input-bordered w-full max-w-xs" name="email" onChange={(e) => handleInputChange(e)} value={input.email} />
-                        {!error.email ? null : <span>{error.email}</span>}
-                    </div>
-                    <div>
-                        <label>Teléfono</label>
-                        <input placeholder="Escribe aquí" className="input input-bordered w-full max-w-xs" name="phoneNumber" onChange={(e) => handleInputChange(e)} value={input.phoneNumber} />
-                        {!error.phoneNumber ? null : <span>{error.phoneNumber}</span>}
-                    </div>
-                    <div>
-                        <label>Contraseña</label>
-                        <input type="password" placeholder="Escribe aquí" className="input input-bordered w-full max-w-xs" name="password" onChange={(e) => handleInputChange(e)} value={input.password} />
-                        {!error.password ? null : <span>{error.password}</span>}
-                    </div>
-                    <button type="submit">Crear</button>
-                </div>
-            </form>
+                </form>
+            </div>
 
         </div>);
 };
