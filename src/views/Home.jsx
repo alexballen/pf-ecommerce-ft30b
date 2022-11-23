@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../redux/actions";
 import Card from "../components/card/Card";
-import Nav from "../components/Nav/Nav";
 import FilterContainer from "../components/filter/FilterContainer";
 import ProductDetail from "../components/CardDetail/ProductDetail";
 const Home = () => {
@@ -17,10 +16,7 @@ const Home = () => {
   return (
     <>
       <div>
-        <div>
-          <Nav />
-        </div>
-
+< 
         <div className="">
           <FilterContainer />
         </div>
@@ -38,7 +34,7 @@ const Home = () => {
                   />
                 );
               })
-            : "Not hay Products"}
+            : "No Products"}
         </div>
         <div>
           <p>Footer</p>
