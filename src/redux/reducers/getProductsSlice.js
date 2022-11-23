@@ -4,6 +4,7 @@ const productSlice = createSlice({
   name: "ejemploAll",
   initialState: {
     products: [],
+    product: {},
   },
   reducers: {
     allProducts: (state, action) => {
@@ -23,8 +24,13 @@ const productSlice = createSlice({
           : state.products.sort((a, b) => (a.unitPrice > b.unitPrice ? 1 : -1));
       state.products = orderPrice;
     },
+    GetProductlocal: (state, action) => {
+      const product = action.payload;
+      state.product = product;
+    },
   },
 });
 
-export const { allProducts, byOrder, byPrice } = productSlice.actions;
+export const { allProducts, byOrder, byPrice, GetProductlocal } =
+  productSlice.actions;
 export default productSlice.reducer;

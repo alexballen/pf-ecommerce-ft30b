@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../redux/actions";
 import Card from "../components/card/Card";
 import Nav from "../components/Nav/Nav";
 import FilterContainer from "../components/filter/FilterContainer";
-
+import ProductDetail from "../components/CardDetail/ProductDetail";
 const Home = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
@@ -19,21 +20,22 @@ const Home = () => {
         <div>
           <Nav />
         </div>
+
         <div className="">
           <FilterContainer />
         </div>
         <div className="bg-base-300 p-5 m-8">
           {products.length > 0
-            ? products.map((e) => {
+            ? products.map((e, i) => {
                 return (
-                  <>
-                    <Card
-                      image={e.image}
-                      name={e.name}
-                      unitPrice={e.unitPrice}
-                      description={e.description}
-                    />
-                  </>
+                  <Card
+                    id={e.id}
+                    key={i}
+                    image={e.image}
+                    name={e.name}
+                    unitPrice={e.unitPrice}
+                    description={e.description}
+                  />
                 );
               })
             : "Not hay Products"}
