@@ -17,30 +17,13 @@ const ProductDetail = () => {
 
   // dispatch(GetProductById(id));
   const { product } = useSelector((state) => state.products);
+
   useEffect(() => {
     dispatch(GetProductByIdlocal(id));
   }, []);
 
-  // const product = {
-  //   id: 1,
-  //   name: "Handmade Rubber Hat",
-  //   unitPrice: 196,
-  //   description:
-  //     "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-  //   categories: {
-  //     id: 5,
-  //     name: "Others",
-  //     image: "https://api.lorem.space/image?w=640&h=480&r=5378",
-  //   },
-  //   image: [
-  //     "https://api.lorem.space/image?w=640&h=480&r=3909",
-  //     "https://api.lorem.space/image?w=640&h=480&r=5987",
-  //     "https://api.lorem.space/image?w=640&h=480&r=7945",
-  //   ],
-  // };
   return (
     <section className="body-font overflow-hidden   bg-base-500   ">
-      
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap p-10 m-10">
           <div className="h-96 carousel carousel-vertical rounded-box">
@@ -63,7 +46,9 @@ const ProductDetail = () => {
               {product ? product.name : "no product name found"}
             </h1>
             <div className="flex mb-4">
-              {/* <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200"></span> */}
+              <span className="badge  text-white bg-blue-500  ">
+                {product ? product.rating : "no product rate"}⭐
+              </span>
             </div>
 
             <p className="leading-relaxed text-white">
