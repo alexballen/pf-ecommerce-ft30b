@@ -1,12 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../redux/actions";
 import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
-import ProductDetail from "../components/CardDetail/ProductDetail";
-
+import BestProducts from "../components/BestProducts/BestProducts";
 const Home = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
@@ -33,6 +31,9 @@ const Home = () => {
     <>
       <div>
         <div>
+          <BestProducts />
+        </div>
+        <div>
           <FilterContainer />
         </div>
         <div className="flex justify-center mt-5 mb-5">
@@ -44,10 +45,11 @@ const Home = () => {
         </div>
         <div className="bg-base-300 flex flex-wrap justify-evenly items-start content-around ">
           {productCurrent.length > 0
-            ? productCurrent.map((e) => {
+            ? productCurrent.map((e, i) => {
                 return (
-                  <div className="w-400 h-250">
+                  <div key={i} className="w-400 h-250">
                     <Card
+                      id={e.id}
                       image={e.image}
                       name={e.name}
                       unitPrice={e.unitPrice}
