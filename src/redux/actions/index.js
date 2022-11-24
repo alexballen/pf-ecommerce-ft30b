@@ -1,22 +1,45 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable no-unused-vars */
 import axios from "axios";
-
 import {
   allProducts,
+  allCategories,
+  allBrands,
   byOrder,
   byPrice,
+  byCategories,
+  byBrands,
   GetProductlocal,
 } from "../reducers/getProductsSlice";
-//import dbLocal from "../../hooks/dbLocal";
 import db from "../../hooks/db";
 
 const api = "http://localhost:3001";
 
-// get ejemplo
 export const getProducts = () => async (dispatch) => {
-  const dbL = db;
-  dispatch(allProducts(dbL));
+  axios
+    .get(`${api}/products`)
+    .then((res) => dispatch(allProducts(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const getCategories = () => async (dispatch) => {
+  axios
+    .get(`${api}/products/categories`)
+    .then((res) => dispatch(allCategories(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const getBrand = () => async (dispatch) => {
+  axios
+    .get(`${api}/products/brands`)
+    .then((res) => dispatch(allBrands(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const byCategory = (data) => async (dispatch) => {
+  dispatch(byCategories(data));
+};
+
+export const byBrand = (data) => async (dispatch) => {
+  dispatch(byBrands(data));
 };
 
 export const byOrderProducts = (data) => async (dispatch) => {
@@ -43,7 +66,7 @@ export const GetProductSearched = (searched) => {
 
 export const GetProductByIdlocal = (id) => {
   return async function (dispatch) {
-    const data = db.filter((e) => e.id == id);
+    const data = db.filter((e) => e.id === id);
 
     dispatch(GetProductlocal(data[0]));
   };
