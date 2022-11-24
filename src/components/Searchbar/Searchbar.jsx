@@ -4,14 +4,17 @@ import { useDispatch } from "react-redux";
 
 import { GetProductSearched } from "../../redux/actions";
 
-function Searchbar() {
+function Searchbar()
+{
   const dispatch = useDispatch();
   const [searchedproduct, setsearched] = useState();
 
-  function search() {
+  function search()
+  {
     dispatch(GetProductSearched(searchedproduct));
   }
-  function searched(e) {
+  function searched(e)
+  {
     const product = e.target.value;
     setsearched(product);
   }
@@ -28,7 +31,7 @@ function Searchbar() {
       </div>
       <button
         onClick={search}
-        className="btn  w-20 btn-primary rounded text-white  text-lg  normal-case"
+        className="btn  w-20 btn-primary border-0 bg-stone-400 hover:bg-stone-500 rounded text-white  text-lg  normal-case"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
