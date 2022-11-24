@@ -197,7 +197,7 @@ const RegisterForm = () =>
     return (
         <div>
             <div className="flex justify-center mt-8">
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form className="w-96" onSubmit={(e) => handleSubmit(e)}>
                     <h1 className="font-bold flex justify-center text-lg">Regístrate!</h1>
                     <div>
                         <div className="flex flex-col">
