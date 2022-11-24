@@ -4,7 +4,9 @@ import { getProducts } from "../redux/actions";
 import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
+ 
 import BestProducts from "../components/BestProducts/BestProducts";
+ 
 const Home = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
