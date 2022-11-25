@@ -5,8 +5,7 @@ import Searchbar from "../Searchbar/Searchbar";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../images/HCoutureLogo.png";
 
-const Nav = () =>
-{
+const Nav = () => {
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
 
