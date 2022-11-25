@@ -45,10 +45,10 @@ const ProductDetail = () =>
           </div>
 
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 className="text-sm  text-slate-700 title-font  tracking-widest ">
+            <h2 className="text-sm  text-slate-700 title-font  tracking-widest mb-2 ">
               {product.brand ? product.brand.name : "no product brand found"}
             </h2>
-            <h2 className="text-sm  text-slate-700 title-font  tracking-widest">
+            <h2 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
               {product.categories
                 ? product.categories.map((e, i) =>
                 {
