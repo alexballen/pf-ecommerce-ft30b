@@ -7,7 +7,8 @@ import {
   byPrice,
   byCategories,
   byBrands,
-  GetProductlocal,
+  GetProduct,
+  clearproduct,
 } from "../reducers/getProductsSlice";
 import db from "../../hooks/db";
 
@@ -56,22 +57,18 @@ export const GetProductSearched = (searched) => {
   };
 };
 
-// export const GetProductById = (id) => {
-//   return async function (dispatch) {
-//     const data = await axios.get(`/Products/${id}`);
-
-//     dispatch("actionreducer(id)");
-//   };
-// };
-
-export const GetProductByIdlocal = (id) => {
+export const GetProductById = (id) => {
   return async function (dispatch) {
-    const data = db.filter((e) => e.id === id);
-
-    dispatch(GetProductlocal(data[0]));
+    const data = await axios.get(`${api}/products/${id}`);
+    console.log(data.data);
+    dispatch(GetProduct(data.data));
   };
 };
-
+export const Clearproduct = () => {
+  return async function (dispatch) {
+    dispatch(clearproduct());
+  };
+};
 export const createNewUser = (data) => async () => {
   await axios({
     method: "POST",

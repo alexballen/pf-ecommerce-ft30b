@@ -5,7 +5,7 @@ import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
 import BestProducts from "../components/BestProducts/BestProducts";
-
+import { Clearproduct } from "../redux/actions";
 const Home = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
@@ -25,6 +25,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    dispatch(Clearproduct());
     dispatch(getProducts());
   }, [dispatch]);
 

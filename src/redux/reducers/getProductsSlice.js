@@ -52,9 +52,13 @@ const productSlice = createSlice({
           : allBran.filter((e) => e.brand.name === action.payload);
       state.products = byBran;
     },
-    GetProductlocal: (state, action) => {
+    GetProduct: (state, action) => {
       const product = action.payload;
+
       state.product = product;
+    },
+    clearproduct: (state) => {
+      state.product = {};
     },
   },
 });
@@ -67,6 +71,7 @@ export const {
   byPrice,
   byCategories,
   byBrands,
-  GetProductlocal,
+  GetProduct,
+  clearproduct,
 } = productSlice.actions;
 export default productSlice.reducer;

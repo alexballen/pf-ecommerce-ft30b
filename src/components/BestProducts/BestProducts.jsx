@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { useSelector } from "react-redux";
 import product from "../../hooks/dbLocal";
 import { useEffect } from "react";
 export default function BestProducts() {
-  //   const { products } = useSelector((state) => state.products);
+  //  const { products } = useSelector((state) => state.products);
 
   const bestproduts = product.filter((e) => e.rating.rate >= 4);
 
