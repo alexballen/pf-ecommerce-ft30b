@@ -5,7 +5,8 @@ import Searchbar from "../Searchbar/Searchbar";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../images/HCoutureLogo.png";
 
-const Nav = () => {
+const Nav = () =>
+{
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
 
@@ -37,13 +38,13 @@ const Nav = () => {
         {!isAuthenticated && (
           <div>
             <Link to={"/registerUser"}>
-              <span className="btn btn-ghost normal-case   text-white  text-base m-2 bg-green-600 hover:bg-green-500">
+              <span className="btn btn-ghost normal-case   text-white  text-base m-2  bg-stone-400 hover:bg-stone-500">
                 Sign In
               </span>
             </Link>
 
             <span
-              className="btn btn-ghost normal-case text-base   text-white bg-blue-600 hover:bg-blue-500"
+              className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
               onClick={loginWithPopup}
             >
               Log in
