@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import
-  {
-    byOrderProducts,
-    byOrderPrice,
-    byCategory,
-    getCategories,
-    getBrand,
-    byBrand,
-  } from "../../redux/actions";
+import {
+  byOrderProducts,
+  byOrderPrice,
+  byCategory,
+  getCategories,
+  getBrand,
+  byBrand,
+} from "../../redux/actions";
 
-const FilterContainer = () =>
-{
+const FilterContainer = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
   const { brands } = useSelector((state) => state.brands);
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     dispatch(getCategories());
     dispatch(getBrand());
   }, [dispatch]);
@@ -25,26 +22,22 @@ const FilterContainer = () =>
   const category = [...new Set(categories.map((el) => el.name))];
   const brand = [...new Set(brands.map((el) => el.name))];
 
-  const handleByOrder = (e) =>
-  {
+  const handleByOrder = (e) => {
     e.preventDefault();
     dispatch(byOrderProducts(e.target.value));
   };
 
-  const handleByOrderPrice = (e) =>
-  {
+  const handleByOrderPrice = (e) => {
     e.preventDefault();
     dispatch(byOrderPrice(e.target.value));
   };
 
-  const handleByCategory = (e) =>
-  {
+  const handleByCategory = (e) => {
     e.preventDefault();
     dispatch(byCategory(e.target.value));
   };
 
-  const handleByBrand = (e) =>
-  {
+  const handleByBrand = (e) => {
     e.preventDefault();
     dispatch(byBrand(e.target.value));
   };
