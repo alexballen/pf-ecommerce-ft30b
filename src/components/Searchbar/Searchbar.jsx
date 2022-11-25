@@ -1,35 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { GetProductSearched } from "../../redux/actions";
+import { search } from "../../redux/actions";
 
 function Searchbar()
 {
   const dispatch = useDispatch();
-  const [searchedproduct, setsearched] = useState();
+  const [name, setName] = useState('');
 
-  function search()
+  const handleSearch = (event) =>
   {
-    dispatch(GetProductSearched(searchedproduct));
+    setName(event.target.value);
+    dispatch(search(event.target.value));
   }
-  function searched(e)
-  {
-    const product = e.target.value;
-    setsearched(product);
-  }
-
   return (
     <div className="mr-20">
       <div className="form-control pr-1">
         <input
-          onChange={searched}
+          onChange={handleSearch}
+          value={name}
           type="text"
           placeholder="Search"
           className="input input-bordered"
         />
       </div>
-      <button
+      {/* <button
         onClick={search}
         className="btn  w-20 btn-primary border-0 bg-stone-400 hover:bg-stone-500 rounded text-white  text-lg  normal-case"
       >
@@ -49,7 +45,7 @@ function Searchbar()
           <circle cx="10" cy="10" r="7" />
           <line x1="21" y1="21" x2="15" y2="15" />
         </svg>
-      </button>
+      </button> */}
     </div>
   );
 }
