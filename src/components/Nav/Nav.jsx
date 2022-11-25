@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import Searchbar from "../Searchbar/Searchbar";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../images/HCoutureLogo.png";
 
-const Nav = () => {
+const Nav = () =>
+{
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
 
@@ -28,7 +28,6 @@ const Nav = () => {
             </a>
           </div>
         )}
-        <Searchbar />
         <div>
           {/* <Link to={"/"}>
             <span className="btn btn-ghost bg-normal-case hover:bg-purple-500  bg-purple-600 text-white text-base   ">
