@@ -14,7 +14,9 @@ const Nav = () =>
     <>
       <div className="navbar  bg-white    ">
         <div>
-          <img className="w-72 ml-4" src={logo} alt=""></img>
+          <Link to={"/"}>
+            <img className="w-72 ml-4" src={logo} alt=""></img>
+          </Link>
         </div>
         {loged && <div className="flex-1 "></div>}
         {!loged && (
@@ -29,17 +31,17 @@ const Nav = () =>
         )}
         <Searchbar />
         <div>
-          <Link to={"/"}>
+          {/* <Link to={"/"}>
             <span className="btn btn-ghost bg-normal-case hover:bg-purple-500  bg-purple-600 text-white text-base   ">
               Products
             </span>
-          </Link>
+          </Link> */}
         </div>
         {!isAuthenticated && (
           <div>
             <Link to={"/registerUser"}>
               <span className="btn btn-ghost normal-case   text-white  text-base m-2  bg-stone-400 hover:bg-stone-500">
-                Sign In
+                Regístrate
               </span>
             </Link>
 
@@ -47,7 +49,7 @@ const Nav = () =>
               className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
               onClick={loginWithPopup}
             >
-              Log in
+              Iniciar Sesión
             </span>
           </div>
         )}
