@@ -15,7 +15,6 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || 'http://localhost:300
 
 
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
