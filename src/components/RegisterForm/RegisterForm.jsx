@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { createNewUser } from "../../redux/actions";
+
+import { uploadFile } from "../../configFirebase";
+import Upload from '../cloudinary/Upload';
+
 const RegisterForm = () =>
 {
 
@@ -11,6 +15,7 @@ const RegisterForm = () =>
         lastName: "",
         email: "",
         phoneNumber: "",
+        profilePicture: null,
         password: "",
         username: "",
     });
@@ -19,6 +24,7 @@ const RegisterForm = () =>
         lastName: "",
         email: "",
         phoneNumber: "",
+        profilePicture: "",
         password: "",
         username: "",
     });
@@ -127,6 +133,23 @@ const RegisterForm = () =>
                         phoneNumber: ''
                     })
                 break;
+            case 'profilePicture':
+                if (valueInput == null)
+                    setError({
+                        ...error,
+                        profilePicture: "Es obligatorio agregar una foto de perfil"
+                    })
+                else if (valueInput?.type !== "image/png" && valueInput?.type !== "image/jpeg")
+                    setError({
+                        ...error,
+                        profilePicture: "La extensión del archivo debe ser jpg o png"
+                    })
+                else
+                    setError({
+                        ...error,
+                        profilePicture: ''
+                    })
+                break;
             case 'password':
                 if (valueInput === '')
                     setError({
@@ -168,36 +191,31 @@ const RegisterForm = () =>
                 else
                     setError({
                         ...error,
-                        password: ''
+                        username: ''
                     })
                 break;
-
             default:
         }
+
         setInput({
             ...input,
             [e.target.name]: e.target.value
         })
 
     }
-    function handleSubmit(evento)//funcion llamada por onsubmit para despachar la accion registerUser
+    async function handleSubmit(evento)//funcion llamada por onsubmit para despachar la accion registerUser
     {
-        evento.preventDefault()
-        // if (input.image.length === 0)
-        // {
-        //     input.image = "https://i.pinimg.com/originals/2f/be/d4/2fbed4ce130d56cb59a86ff92426a38c.png"
-        // }
-
-        dispatch(createNewUser(input));
+        evento.preventDefault();
+        const profilePicture = await uploadFile(input.profilePicture);
+        const newUser = { ...input, profilePicture };
+        dispatch(createNewUser(newUser));
         // alert("Registro creado satisfactoriamente")
     }
-
-
 
     return (
         <div>
             <div className="flex justify-center mt-8">
-                <form className="w-96" onSubmit={(e) => handleSubmit(e)}>
+                <form className="w-96" onSubmit={async (e) => await handleSubmit(e)}>
                     <h1 className="font-bold flex justify-center text-lg">Regístrate!</h1>
                     <div>
                         <div className="flex flex-col">
@@ -225,6 +243,14 @@ const RegisterForm = () =>
                             <input placeholder="Escribe aquí" className="input input-bordered w-full" name="phoneNumber" onChange={(e) => handleInputChange(e)} value={input.phoneNumber} />
                             {!error.phoneNumber ? null : <span>{error.phoneNumber}</span>}
                         </div>
+                        <Upload
+                            label='Foto de Perfil'
+                            divClass="flex flex-col mt-2"
+                            inputClass="file-input file-input-bordered w-full"
+                            inputName="profilePicture"
+                            onChange={(e) => handleInputChange(e)}
+                            error={!error.profilePicture ? null : error.profilePicture}
+                        />
                         <div className="flex flex-col mt-2">
                             <label>Contraseña</label>
                             <input type="password" placeholder="Escribe aquí" className="input input-bordered w-full" name="password" onChange={(e) => handleInputChange(e)} value={input.password} />
