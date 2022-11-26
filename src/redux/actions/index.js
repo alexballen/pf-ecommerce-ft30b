@@ -12,25 +12,24 @@ import {
   pagePaginated,
 } from "../reducers/getProductsSlice";
 
-const api = "http://localhost:3001";
 
 export const getProducts = () => async (dispatch) => {
   axios
-    .get(`${api}/products`)
+    .get(`/products`)
     .then((res) => dispatch(allProducts(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const getCategories = () => async (dispatch) => {
   axios
-    .get(`${api}/products/categories`)
+    .get(`/products/categories`)
     .then((res) => dispatch(allCategories(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const getBrand = () => async (dispatch) => {
   axios
-    .get(`${api}/products/brands`)
+    .get(`/products/brands`)
     .then((res) => dispatch(allBrands(res.data)))
     .catch((e) => console.log(e));
 };
@@ -57,7 +56,7 @@ export const search = (input) => async (dispatch) => {
 
 export const GetProductById = (id) => {
   return async function (dispatch) {
-    const data = await axios.get(`${api}/products/${id}`);
+    const data = await axios.get(`/products/${id}`);
     console.log(data.data);
     dispatch(GetProduct(data.data));
   };
@@ -70,7 +69,7 @@ export const Clearproduct = () => {
 export const createNewUser = (data) => async () => {
   await axios({
     method: "POST",
-    url: `${api}/user/register`,
+    url: `/user/register`,
     data: data,
   }).catch((e) => console.log(e));
 };
