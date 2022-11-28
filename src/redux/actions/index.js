@@ -12,7 +12,6 @@ import {
   pagePaginated,
 } from "../reducers/getProductsSlice";
 
-
 export const getProducts = () => async (dispatch) => {
   axios
     .get(`/products`)
@@ -76,4 +75,12 @@ export const createNewUser = (data) => async () => {
 
 export const currentPagePaginated = (page) => async (dispatch) => {
   dispatch(pagePaginated(page));
+};
+
+export const createNewProduct = (data) => async () => {
+  await axios({
+    method: "POST",
+    url: `/products`,
+    data: data,
+  }).catch((e) => console.log(e));
 };
