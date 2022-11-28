@@ -15,7 +15,7 @@ const RegisterForm = () =>
         lastName: "",
         email: "",
         phoneNumber: "",
-        profilePicture: null,
+        profileImage: null,
         password: "",
         username: "",
     });
@@ -24,7 +24,7 @@ const RegisterForm = () =>
         lastName: "",
         email: "",
         phoneNumber: "",
-        profilePicture: "",
+        profileImage: "",
         password: "",
         username: "",
     });
@@ -133,21 +133,21 @@ const RegisterForm = () =>
                         phoneNumber: ''
                     })
                 break;
-            case 'profilePicture':
+            case 'profileImage':
                 if (valueInput == null)
                     setError({
                         ...error,
-                        profilePicture: "Es obligatorio agregar una foto de perfil"
+                        profileImage: "Es obligatorio agregar una foto de perfil"
                     })
                 else if (valueInput?.type !== "image/png" && valueInput?.type !== "image/jpeg")
                     setError({
                         ...error,
-                        profilePicture: "La extensión del archivo debe ser jpg o png"
+                        profileImage: "La extensión del archivo debe ser jpg o png"
                     })
                 else
                     setError({
                         ...error,
-                        profilePicture: ''
+                        profileImage: ''
                     })
                 break;
             case 'password':
@@ -206,8 +206,8 @@ const RegisterForm = () =>
     async function handleSubmit(evento)//funcion llamada por onsubmit para despachar la accion registerUser
     {
         evento.preventDefault();
-        const profilePicture = await uploadFile(input.profilePicture);
-        const newUser = { ...input, profilePicture };
+        const profileImage = await uploadFile(input.profileImage);
+        const newUser = { ...input, profileImage };
         dispatch(createNewUser(newUser));
         // alert("Registro creado satisfactoriamente")
     }
@@ -247,9 +247,9 @@ const RegisterForm = () =>
                             label='Foto de Perfil'
                             divClass="flex flex-col mt-2"
                             inputClass="file-input file-input-bordered w-full"
-                            inputName="profilePicture"
+                            inputName="profileImage"
                             onChange={(e) => handleInputChange(e)}
-                            error={!error.profilePicture ? null : error.profilePicture}
+                            error={!error.profileImage ? null : error.profileImage}
                         />
                         <div className="flex flex-col mt-2">
                             <label>Contraseña</label>
