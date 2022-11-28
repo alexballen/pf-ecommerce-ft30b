@@ -11,6 +11,9 @@ import {
   clearproduct,
 } from "../reducers/getProductsSlice";
 import db from "../../hooks/db";
+import {
+  loggedUser,
+} from "../reducers/userSlice";
 
 const api = "http://localhost:3001";
 
@@ -76,3 +79,22 @@ export const createNewUser = (data) => async () => {
     data: data,
   }).catch((e) => console.log(e));
 };
+
+// export const currentPagePaginated = (page) => async (dispatch) => {
+//   dispatch(pagePaginated(page));
+// };
+
+export function getCurrentUser(token, user) { // Obtener la info del user loggeado
+  // console.log(user)
+  return async function (dispatch) {
+
+      const config = {
+          headers: {
+              "Authorization": "Bearer " + await token()
+          }
+      }
+
+      let json = await axios.post(`/user/login/${user.email}`, user, config)
+      dispatch(loggedUser(json.data))
+  }
+}
