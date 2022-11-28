@@ -4,8 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../images/HCoutureLogo.png";
 
-const Nav = () =>
-{
+const Nav = () => {
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
 
@@ -20,12 +19,11 @@ const Nav = () =>
         {loged && <div className="flex-1 "></div>}
         {!loged && (
           <div className=" flex-1">
-            <a
-              href="/ref"
-              className="btn btn-ghost normal-case   text-black  ml-8 text-base"
-            >
-              About us
-            </a>
+            <Link to="/addproduct">
+              <button className="btn btn-ghost normal-case   text-black  ml-8 text-base">
+                Crear Producto
+              </button>
+            </Link>
           </div>
         )}
 
