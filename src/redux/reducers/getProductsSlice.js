@@ -1,56 +1,74 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const sortAndFilter = (
+  products,
+  nameFilter,
+  categoryFilter,
+  brandFilter,
+  sortType
+) => {
+  // Filtrar por nombre (campo de busqueda)
+  let filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(nameFilter.toLowerCase())
+  );
+  // Filtrar por categoria, si existe un filtro
+  filteredProducts =
+    categoryFilter === "All"
+      ? filteredProducts
+      : filteredProducts.filter((product) =>
+          product.categories.some(
+            (category) => category.name === categoryFilter
+          )
+        );
+  // Filtrar por marca, si existe un filtro
+  filteredProducts =
+    brandFilter === "All"
+      ? filteredProducts
+      : filteredProducts.filter(
+          (product) => product.brand.name === brandFilter
+        );
+  // Ordenar el arreglo filtrado
+  switch (sortType) {
+    case "A-Z":
+      return filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+    case "Z-A":
+      return filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+    case "MinPrice":
+      return filteredProducts.sort((a, b) => a.unitPrice - b.unitPrice);
+    case "MaxPrice":
+      return filteredProducts.sort((a, b) => b.unitPrice - a.unitPrice);
+    default:
+      return filteredProducts;
+  }
+};
+
 const productSlice = createSlice({
   name: "allProducts",
   initialState: {
-    products: [],
+    products: [], // todos los productos
     product: {},
     categories: [],
-    copyProducts: [],
     brands: [],
+    filteredProducts: [], // productos filtrados
+    nameFilter: "", // search bar
+    categoryFilter: "All",
+    brandFilter: "All",
+    sortType: "", // tipo de ordenamiento
+    page: 1,
   },
   reducers: {
+    pagePaginated: (state, action) => {
+      state.page = action.payload;
+    },
     allProducts: (state, action) => {
       state.products = action.payload;
-      state.copyProducts = action.payload;
+      state.filteredProducts = action.payload;
     },
     allCategories: (state, action) => {
       state.categories = action.payload;
     },
     allBrands: (state, action) => {
       state.brands = action.payload;
-    },
-    byOrder: (state, action) => {
-      const orderProducts =
-        action.payload === "Asc"
-          ? state.products.sort((a, b) => (a.name > b.name ? 1 : -1))
-          : state.products.sort((a, b) => (a.name > b.name ? -1 : 1));
-      state.products = orderProducts;
-    },
-    byPrice: (state, action) => {
-      const orderPrice =
-        action.payload === "Max"
-          ? state.products.sort((a, b) => (a.unitPrice > b.unitPrice ? -1 : 1))
-          : state.products.sort((a, b) => (a.unitPrice > b.unitPrice ? 1 : -1));
-      state.products = orderPrice;
-    },
-    byCategories: (state, action) => {
-      const allProd = state.copyProducts;
-      const byCat =
-        action.payload === "All"
-          ? allProd
-          : allProd.filter((e) =>
-              e.categories.find((cat) => cat.name === action.payload)
-            );
-      state.products = byCat;
-    },
-    byBrands: (state, action) => {
-      const allBran = state.copyProducts;
-      const byBran =
-        action.payload === "All"
-          ? allBran
-          : allBran.filter((e) => e.brand.name === action.payload);
-      state.products = byBran;
     },
     GetProduct: (state, action) => {
       const product = action.payload;
@@ -60,6 +78,46 @@ const productSlice = createSlice({
     clearproduct: (state) => {
       state.product = {};
     },
+    searchByName: (state, action) => {
+      state.filteredProducts = sortAndFilter(
+        state.products,
+        action.payload,
+        state.categoryFilter,
+        state.brandFilter,
+        state.sortType
+      );
+      state.nameFilter = action.payload;
+    },
+    filterByCategory: (state, action) => {
+      state.filteredProducts = sortAndFilter(
+        state.products,
+        state.nameFilter,
+        action.payload,
+        state.brandFilter,
+        state.sortType
+      );
+      state.categoryFilter = action.payload;
+    },
+    filterByBrand: (state, action) => {
+      state.filteredProducts = sortAndFilter(
+        state.products,
+        state.nameFilter,
+        state.categoryFilter,
+        action.payload,
+        state.sortType
+      );
+      state.brandFilter = action.payload;
+    },
+    sort: (state, action) => {
+      state.filteredProducts = sortAndFilter(
+        state.products,
+        state.nameFilter,
+        state.categoryFilter,
+        state.brandFilter,
+        action.payload
+      );
+      state.sortType = action.payload;
+    },
   },
 });
 
@@ -67,11 +125,12 @@ export const {
   allProducts,
   allCategories,
   allBrands,
-  byOrder,
-  byPrice,
-  byCategories,
-  byBrands,
   GetProduct,
   clearproduct,
+  searchByName,
+  filterByCategory,
+  filterByBrand,
+  sort,
+  pagePaginated,
 } = productSlice.actions;
 export default productSlice.reducer;

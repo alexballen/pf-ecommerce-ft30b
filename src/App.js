@@ -6,14 +6,10 @@ import {getCurrentUser} from "./redux/actions/index"
 import { useAuth0 } from "@auth0/auth0-react";
  
 import ProductDetail from "./components/ProductDetail/ProductDetail";
- 
-import AdminRoutes from "./AdminRoutes"
-import ProtectedRoutes from './ProtectedRoutes'
- 
-
-
- 
+import AdminRoutes from "./AdminRoutes";
+import ProtectedRoutes from "./ProtectedRoutes";
 import Nav from "./components/Nav/Nav";
+import Favorites from "./components/Favorites/Favorites";
 import RegisterUser from "./views/Register";
 import { useDispatch } from "react-redux";
 
@@ -46,11 +42,13 @@ useEffect(() => {
       <Routes>
         <Route path="/" element={<Nav />}>
           <Route path="/" element={<Home />} />
- 
+          <Route path="/addproduct" element={<CreateProduct />} />
 
           <Route path="/Products/:id" element={<ProductDetail />} />
 
           <Route path="/registerUser" element={<RegisterUser />} />
+
+          <Route path="/favorites" element={<Favorites />} />
         </Route>
       </Routes>
     </BrowserRouter>

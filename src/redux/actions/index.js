@@ -3,12 +3,13 @@ import {
   allProducts,
   allCategories,
   allBrands,
-  byOrder,
-  byPrice,
-  byCategories,
-  byBrands,
   GetProduct,
   clearproduct,
+  searchByName,
+  filterByCategory,
+  filterByBrand,
+  sort,
+  pagePaginated,
 } from "../reducers/getProductsSlice";
 import db from "../../hooks/db";
 import {
@@ -19,50 +20,48 @@ const api = "http://localhost:3001";
 
 export const getProducts = () => async (dispatch) => {
   axios
-    .get(`${api}/products`)
+    .get(`/products`)
     .then((res) => dispatch(allProducts(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const getCategories = () => async (dispatch) => {
   axios
-    .get(`${api}/products/categories`)
+    .get(`/products/categories`)
     .then((res) => dispatch(allCategories(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const getBrand = () => async (dispatch) => {
   axios
-    .get(`${api}/products/brands`)
+    .get(`/products/brands`)
     .then((res) => dispatch(allBrands(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const byCategory = (data) => async (dispatch) => {
-  dispatch(byCategories(data));
+  dispatch(filterByCategory(data));
 };
 
 export const byBrand = (data) => async (dispatch) => {
-  dispatch(byBrands(data));
+  dispatch(filterByBrand(data));
 };
 
 export const byOrderProducts = (data) => async (dispatch) => {
-  dispatch(byOrder(data));
+  dispatch(sort(data));
 };
 
 export const byOrderPrice = (data) => async (dispatch) => {
-  dispatch(byPrice(data));
+  dispatch(sort(data));
 };
 
-export const GetProductSearched = (searched) => {
-  return async function (dispatch) {
-    dispatch("acctionreducer(searched)");
-  };
+export const search = (input) => async (dispatch) => {
+  dispatch(searchByName(input));
 };
 
 export const GetProductById = (id) => {
   return async function (dispatch) {
-    const data = await axios.get(`${api}/products/${id}`);
+    const data = await axios.get(`/products/${id}`);
     console.log(data.data);
     dispatch(GetProduct(data.data));
   };
@@ -75,7 +74,19 @@ export const Clearproduct = () => {
 export const createNewUser = (data) => async () => {
   await axios({
     method: "POST",
-    url: `${api}/user/register`,
+    url: `/user/register`,
+    data: data,
+  }).catch((e) => console.log(e));
+};
+
+export const currentPagePaginated = (page) => async (dispatch) => {
+  dispatch(pagePaginated(page));
+};
+
+export const createNewProduct = (data) => async () => {
+  await axios({
+    method: "POST",
+    url: `/products`,
     data: data,
   }).catch((e) => console.log(e));
 };
