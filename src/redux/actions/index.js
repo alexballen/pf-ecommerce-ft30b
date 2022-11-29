@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
+import qs from 'qs';
 import {
   allProducts,
   allCategories,
@@ -13,6 +14,12 @@ import {
   pagePaginated,
   urlpayment,
 } from "../reducers/getProductsSlice";
+import db from "../../hooks/db";
+import {
+  loggedUser,
+} from "../reducers/userSlice";
+
+
 
 export const getProducts = () => async (dispatch) => {
   axios
@@ -87,6 +94,28 @@ export const createNewProduct = (data) => async () => {
   }).catch((e) => console.log(e));
 };
 
+// export const currentPagePaginated = (page) => async (dispatch) => {
+//   dispatch(pagePaginated(page));
+// };
+
+export function getCurrentUser( user) { // Obtener la info del user loggeado
+
+
+  return async function (dispatch) {
+    console.log("USER ACTION: ", user)
+
+      const config = {
+  
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded' ,
+              // "Authorization": "Bearer " + await token()
+          }
+      }
+
+      let json = await axios.post(`/user/login/`,user)
+      dispatch(loggedUser(json.data))
+  }
+}
 export const buyproduct = (quantity, id) => {
   const getproduct = {
     quantity: quantity,
@@ -97,3 +126,4 @@ export const buyproduct = (quantity, id) => {
     dispatch(urlpayment(url.data));
   };
 };
+
