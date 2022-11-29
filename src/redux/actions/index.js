@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from 'qs';
 import {
   allProducts,
   allCategories,
@@ -16,7 +17,7 @@ import {
   loggedUser,
 } from "../reducers/userSlice";
 
-const api = "http://localhost:3001";
+
 
 export const getProducts = () => async (dispatch) => {
   axios
@@ -95,17 +96,21 @@ export const createNewProduct = (data) => async () => {
 //   dispatch(pagePaginated(page));
 // };
 
-export function getCurrentUser(token, user) { // Obtener la info del user loggeado
-  // console.log(user)
+export function getCurrentUser( user) { // Obtener la info del user loggeado
+
+
   return async function (dispatch) {
+    console.log("USER ACTION: ", user)
 
       const config = {
+  
           headers: {
-              "Authorization": "Bearer " + await token()
+            'content-type': 'application/x-www-form-urlencoded' ,
+              // "Authorization": "Bearer " + await token()
           }
       }
 
-      let json = await axios.post(`/user/login/${user.email}`, user, config)
+      let json = await axios.post(`/user/login/`,user)
       dispatch(loggedUser(json.data))
   }
 }
