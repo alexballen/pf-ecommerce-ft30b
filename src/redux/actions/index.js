@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import qs from 'qs';
 import {
@@ -11,6 +12,7 @@ import {
   filterByBrand,
   sort,
   pagePaginated,
+  urlpayment,
 } from "../reducers/getProductsSlice";
 import db from "../../hooks/db";
 import {
@@ -114,3 +116,14 @@ export function getCurrentUser( user) { // Obtener la info del user loggeado
       dispatch(loggedUser(json.data))
   }
 }
+export const buyproduct = (quantity, id) => {
+  const getproduct = {
+    quantity: quantity,
+  };
+  return async function (dispatch) {
+    const url = await axios.post(`/products/${id}`, getproduct);
+
+    dispatch(urlpayment(url.data));
+  };
+};
+
