@@ -7,6 +7,7 @@ import logo from "../../images/HCoutureLogo.png";
 const Nav = () => {
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
+  // console.log(user);
 
   return (
     <>
@@ -16,7 +17,7 @@ const Nav = () => {
             <img className="w-72 ml-4" src={logo} alt=""></img>
           </Link>
         </div>
-        {loged && <div className="flex-1 "></div>}
+
         {!loged && (
           <div className=" flex-1">
             <Link to="/addproduct">
@@ -63,7 +64,7 @@ const Nav = () => {
                     />
                   </svg>
                 </div>
-                <span className="badge badge-sm indicator-item bg-white   ">
+                <span className="badge badge-sm indicator-item bg-black   ">
                   {"items"}
                 </span>
               </label>
@@ -88,18 +89,26 @@ const Nav = () => {
             </div>
 
             <div className="dropdown dropdown-end   ">
-              {/* foto perfil */}
               <label
                 tabIndex={0}
                 className="  btn btn-ghost btn-circle  avatar"
               >
-                <div className="w-10 rounded-full">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUemgh2Unk-2K8MrXuSRmawDNdccYPxRcCCQ&usqp=CAU"
-                    alt="profilepicture"
-                  />
-                </div>
-                <span className="justify-between text-white">{user.name}</span>
+                {user ? (
+                  <div className="w-10 rounded-full">
+                    <img src={user.picture} alt="profilepicture" />
+                  </div>
+                ) : (
+                  <div className="w-10 rounded-full">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUemgh2Unk-2K8MrXuSRmawDNdccYPxRcCCQ&usqp=CAU"
+                      alt="profilepicture"
+                    />
+                  </div>
+                )}
+
+                <span className="justify-between text-black">
+                  {user.nickname}
+                </span>
               </label>
               {/* active mediante log in o inactivemediante log out */}
               <ul className="menu    menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">

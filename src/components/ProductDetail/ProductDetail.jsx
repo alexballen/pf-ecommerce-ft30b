@@ -5,26 +5,28 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { GetProductById } from "../../redux/actions";
+import { GetProductById, buyproduct } from "../../redux/actions";
 import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import Nav from "../Nav/Nav";
+const ProductDetail = () => {
+  const { isAuthenticated, loginWithPopup } = useAuth0();
 
-const ProductDetail = () =>
-{
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const [ammoutstock, setbuy] = useState();
   const { product } = useSelector((state) => state.products);
+  const { paymenturl } = useSelector((state) => state.products);
 
-  function getvalue(e)
-  {
-    const ammoutn = e.target.value;
-    setbuy(ammoutn);
+  const [amoutstock, setbuy] = useState(0);
+
+  function getvalue(e) {
+    const value = parseInt(e.target.value);
+    setbuy(value);
+    dispatch(buyproduct(value, id));
   }
-  useEffect(() =>
-  {
+
+  useEffect(() => {
     dispatch(GetProductById(id));
   }, []);
 
@@ -34,14 +36,13 @@ const ProductDetail = () =>
         <div className="lg:w-4/5 mx-auto flex flex-wrap p-10 m-10">
           <div className="h-96 carousel carousel-vertical rounded-box">
             {product.photos
-              ? product.photos.map((e, i) =>
-              {
-                return (
-                  <div key={i} className="carousel-item h-full ">
-                    <img alt="imagetext" src={e.url} />
-                  </div>
-                );
-              })
+              ? product.photos.map((e, i) => {
+                  return (
+                    <div key={i} className="carousel-item h-full ">
+                      <img alt="imagetext" src={e.url} />
+                    </div>
+                  );
+                })
               : "no image found"}
           </div>
 
@@ -51,14 +52,13 @@ const ProductDetail = () =>
             </h2>
             <h2 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
               {product.categories
-                ? product.categories.map((e, i) =>
-                {
-                  return (
-                    <h2 className="badge  text-white bg-slate-400 border-0 ml-1 ">
-                      {e.name}
-                    </h2>
-                  );
-                })
+                ? product.categories.map((e, i) => {
+                    return (
+                      <h2 className="badge  text-white bg-slate-400 border-0 ml-1 ">
+                        {e.name}
+                      </h2>
+                    );
+                  })
                 : "no product gender found"}
             </h2>
             <h1 className="text-slate-700  text-3xl title-font font-medium mb-1">
@@ -83,7 +83,9 @@ const ProductDetail = () =>
                 </span>
                 <div className="relative p-5">
                   <input
+                    name="quantity"
                     min={1}
+                    value={amoutstock}
                     onChange={getvalue}
                     max={product.stock}
                     className="rounded border text-center title-font text-slate-700   appearance-none border-gray-400 py-2  text-base   "
@@ -91,21 +93,45 @@ const ProductDetail = () =>
                   ></input>
                 </div>
                 <span className="title-font text-slate-700 font-medium text-xl  ">
-                  Total: ${ammoutstock ? product.unitPrice * ammoutstock : 0}
+                  Total: ${amoutstock ? product.unitPrice * amoutstock : 0}
                 </span>
               </div>
             </div>
             <div className=" flex  ">
               <div className="flex-1 "></div>
               <div className="flex-1 "></div>
-              <button className="ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded">
-                Agregar al carrito
-              </button>
-              <div>
-                <button className="ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded">
-                  Comprar ahora
+              {isAuthenticated ? (
+                <button className="btn-wide   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded">
+                  Agregar al carrito
                 </button>
-              </div>
+              ) : (
+                <button
+                  onClick={loginWithPopup}
+                  className="btn-wide   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
+                >
+                  Agregar al carrito
+                </button>
+              )}
+
+              {isAuthenticated ? (
+                <div>
+                  <a
+                    href={paymenturl}
+                    className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
+                  >
+                    Comprar ahora
+                  </a>
+                </div>
+              ) : (
+                <div>
+                  <a
+                    onClick={loginWithPopup}
+                    className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
+                  >
+                    Comprar ahora
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -55,6 +55,7 @@ const productSlice = createSlice({
     brandFilter: "All",
     sortType: "", // tipo de ordenamiento
     page: 1,
+    paymenturl: "", //url de compra por item
   },
   reducers: {
     pagePaginated: (state, action) => {
@@ -118,6 +119,9 @@ const productSlice = createSlice({
       );
       state.sortType = action.payload;
     },
+    urlpayment(state, action) {
+      state.paymenturl = action.payload;
+    },
   },
 });
 
@@ -132,5 +136,6 @@ export const {
   filterByBrand,
   sort,
   pagePaginated,
+  urlpayment,
 } = productSlice.actions;
 export default productSlice.reducer;
