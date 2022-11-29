@@ -5,7 +5,7 @@ node_modules
 /.pnp
 .pnp.js
 build
-# dotenv environment variables file
+.env
  
 
 
