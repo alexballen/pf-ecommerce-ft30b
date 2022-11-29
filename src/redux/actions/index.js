@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import {
   allProducts,
@@ -10,6 +11,7 @@ import {
   filterByBrand,
   sort,
   pagePaginated,
+  urlpayment,
 } from "../reducers/getProductsSlice";
 
 export const getProducts = () => async (dispatch) => {
@@ -83,4 +85,15 @@ export const createNewProduct = (data) => async () => {
     url: `/products`,
     data: data,
   }).catch((e) => console.log(e));
+};
+
+export const buyproduct = (quantity, id) => {
+  const getproduct = {
+    quantity: quantity,
+  };
+  return async function (dispatch) {
+    const url = await axios.post(`/products/${id}`, getproduct);
+
+    dispatch(urlpayment(url.data));
+  };
 };
