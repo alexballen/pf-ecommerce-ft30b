@@ -291,9 +291,7 @@ const CreateProduct = () => {
               onChange={(e) => handleSelectCategory(e)}
               className="btn"
             >
-              <option disabled selected>
-                Categorías
-              </option>
+              <option>Categorías</option>
               {category.map((el) => (
                 <option value={el}>{el}</option>
               ))}
@@ -315,9 +313,7 @@ const CreateProduct = () => {
               onChange={(e) => handleSelectGender(e)}
               className="btn"
             >
-              <option disabled selected>
-                Genero
-              </option>
+              <option>Genero</option>
               {gender.map((el) => (
                 <option
                   disabled={
