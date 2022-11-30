@@ -2,28 +2,35 @@
 import axios from "axios";
 import qs from "qs";
 import
-  {
-    allProducts,
-    allCategories,
-    allBrands,
-    GetProduct,
-    clearproduct,
-    searchByName,
-    filterByCategory,
-    filterByBrand,
-    sort,
-    pagePaginated,
-    urlpayment,
-  } from "../reducers/getProductsSlice";
-import db from "../../hooks/db";
-import { loggedUser } from "../reducers/userSlice";
-
-export const getProducts = () => async (dispatch) =>
 {
-  axios
-    .get(`/products`)
-    .then((res) => dispatch(allProducts(res.data)))
-    .catch((e) => console.log(e));
+  allProducts,
+  allProductsForUser,
+  allCategories,
+  allBrands,
+  GetProduct,
+  clearproduct,
+  searchByName,
+  filterByCategory,
+  filterByBrand,
+  sort,
+  pagePaginated,
+  urlpayment,
+} from "../reducers/getProductsSlice";
+import { getFavorites, loggedUser } from "../reducers/userSlice";
+
+export const getProducts = (userId) => async (dispatch) =>
+{
+  console.log({ userId });
+  if (userId)
+    axios
+      .get(`/products?userId=${userId}`)
+      .then((res) => dispatch(allProductsForUser(res.data)))
+      .catch((e) => console.log(e));
+  else
+    axios
+      .get(`/products`)
+      .then((res) => dispatch(allProducts(res.data)))
+      .catch((e) => console.log(e));
 };
 
 export const getCategories = () => async (dispatch) =>
@@ -42,13 +49,34 @@ export const getBrand = () => async (dispatch) =>
     .catch((e) => console.log(e));
 };
 
-export const addFavorites = (data) => async () =>
+export const getUserFavorites = (id) => async (dispatch) =>
+{
+  axios
+    .get(`/user/favorites/${id}`)
+    .then(res => dispatch(getFavorites(res.data.products)))
+    .catch(e => console.log(e));
+}
+
+export const addFavorites = (data) => async (dispatch) =>
 {
   await axios({
     method: "POST",
     url: `/user/favorites`,
     data: data,
-  }).catch((e) => console.log(e));
+  })
+    .then(() => dispatch(getProducts(data.userId)))
+    .catch((e) => console.log(e));
+};
+
+export const deleteFavorites = (data) => async (dispatch) =>
+{
+  await axios({
+    method: "DELETE",
+    url: `/user/removeFromFavorites`,
+    data: data,
+  })
+    .then(() => dispatch(getProducts(data.userId)))
+    .catch((e) => console.log(e));
 };
 
 export const byCategory = (data) => async (dispatch) =>

@@ -1,34 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorites } from "../../redux/actions";
+import { addFavorites, deleteFavorites } from "../../redux/actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { useAuth0 } from "@auth0/auth0-react";
 
-
-
-const Card = ({ name, image, brand, unitPrice, id }) =>
+const Card = ({ name, image, brand, unitPrice, id, isFavorite }) =>
 {
-  const { isAuthenticated } = useAuth0()
   const dispatch = useDispatch();
 
-  const { loggedUser } = useSelector(state => state.user);
-
-  // const isFavorite = loggedUser.favorite.products.some(product => product.id === id);
+  const { loggedUser, isAuthenticated } = useSelector(state => state.user);
 
   const addFavorite = () =>
   {
     dispatch(addFavorites({ userId: loggedUser?.id, productId: id }));
   }
 
+  const removeFavorite = () => 
+  {
+    dispatch(deleteFavorites({ userId: loggedUser?.id, productId: id }));
+  }
+
   return (
     <div className="card  w-96  bg-base-100 shadow-xl m-8">
       {isAuthenticated ?
         <div className="flex justify-end mr-4 mt-4 ">
-          <button className="hover:first:text-red-400 mr-2 mt-2" onClick={addFavorite}>
-            <FontAwesomeIcon icon={regular('heart')} />
-          </button>
+          {isFavorite ?
+            <button className="first:text-red-400 mr-2 mt-2" onClick={removeFavorite}>
+              <FontAwesomeIcon icon={solid('heart')} />
+            </button>
+            :
+            <button className="hover:first:text-red-400 mr-2 mt-2" onClick={addFavorite}>
+              <FontAwesomeIcon icon={regular('heart')} />
+            </button>
+          }
         </div>
         : null}
       <figure className="mt-5">
