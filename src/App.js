@@ -22,22 +22,25 @@ function App()
 
   const { loggedUser } = useSelector(state => state.user);
   //   useEffect(() => {
-    //     if (isAuthenticated) {
-      //         dispatch(getCurrentUser(getAccessTokenSilently, user));
-      //     }
-      // }, [isAuthenticated, getAccessTokenSilently, user]);
-      
-      useEffect(() => {
-        if(isAuthenticated){
-          dispatch(getCurrentUser(user));
-        }
-      
-//     dispatch(getCart())
-//     dispatch(getProducts())
-//     dispatch(getCategories())
-//     dispatch(getColors())
-//     dispatch(getBrands())
-      }, [isAuthenticated])
+
+  //     if (isAuthenticated) {
+  //         dispatch(getCurrentUser(getAccessTokenSilently, user));
+  //     }
+  // }, [isAuthenticated, getAccessTokenSilently, user]);
+
+  useEffect(() =>
+  {
+    if (isAuthenticated)
+    {
+      dispatch(getCurrentUser(user));
+    }
+    console.log('Usuario: ' + loggedUser)
+    //     dispatch(getCart())
+    //     dispatch(getProducts())
+    //     dispatch(getCategories())
+    //     dispatch(getColors())
+    //     dispatch(getBrands())
+  }, [isAuthenticated])
 
 
   return (
