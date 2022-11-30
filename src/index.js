@@ -8,7 +8,7 @@ import axios from "axios";
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL ||
-  "https://pf-ecommerce-ft-30-b-odxfhjkfia-uc.a.run.app/";
+  "http://localhost:3001";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
