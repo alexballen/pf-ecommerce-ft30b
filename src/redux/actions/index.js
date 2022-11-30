@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import qs from "qs";
 import {
   allProducts,
   allCategories,
@@ -14,7 +13,6 @@ import {
   pagePaginated,
   urlpayment,
 } from "../reducers/getProductsSlice";
-import db from "../../hooks/db";
 import { loggedUser } from "../reducers/userSlice";
 
 export const getProducts = () => async (dispatch) => {
