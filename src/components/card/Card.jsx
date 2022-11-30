@@ -1,17 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorites } from "../../redux/actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { useAuth0 } from "@auth0/auth0-react";
+
+
 
 const Card = ({ name, image, brand, unitPrice, id }) =>
 {
+  const { isAuthenticated } = useAuth0()
+  const dispatch = useDispatch();
+
+  const { loggedUser } = useSelector(state => state.user)
+
+  const addFavorite = () =>
+  {
+    console.log(loggedUser);
+    console.log({ userId: loggedUser?.id, productId: id });
+    dispatch(addFavorites({ userId: loggedUser?.id, productId: id }))
+    // despachar una accion addFavorite
+    // esa accion deberia llamar al endpoint de agregar favorito
+    // y deberia mandarle el userId y el productId
+
+  }
+
   return (
     <div className="card  w-96  bg-base-100 shadow-xl m-8">
-      <div className="flex justify-end mr-4 mt-4 ">
-        <button className="hover:first:text-red-400 mr-2 mt-2">
-          <FontAwesomeIcon icon={regular('heart')} />
-        </button>
-      </div>
+      {isAuthenticated ?
+        <div className="flex justify-end mr-4 mt-4 ">
+          <button className="hover:first:text-red-400 mr-2 mt-2" onClick={addFavorite}>
+            <FontAwesomeIcon icon={regular('heart')} />
+          </button>
+        </div>
+        : null}
       <figure className="mt-5">
         <Link to={`/products/${id}`}>
           <img className="h-56 w-56" src={image} alt="Not found" width={350} height={400} />
