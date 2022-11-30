@@ -2,24 +2,24 @@
 import axios from "axios";
 import qs from 'qs';
 import
-  {
-    allProducts,
-    allCategories,
-    allBrands,
-    GetProduct,
-    clearproduct,
-    searchByName,
-    filterByCategory,
-    filterByBrand,
-    sort,
-    pagePaginated,
-    urlpayment,
-  } from "../reducers/getProductsSlice";
+{
+  allProducts,
+  allCategories,
+  allBrands,
+  GetProduct,
+  clearproduct,
+  searchByName,
+  filterByCategory,
+  filterByBrand,
+  sort,
+  pagePaginated,
+  urlpayment,
+} from "../reducers/getProductsSlice";
 import db from "../../hooks/db";
 import
-  {
-    loggedUser,
-  } from "../reducers/userSlice";
+{
+  loggedUser,
+} from "../reducers/userSlice";
 
 
 
@@ -141,7 +141,7 @@ export function getCurrentUser(user)
     }
 
     let json = await axios.post(`/user/login/`, user)
-    dispatch(loggedUser(json.data))
+    dispatch(loggedUser(json.data?.data))
   }
 }
 export const buyproduct = (quantity, id) =>
