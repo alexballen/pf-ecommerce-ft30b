@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import logo from "../../images/HCoutureLogo.png";
+//import logo from "../../images/HCoutureLogo.png";
 
 const Nav = () => {
   const [loged, setloged] = useState(false);
@@ -11,10 +11,10 @@ const Nav = () => {
 
   return (
     <>
-      <div className="navbar  bg-white    ">
-        <div>
-          <Link to={"/"}>
-            <img className="w-72 ml-4" src={logo} alt=""></img>
+      <div className="navbar  bg-white" style={{width: '100%'}}>
+        <div style={{width: 'fit-content'}}>
+          <Link to={"/"} style={{width: 'fit-content'}}>
+            <img className="ml-4" style={{width: '14em', height: 'fit-content', objectFit: 'cover'}} src='/assets/images/HCoutureLogoNavidad.svg' alt="logo de navidad" />
           </Link>
         </div>
 

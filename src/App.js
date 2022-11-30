@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./views/Home";
-import {getCurrentUser} from "./redux/actions/index"
+import { getCurrentUser } from "./redux/actions/index"
 import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
@@ -13,14 +13,14 @@ import Favorites from "./components/Favorites/Favorites";
 import RegisterUser from "./views/Register";
 import { useDispatch, useSelector } from "react-redux";
 
- 
+
 function App()
-{ 
-  const dispatch= useDispatch()
-  const {user, getAccessTokenSilently, isAuthenticated}=useAuth0()
+{
+  const dispatch = useDispatch()
+  const { user, getAccessTokenSilently, isAuthenticated } = useAuth0()
   console.log("USER IN APP.JS:", user)
- 
-  const loggedUser = useSelector(state=>state.loggedUser)
+
+  const { loggedUser } = useSelector(state => state.user);
   //   useEffect(() => {
     //     if (isAuthenticated) {
       //         dispatch(getCurrentUser(getAccessTokenSilently, user));
@@ -39,7 +39,7 @@ function App()
 //     dispatch(getBrands())
       }, [isAuthenticated])
 
- 
+
   return (
     <BrowserRouter>
       <Routes>
