@@ -1,27 +1,22 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import qs from 'qs';
+import qs from "qs";
 import
-{
-  allProducts,
-  allCategories,
-  allBrands,
-  GetProduct,
-  clearproduct,
-  searchByName,
-  filterByCategory,
-  filterByBrand,
-  sort,
-  pagePaginated,
-  urlpayment,
-} from "../reducers/getProductsSlice";
+  {
+    allProducts,
+    allCategories,
+    allBrands,
+    GetProduct,
+    clearproduct,
+    searchByName,
+    filterByCategory,
+    filterByBrand,
+    sort,
+    pagePaginated,
+    urlpayment,
+  } from "../reducers/getProductsSlice";
 import db from "../../hooks/db";
-import
-{
-  loggedUser,
-} from "../reducers/userSlice";
-
-
+import { loggedUser } from "../reducers/userSlice";
 
 export const getProducts = () => async (dispatch) =>
 {
@@ -125,20 +120,19 @@ export const createNewProduct = (data) => async () =>
 // };
 
 export function getCurrentUser(user)
-{ // Obtener la info del user loggeado
-
+{
+  // Obtener la info del user loggeado
 
   return async function (dispatch)
   {
-    console.log("USER ACTION: ", user)
+    console.log("USER ACTION: ", user);
 
     const config = {
-
       headers: {
-        'content-type': 'application/x-www-form-urlencoded',
+        "content-type": "application/x-www-form-urlencoded",
         // "Authorization": "Bearer " + await token()
-      }
-    }
+      },
+    };
 
     let json = await axios.post(`/user/login/`, user)
     dispatch(loggedUser(json.data?.data))
@@ -151,9 +145,8 @@ export const buyproduct = (quantity, id) =>
   };
   return async function (dispatch)
   {
-    const url = await axios.post(`/products/${id}`, getproduct);
+    const url = await axios.post(`/store/${id}`, getproduct);
 
     dispatch(urlpayment(url.data));
   };
 };
-
