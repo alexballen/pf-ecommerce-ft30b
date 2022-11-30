@@ -31,7 +31,7 @@ function App()
         if(isAuthenticated){
           dispatch(getCurrentUser(user));
         }
-      console.log(loggedUser)
+      
 //     dispatch(getCart())
 //     dispatch(getProducts())
 //     dispatch(getCategories())
