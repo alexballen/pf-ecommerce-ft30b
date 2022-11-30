@@ -13,17 +13,13 @@ const Card = ({ name, image, brand, unitPrice, id }) =>
   const { isAuthenticated } = useAuth0()
   const dispatch = useDispatch();
 
-  const { loggedUser } = useSelector(state => state.user)
+  const { loggedUser } = useSelector(state => state.user);
+
+  // const isFavorite = loggedUser.favorite.products.some(product => product.id === id);
 
   const addFavorite = () =>
   {
-    console.log(loggedUser);
-    console.log({ userId: loggedUser?.id, productId: id });
-    dispatch(addFavorites({ userId: loggedUser?.id, productId: id }))
-    // despachar una accion addFavorite
-    // esa accion deberia llamar al endpoint de agregar favorito
-    // y deberia mandarle el userId y el productId
-
+    dispatch(addFavorites({ userId: loggedUser?.id, productId: id }));
   }
 
   return (
