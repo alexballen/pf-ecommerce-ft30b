@@ -49,10 +49,10 @@ export const getBrand = () => async (dispatch) =>
     .catch((e) => console.log(e));
 };
 
-export const getUserFavorites = (id) => async (dispatch) =>
+export const getUserFavorites = (userId) => async (dispatch) =>
 {
   axios
-    .get(`/user/favorites/${id}`)
+    .get(`/user/favorites/${userId}`)
     .then(res => dispatch(getFavorites(res.data.products)))
     .catch(e => console.log(e));
 }
