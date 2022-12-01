@@ -22,6 +22,7 @@ function App()
 
   const { loggedUser } = useSelector(state => state.user);
   //   useEffect(() => {
+
   //     if (isAuthenticated) {
   //         dispatch(getCurrentUser(getAccessTokenSilently, user));
   //     }
