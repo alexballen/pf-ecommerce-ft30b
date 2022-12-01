@@ -1,11 +1,13 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { comprartodo } from "../../redux/actions";
+import { GetProductById, buyproduct, addtocart } from "../../redux/actions";
 
-import { GetProductById, buyproduct } from "../../redux/actions";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -14,11 +16,21 @@ const ProductDetail = () => {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const { Cartitems } = useSelector((state) => state.Cart);
   const { product } = useSelector((state) => state.products);
   const { paymenturl } = useSelector((state) => state.products);
+  const { loggedUser } = useSelector((state) => state.user);
 
-  const [amoutstock, setbuy] = useState(0);
+  const [amoutstock, setbuy] = useState(1);
+
+  // const email = loggedUser.data?.email;
+  const productid = product.id;
+  const userid = loggedUser.data?.id;
+
+  function agregarcarrito() {
+    dispatch(addtocart(userid, productid, amoutstock, product));
+    dispatch(comprartodo(Cartitems));
+  }
 
   function getvalue(e) {
     const value = parseInt(e.target.value);
@@ -54,7 +66,10 @@ const ProductDetail = () => {
               {product.categories
                 ? product.categories.map((e, i) => {
                     return (
-                      <h2 className="badge  text-white bg-slate-400 border-0 ml-1 ">
+                      <h2
+                        key={i}
+                        className="badge  text-white bg-slate-400 border-0 ml-1 "
+                      >
                         {e.name}
                       </h2>
                     );
@@ -101,7 +116,10 @@ const ProductDetail = () => {
               <div className="flex-1 "></div>
               <div className="flex-1 "></div>
               {isAuthenticated ? (
-                <button className="btn-wide   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded">
+                <button
+                  onClick={agregarcarrito}
+                  className="btn-wide   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
+                >
                   Agregar al carrito
                 </button>
               ) : (
@@ -117,6 +135,7 @@ const ProductDetail = () => {
                 <div>
                   <a
                     href={paymenturl}
+                    target={"_blank"}
                     className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
                   >
                     Comprar ahora
