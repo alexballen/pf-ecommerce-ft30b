@@ -68,6 +68,7 @@ const Home = () =>
                 <div key={i} className="w-400 h-250">
                   <Card
                     id={e.id}
+                    view={"home"}
                     image={e.photos[0].url}
                     brand={e.brand.name}
                     name={e.name}

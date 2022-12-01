@@ -67,13 +67,25 @@ const productSlice = createSlice({
     allProducts: (state, action) =>
     {
       state.products = action.payload;
-      state.filteredProducts = action.payload;
+      state.filteredProducts = sortAndFilter(
+        action.payload,
+        state.nameFilter,
+        state.categoryFilter,
+        state.brandFilter,
+        state.sortType
+      );
     },
     allProductsForUser: (state, action) =>
     {
       const products = action.payload.map(product => ({ ...product, isFavorite: product.favorites.length > 0 }));
       state.products = products;
-      state.filteredProducts = products;
+      state.filteredProducts = sortAndFilter(
+        products,
+        state.nameFilter,
+        state.categoryFilter,
+        state.brandFilter,
+        state.sortType
+      );
     },
     allCategories: (state, action) =>
     {

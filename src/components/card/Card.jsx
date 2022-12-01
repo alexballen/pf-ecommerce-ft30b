@@ -5,7 +5,7 @@ import { addFavorites, deleteFavorites } from "../../redux/actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-const Card = ({ name, image, brand, unitPrice, id, isFavorite }) =>
+const Card = ({ name, image, brand, unitPrice, id, isFavorite, view }) =>
 {
   const dispatch = useDispatch();
 
@@ -23,19 +23,31 @@ const Card = ({ name, image, brand, unitPrice, id, isFavorite }) =>
 
   return (
     <div className="card  w-96  bg-base-100 shadow-xl m-8">
-      {isAuthenticated ?
-        <div className="flex justify-end mr-4 mt-4 ">
-          {isFavorite ?
-            <button className="first:text-red-400 mr-2 mt-2" onClick={removeFavorite}>
-              <FontAwesomeIcon icon={solid('heart')} />
-            </button>
-            :
-            <button className="hover:first:text-red-400 mr-2 mt-2" onClick={addFavorite}>
-              <FontAwesomeIcon icon={regular('heart')} />
-            </button>
-          }
+
+      {view === "home" ?
+        <div>
+          {isAuthenticated ?
+            <div className="flex justify-end mr-4 mt-4 ">
+              {isFavorite ?
+                <button className="first:text-red-400 mr-2 mt-2" onClick={removeFavorite}>
+                  <FontAwesomeIcon icon={solid('heart')} />
+                </button>
+                :
+                <button className="hover:first:text-red-400 mr-2 mt-2" onClick={addFavorite}>
+                  <FontAwesomeIcon icon={regular('heart')} />
+                </button>
+              }
+            </div>
+            : null}
         </div>
-        : null}
+        :
+        <div className="flex justify-end mr-4 mt-4 ">
+          <button className="mr-2 mt-2" onClick={removeFavorite}>
+            X
+          </button>
+        </div>
+      }
+
       <figure className="mt-5">
         <Link to={`/products/${id}`}>
           <img className="h-56 w-56" src={image} alt="Not found" width={350} height={400} />
