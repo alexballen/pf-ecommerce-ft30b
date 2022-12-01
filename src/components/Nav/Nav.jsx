@@ -15,7 +15,7 @@ const Nav = () =>
       <div className="navbar  bg-white" style={{width: '100%'}}>
         <div style={{width: 'fit-content'}}>
           <Link to={"/"} style={{width: 'fit-content'}}>
-            <img className="ml-4" style={{width: '14em', height: 'fit-content', objectFit: 'cover'}} src='/assets/images/HCoutureLogoNavidad.svg' alt="logo de navidad" />
+            <img className="ml-4" style={{width: '14em', height: 'fit-content', objectFit: 'cover'}} src='/assets/images/HCoutureLogo.png' alt="logo de navidad" />
           </Link>
         </div>
 
