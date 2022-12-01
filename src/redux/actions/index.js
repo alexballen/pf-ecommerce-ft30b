@@ -76,6 +76,7 @@ export const deleteFavorites = (data) => async (dispatch) =>
     data: data,
   })
     .then(() => dispatch(getProducts(data.userId)))
+    .then(() => dispatch(getUserFavorites(data.userId)))
     .catch((e) => console.log(e));
 };
 

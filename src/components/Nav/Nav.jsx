@@ -4,7 +4,8 @@ import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../images/HCoutureLogo.png";
 
-const Nav = () => {
+const Nav = () =>
+{
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
   // console.log(user);
@@ -46,7 +47,8 @@ const Nav = () => {
         )}
         {isAuthenticated && (
           <div className="flex-none mr-8 m-2">
-            <div className="dropdown dropdown-end  ">
+
+            <div className="dropdown dropdown-end mr-6 ">
               <label tabIndex={0} className="btn  btn-ghost btn-circle mr-10">
                 <div className="indicator ">
                   <svg
@@ -78,11 +80,6 @@ const Nav = () => {
                     <button className="btn btn-primary  btn-block">
                       Ver Carrito
                     </button>
-                    <Link to={"/favorites"}>
-                      <button className="btn btn-primary  btn-block">
-                        Ver Favoritos
-                      </button>
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -114,23 +111,30 @@ const Nav = () => {
               <ul className="menu    menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                 <Link to={"/Profile"}>
                   <li>
-                    <span className="justify-between text-xl  ">Profile</span>
+                    <span className="justify-between text-xl  ">Perfil</span>
                   </li>
                 </Link>
 
+                <Link to={"/favorites"}>
+                  <li>
+                    <span className="justify-between text-xl  ">Mis favoritos</span>
+                  </li>
+                </Link>
+
+
                 <Link to={"/Items"}>
                   <li>
-                    <span className="justify-between text-xl  ">My items</span>
+                    <span className="justify-between text-xl  ">Mis compras</span>
                   </li>
                 </Link>
                 <Link to={"/Settings"}>
                   <li>
-                    <span className="justify-between text-xl  ">Setting</span>
+                    <span className="justify-between text-xl  ">Editar perfil</span>
                   </li>
                 </Link>
                 <li>
                   <button className="text-xl" onClick={logout}>
-                    Logout
+                    Cerrar Sesión
                   </button>
                 </li>
               </ul>

@@ -17,13 +17,14 @@ const Favorites = () =>
 
     return (
 
-        <div>
+        <div className="bg-base-200 flex flex-wrap justify-evenly items-start content-around ">
             {favorites.map((e, i) =>
             {
                 return (
                     <div key={i}>
                         <Card
                             id={e.id}
+                            view={"favorites"}
                             image={e.photos[0].url}
                             brand={e.brand.name}
                             name={e.name}
