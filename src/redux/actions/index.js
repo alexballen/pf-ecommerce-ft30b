@@ -16,7 +16,7 @@ import
   pagePaginated,
   urlpayment,
 } from "../reducers/getProductsSlice";
-import { getFavorites, loggedUser } from "../reducers/userSlice";
+import { getFavorites, loggedUser, getCountries } from "../reducers/userSlice";
 
 export const getProducts = (userId) => async (dispatch) =>
 {
@@ -46,6 +46,24 @@ export const getBrand = () => async (dispatch) =>
   axios
     .get(`/products/brands`)
     .then((res) => dispatch(allBrands(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const getCountry = () => async (dispatch) =>
+{
+  axios
+    .get(`/country`)
+    .then((res) => dispatch(getCountries(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const completeSignUp = (userId, data) => async (dispatch) =>
+{
+  await axios({
+    method: "PATCH",
+    url: `/user/${userId}`,
+    data: data,
+  })
     .catch((e) => console.log(e));
 };
 
