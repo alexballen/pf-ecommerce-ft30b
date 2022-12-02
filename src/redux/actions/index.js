@@ -14,6 +14,7 @@ import {
   sort,
   pagePaginated,
   urlpayment,
+  deleteProduct,
 } from "../reducers/getProductsSlice";
 
 import {
@@ -28,7 +29,16 @@ import {
   info,
 } from "../reducers/Cart";
 
-import { getFavorites, loggedUser, getCountries } from "../reducers/userSlice";
+import {
+  getFavorites,
+  loggedUser,
+  getCountries,
+  allUser,
+  deleteUser,
+  searchByUser,
+  sortUser,
+} from "../reducers/userSlice";
+
 export const getProducts = (userId) => async (dispatch) => {
   console.log({ userId });
   if (userId)
@@ -110,6 +120,14 @@ export const byBrand = (data) => async (dispatch) => {
 
 export const byOrderProducts = (data) => async (dispatch) => {
   dispatch(sort(data));
+};
+
+export const byOrderUsers = (data) => async (dispatch) => {
+  dispatch(sortUser(data));
+};
+
+export const searchUsers = (input) => async (dispatch) => {
+  dispatch(searchByUser(input));
 };
 
 export const byOrderPrice = (data) => async (dispatch) => {
@@ -258,4 +276,21 @@ export const removeritem = (productId, userId) => {
     await axios.post(`/store/remove`, removeitem);
     dispatch(quitaritem(productId));
   };
+};
+
+export const deleteProductId = (id) => async (dispatch) => {
+  await dispatch(deleteProduct(id));
+  await axios.delete(`/products/${id}`);
+};
+
+export const getUser = () => async (dispatch) => {
+  axios
+    .get(`/user`)
+    .then((res) => dispatch(allUser(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const deleteUserId = (id) => async (dispatch) => {
+  await dispatch(deleteUser(id));
+  await axios.delete(`/user/delete/${id}`);
 };
