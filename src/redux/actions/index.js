@@ -1,38 +1,38 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import qs from "qs";
-import
-  {
-    allProducts,
-    allProductsForUser,
-    allCategories,
-    allBrands,
-    GetProduct,
-    clearproduct,
-    searchByName,
-    filterByCategory,
-    filterByBrand,
-    sort,
-    pagePaginated,
-    urlpayment,
-  } from "../reducers/getProductsSlice";
 
-import
-  {
-    getusercart,
-    agregaracart,
-    limpiarcart,
-    quitaritem,
-    urlcarpayment,
-    totalapagar,
-    comprartodolink,
-    clearlinks,
-  } from "../reducers/Cart";
+import {
+  allProducts,
+  allProductsForUser,
+  allCategories,
+  allBrands,
+  GetProduct,
+  clearproduct,
+  searchByName,
+  filterByCategory,
+  filterByBrand,
+  sort,
+  pagePaginated,
+  urlpayment,
+} from "../reducers/getProductsSlice";
 
-import { getFavorites, loggedUser, getCountries } from "../reducers/userSlice";
+import {
+  getusercart,
+  agregaracart,
+  limpiarcart,
+  quitaritem,
+  urlcarpayment,
+  totalapagar,
+  comprartodolink,
+  clearlinks,
+  info,
+} from "../reducers/Cart";
 
-export const getProducts = (userId) => async (dispatch) =>
-{
+import { getFavorites, loggedUser } from "../reducers/userSlice";
+
+export const getProducts = (userId) => async (dispatch) => {
+
   console.log({ userId });
   if (userId)
     axios
@@ -196,6 +196,8 @@ export function getCurrentUser(user)
 
     let json = await axios.post(`/user/login/`, user);
     dispatch(loggedUser(json.data?.data));
+
+    dispatch(getusercart(json.data?.data.cart.products));
   };
 }
 export const buyproduct = (quantity, id) =>
@@ -270,10 +272,21 @@ export const comprartodo = (userid) =>
   };
 };
 
+
+export const Rectificar = () => {
+  return async function (dispatch) {
+    const url = await axios.get(`/store/payments`);
+    console.log("accion url" + url);
+    dispatch(info(url));
+  };
+};
+
+
 export const alltopay = (total) =>
 {
   return async function (dispatch)
   {
+
     dispatch(totalapagar(total));
   };
 };
