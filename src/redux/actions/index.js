@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import qs from "qs";
-import
-{
+
+import {
   allProducts,
   allProductsForUser,
   allCategories,
@@ -16,10 +16,23 @@ import
   pagePaginated,
   urlpayment,
 } from "../reducers/getProductsSlice";
+
+import {
+  getusercart,
+  agregaracart,
+  limpiarcart,
+  quitaritem,
+  urlcarpayment,
+  totalapagar,
+  comprartodolink,
+  clearlinks,
+  info,
+} from "../reducers/Cart";
+
 import { getFavorites, loggedUser } from "../reducers/userSlice";
 
-export const getProducts = (userId) => async (dispatch) =>
-{
+export const getProducts = (userId) => async (dispatch) => {
+
   console.log({ userId });
   if (userId)
     axios
@@ -49,13 +62,31 @@ export const getBrand = () => async (dispatch) =>
     .catch((e) => console.log(e));
 };
 
+export const getCountry = () => async (dispatch) =>
+{
+  axios
+    .get(`/country`)
+    .then((res) => dispatch(getCountries(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const completeSignUp = (userId, data) => async (dispatch) =>
+{
+  await axios({
+    method: "PATCH",
+    url: `/user/${userId}`,
+    data: data,
+  })
+    .catch((e) => console.log(e));
+};
+
 export const getUserFavorites = (userId) => async (dispatch) =>
 {
   axios
     .get(`/user/favorites/${userId}`)
-    .then(res => dispatch(getFavorites(res.data.products)))
-    .catch(e => console.log(e));
-}
+    .then((res) => dispatch(getFavorites(res.data.products)))
+    .catch((e) => console.log(e));
+};
 
 export const addFavorites = (data) => async (dispatch) =>
 {
@@ -163,9 +194,10 @@ export function getCurrentUser(user)
       },
     };
 
-    let json = await axios.post(`/user/login/`, user)
-    dispatch(loggedUser(json.data?.data))
-  }
+    let json = await axios.post(`/user/login/`, user);
+    dispatch(loggedUser(json.data?.data));
+    dispatch(getusercart(json.data?.data.cart.products));
+  };
 }
 export const buyproduct = (quantity, id) =>
 {
@@ -177,5 +209,97 @@ export const buyproduct = (quantity, id) =>
     const url = await axios.post(`/store/${id}`, getproduct);
 
     dispatch(urlpayment(url.data));
+  };
+};
+export const buyproductcart = (quantity, id) =>
+{
+  const getproduct = {
+    quantity: quantity,
+  };
+  return async function (dispatch)
+  {
+    const url = await axios.post(`/store/${id}`, getproduct);
+    console.log(url.data);
+    dispatch(urlcarpayment(url.data));
+  };
+};
+
+export const addtocart = (userId, productId, qty, product) =>
+{
+  const adddingtocart = {
+    userId: userId,
+    productId: productId,
+    qty: qty,
+  };
+  return async function (dispatch)
+  {
+    await axios.post(`/store/add`, adddingtocart);
+    dispatch(agregaracart(product));
+  };
+};
+
+export const cleancart = (userId) =>
+{
+  const borrado = {
+    userId: userId,
+  };
+  return async function (dispatch)
+  {
+    await axios.post(`/store/clean`, borrado);
+    dispatch(limpiarcart());
+  };
+};
+
+export const clearlink = () =>
+{
+  return async function (dispatch)
+  {
+    dispatch(clearlinks());
+  };
+};
+
+export const comprartodo = (userid) =>
+{
+  const final = {
+    userId: userid,
+  };
+
+  return async function (dispatch)
+  {
+    const url = await axios.post(`/store/buyall`, final);
+    dispatch(comprartodolink(url.data));
+  };
+};
+
+
+export const Rectificar = () => {
+  return async function (dispatch) {
+    const url = await axios.get(`/store/payments`);
+    console.log("accion url" + url);
+    dispatch(info(url));
+  };
+};
+
+
+export const alltopay = (total) =>
+{
+  return async function (dispatch)
+  {
+
+    dispatch(totalapagar(total));
+  };
+};
+
+export const removeritem = (productId, userId) =>
+{
+  const removeitem = {
+    userId: userId,
+    productId: productId,
+  };
+
+  return async function (dispatch)
+  {
+    await axios.post(`/store/remove`, removeitem);
+    dispatch(quitaritem(productId));
   };
 };
