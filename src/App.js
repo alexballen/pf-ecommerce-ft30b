@@ -10,7 +10,7 @@ import AdminRoutes from "./AdminRoutes";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
-import RegisterUser from "./views/Register";
+import CompleteSignUp from "./views/CompleteSignUp";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -52,7 +52,7 @@ function App()
 
           <Route path="/Products/:id" element={<ProductDetail />} />
 
-          <Route path="/registerUser" element={<RegisterUser />} />
+          <Route path="/completeSignUp" element={<CompleteSignUp />} />
 
           <Route path="/favorites" element={<Favorites />} />
         </Route>

@@ -16,7 +16,6 @@ const RegisterForm = () =>
         email: "",
         phoneNumber: "",
         profileImage: null,
-        password: "",
         username: "",
     });
     const [error, setError] = useState({
@@ -25,7 +24,6 @@ const RegisterForm = () =>
         email: "",
         phoneNumber: "",
         profileImage: "",
-        password: "",
         username: "",
     });
 
@@ -150,28 +148,6 @@ const RegisterForm = () =>
                         profileImage: ''
                     })
                 break;
-            case 'password':
-                if (valueInput === '')
-                    setError({
-                        ...error,
-                        password: "La contraseña es un campo obligatorio"
-                    })
-                else if (valueInput.length <= 7)
-                    setError({
-                        ...error,
-                        password: "La contraseña debe contener por lo menos 8 caracteres"
-                    })
-                else if (valueInput.length >= 15)
-                    setError({
-                        ...error,
-                        password: "La contraseña debe contener máximo 15 caracteres"
-                    })
-                else
-                    setError({
-                        ...error,
-                        password: ''
-                    })
-                break;
             case 'username':
                 if (valueInput === '')
                     setError({
@@ -251,11 +227,6 @@ const RegisterForm = () =>
                             onChange={(e) => handleInputChange(e)}
                             error={!error.profileImage ? null : error.profileImage}
                         />
-                        <div className="flex flex-col mt-2">
-                            <label>Contraseña</label>
-                            <input type="password" placeholder="Escribe aquí" className="input input-bordered w-full" name="password" onChange={(e) => handleInputChange(e)} value={input.password} />
-                            {!error.password ? null : <span>{error.password}</span>}
-                        </div>
                         <div className="mt-6 flex justify-center">
                             <button className="btn" type="submit">Crear</button>
                         </div>
