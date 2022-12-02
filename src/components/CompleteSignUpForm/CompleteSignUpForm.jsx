@@ -105,8 +105,8 @@ const CompleteSignUpForm = () =>
                                 <option disabled selected>elegir</option>
                                 {countries
                                     .find(country => country.id === input.country)
-                                    .cities
-                                    ?.map(city =>
+                                    ?.cities
+                                    .map(city =>
                                         <option value={city.id}>{city.name}</option>)
                                 }
                             </select>
