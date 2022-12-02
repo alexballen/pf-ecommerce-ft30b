@@ -18,6 +18,7 @@ import Cart from "./components/Cart/Cart";
 import CartPaymentspending from "./components/Cart/CartPaymentspending";
 import CartPaymentsfail from "./components/Cart/CartPaymentsfail";
 import ItemPayments from "./components/Cart/ItemPayments";
+import DashboardAdmin from "./views/DashboardAdmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/dashboard" element={<DashboardAdmin />} />
         <Route path="/" element={<Nav />}>
           <Route path="/" element={<Home />} />
           <Route path="/addproduct" element={<CreateProduct />} />
