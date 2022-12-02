@@ -2,20 +2,33 @@
 import axios from "axios";
 import qs from "qs";
 import
-{
-  allProducts,
-  allProductsForUser,
-  allCategories,
-  allBrands,
-  GetProduct,
-  clearproduct,
-  searchByName,
-  filterByCategory,
-  filterByBrand,
-  sort,
-  pagePaginated,
-  urlpayment,
-} from "../reducers/getProductsSlice";
+  {
+    allProducts,
+    allProductsForUser,
+    allCategories,
+    allBrands,
+    GetProduct,
+    clearproduct,
+    searchByName,
+    filterByCategory,
+    filterByBrand,
+    sort,
+    pagePaginated,
+    urlpayment,
+  } from "../reducers/getProductsSlice";
+
+import
+  {
+    getusercart,
+    agregaracart,
+    limpiarcart,
+    quitaritem,
+    urlcarpayment,
+    totalapagar,
+    comprartodolink,
+    clearlinks,
+  } from "../reducers/Cart";
+
 import { getFavorites, loggedUser, getCountries } from "../reducers/userSlice";
 
 export const getProducts = (userId) => async (dispatch) =>
@@ -71,9 +84,9 @@ export const getUserFavorites = (userId) => async (dispatch) =>
 {
   axios
     .get(`/user/favorites/${userId}`)
-    .then(res => dispatch(getFavorites(res.data.products)))
-    .catch(e => console.log(e));
-}
+    .then((res) => dispatch(getFavorites(res.data.products)))
+    .catch((e) => console.log(e));
+};
 
 export const addFavorites = (data) => async (dispatch) =>
 {
@@ -181,9 +194,9 @@ export function getCurrentUser(user)
       },
     };
 
-    let json = await axios.post(`/user/login/`, user)
-    dispatch(loggedUser(json.data?.data))
-  }
+    let json = await axios.post(`/user/login/`, user);
+    dispatch(loggedUser(json.data?.data));
+  };
 }
 export const buyproduct = (quantity, id) =>
 {
@@ -195,5 +208,86 @@ export const buyproduct = (quantity, id) =>
     const url = await axios.post(`/store/${id}`, getproduct);
 
     dispatch(urlpayment(url.data));
+  };
+};
+export const buyproductcart = (quantity, id) =>
+{
+  const getproduct = {
+    quantity: quantity,
+  };
+  return async function (dispatch)
+  {
+    const url = await axios.post(`/store/${id}`, getproduct);
+    console.log(url.data);
+    dispatch(urlcarpayment(url.data));
+  };
+};
+
+export const addtocart = (userId, productId, qty, product) =>
+{
+  const adddingtocart = {
+    userId: userId,
+    productId: productId,
+    qty: qty,
+  };
+  return async function (dispatch)
+  {
+    await axios.post(`/store/add`, adddingtocart);
+    dispatch(agregaracart(product));
+  };
+};
+
+export const cleancart = (userId) =>
+{
+  const borrado = {
+    userId: userId,
+  };
+  return async function (dispatch)
+  {
+    await axios.post(`/store/clean`, borrado);
+    dispatch(limpiarcart());
+  };
+};
+
+export const clearlink = () =>
+{
+  return async function (dispatch)
+  {
+    dispatch(clearlinks());
+  };
+};
+
+export const comprartodo = (userid) =>
+{
+  const final = {
+    userId: userid,
+  };
+
+  return async function (dispatch)
+  {
+    const url = await axios.post(`/store/buyall`, final);
+    dispatch(comprartodolink(url.data));
+  };
+};
+
+export const alltopay = (total) =>
+{
+  return async function (dispatch)
+  {
+    dispatch(totalapagar(total));
+  };
+};
+
+export const removeritem = (productId, userId) =>
+{
+  const removeitem = {
+    userId: userId,
+    productId: productId,
+  };
+
+  return async function (dispatch)
+  {
+    await axios.post(`/store/remove`, removeitem);
+    dispatch(quitaritem(productId));
   };
 };
