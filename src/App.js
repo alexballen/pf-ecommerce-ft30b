@@ -11,11 +11,12 @@ import AdminRoutes from "./AdminRoutes";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
-import RegisterUser from "./views/Register";
+import CompleteSignUp from "./views/CompleteSignUp";
 import { useDispatch, useSelector } from "react-redux";
 
 import Cart from "./components/Cart/Cart";
-function App() {
+function App()
+{
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   console.log("USER IN APP.JS:", user);
@@ -28,8 +29,10 @@ function App() {
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
+  useEffect(() =>
+  {
+    if (isAuthenticated)
+    {
       dispatch(getCurrentUser(user));
     }
     console.log("Usuario: " + loggedUser);
@@ -49,7 +52,7 @@ function App() {
 
           <Route path="/Products/:id" element={<ProductDetail />} />
 
-          <Route path="/registerUser" element={<RegisterUser />} />
+          <Route path="/completeSignUp" element={<CompleteSignUp />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/favorites" element={<Favorites />} />
         </Route>
