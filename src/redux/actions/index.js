@@ -196,7 +196,6 @@ export function getCurrentUser(user)
 
     let json = await axios.post(`/user/login/`, user);
     dispatch(loggedUser(json.data?.data));
-
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
