@@ -25,6 +25,7 @@ import {
   totalapagar,
   comprartodolink,
   clearlinks,
+  info,
 } from "../reducers/Cart";
 
 import { getFavorites, loggedUser } from "../reducers/userSlice";
@@ -156,6 +157,8 @@ export function getCurrentUser(user) {
 
     let json = await axios.post(`/user/login/`, user);
     dispatch(loggedUser(json.data?.data));
+
+    dispatch(getusercart(json.data?.data.cart.products));
   };
 }
 export const buyproduct = (quantity, id) => {
@@ -215,6 +218,14 @@ export const comprartodo = (userid) => {
   return async function (dispatch) {
     const url = await axios.post(`/store/buyall`, final);
     dispatch(comprartodolink(url.data));
+  };
+};
+
+export const Rectificar = () => {
+  return async function (dispatch) {
+    const url = await axios.get(`/store/payments`);
+    console.log("accion url" + url);
+    dispatch(info(url));
   };
 };
 
