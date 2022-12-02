@@ -13,10 +13,10 @@ import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
 import CompleteSignUp from "./views/CompleteSignUp";
 import { useDispatch, useSelector } from "react-redux";
-
 import Cart from "./components/Cart/Cart";
-function App()
-{
+import DashboardAdmin from "./views/DashboardAdmin";
+
+function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   console.log("USER IN APP.JS:", user);
@@ -29,10 +29,8 @@ function App()
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
 
-  useEffect(() =>
-  {
-    if (isAuthenticated)
-    {
+  useEffect(() => {
+    if (isAuthenticated) {
       dispatch(getCurrentUser(user));
     }
     console.log("Usuario: " + loggedUser);
@@ -46,6 +44,7 @@ function App()
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/dashboard" element={<DashboardAdmin />} />
         <Route path="/" element={<Nav />}>
           <Route path="/" element={<Home />} />
           <Route path="/addproduct" element={<CreateProduct />} />
