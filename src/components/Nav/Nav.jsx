@@ -5,8 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import logo from "../../images/HCoutureLogo.png";
 
 import UserCart from "../Cart/UserCart";
-const Nav = () =>
-{
+const Nav = () => {
   const [loged, setloged] = useState(false);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
 
