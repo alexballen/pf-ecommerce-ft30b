@@ -40,6 +40,10 @@ const CartSlice = createSlice({
     info(state, action) {
       state.info = action.payload;
     },
+    updatecartitem(state, action) {
+      // console.log(console.log(action.payload));
+      // state.Cartitems = state.Cartitems.map((e) => e.id === action.payload);
+    },
   },
 });
 
