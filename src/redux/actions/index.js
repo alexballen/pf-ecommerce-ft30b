@@ -225,6 +225,18 @@ export const addtocart = (userId, productId, qty, product) => {
   };
 };
 
+export const updatecart = (userId, productId, qty) => {
+  const updated = {
+    userId: userId,
+    productId: productId,
+    qty: qty,
+  };
+  return async function (dispatch) {
+    await axios.put(`/store/update`, updated);
+    dispatch(agregaracart(productId, qty));
+  };
+};
+
 export const cleancart = (userId) => {
   const borrado = {
     userId: userId,

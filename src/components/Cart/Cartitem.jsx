@@ -6,23 +6,33 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { removeritem, addtocart } from "../../redux/actions";
+import { removeritem, updatecart } from "../../redux/actions";
 import { buyproduct } from "../../redux/actions";
 import { alltopay } from "../../redux/actions";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Cartitem({ name, image, stock, id, unitPrice, quantity }) {
+function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state) => state.user);
   const userid = loggedUser?.id;
   const { Cartitems } = useSelector((state) => state.Cart);
+  const { total } = useSelector((state) => state.Cart);
 
+  const [cantidad, setcantidad] = useState(quantity);
+  const { paymenturl } = useSelector((state) => state.products);
+  function Generarlink() {
+    dispatch(buyproduct(cantidad, id));
+  }
   var totals = 0;
   function borrar() {
-    dispatch(alltopay(totals));
-
     dispatch(removeritem(id, userid));
+  }
+
+  function add(e) {
+    const value = e.target.value;
+    setcantidad(value);
+    // dispatch(updatecart(userid, id, cantidad));
   }
 
   useEffect(() => {
@@ -32,7 +42,8 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity }) {
       totals = totals + e.quantity * e.unitPrice;
       dispatch(alltopay(totals));
     }
-  }, [Cartitems]);
+    console.log("cambio cantidad");
+  }, [Cartitems.length, total, cantidad]);
 
   return (
     <tbody>
@@ -58,42 +69,55 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity }) {
           </td>
         </Link>
 
-        <td className="text-center ">${unitPrice}</td>
-        <th>
-          <span className=" text-center  font-bold text-2xl "></span>
-          <div className="relative p-5">
-            {/* <input
-              name="quantity"
-              min={1}
-              onChange={addcantidad}
-              value={cantidad}
-              max={stock}
-              className="rounded border text-center title-font text-slate-700   appearance-none border-gray-400 py-2  text-base   "
-              type={"number"}
-            ></input> */}
-          </div>
+        <td className="text-center   ">${unitPrice}</td>
+        <th className="text-center   ">
+          <span className=" text-center   font-bold    text-2xl "></span>
         </th>
         <th className="text-center  ">
-          <span className="    font-bold   "> {quantity}</span>
+          <input
+            name="quantity"
+            min={1}
+            onChange={add}
+            value={cantidad}
+            max={stock}
+            className="rounded border text-center title-font text-slate-700   appearance-none border-gray-400 py-2  text-base   "
+            type={"number"}
+          ></input>
         </th>
         <th className="text-center ">
           <span className=" text-center   font-bold   ">
-            ${unitPrice * quantity}
+            ${unitPrice * cantidad}
           </span>
         </th>
         <th className="text-center ">
           <span className="    font-bold   ">{stock} disponibles</span>
         </th>
         <th className="text-center">
-          {/* <a
-            href={paymenturl}
-            target={"_blank"}
-            className="btn  bg-lime-500  text-white  rounded-none hover:bg-lime-600 font-bold     btn-xs"
+          <label
+            htmlFor="Pagaritem"
+            onClick={Generarlink}
+            className="btn  btn-ghost  "
           >
-            Comprar
-          </a> */}
-
-          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-truck"
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#7bc62d"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <circle cx="7" cy="17" r="2" />
+              <circle cx="17" cy="17" r="2" />
+              <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+            </svg>
+          </label>
+          <span className=""></span>
+          <label className="btn  btn-ghost  ">
             <svg
               onClick={borrar}
               xmlns="http://www.w3.org/2000/svg"
@@ -115,8 +139,54 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity }) {
               <path d="M17 3l4 4" />
               <path d="M21 3l-4 4" />
             </svg>
-          </button>
+          </label>
         </th>
+
+        <input type="checkbox" id="Pagaritem" className="modal-toggle " />
+        <div className="modal ">
+          <div className="modal-box   ">
+            <h3 className="font-bold  text-lg">
+              <div className="alert   shadow-lg">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="stroke-current flex-shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+
+                  <p className=" text-black py-4   font-bold  ">
+                    Quieres comprar x{cantidad} {name}
+                  </p>
+                </div>
+              </div>
+            </h3>
+
+            <div className="modal-action">
+              <a
+                href={paymenturl}
+                htmlFor="Pagaritem"
+                className="btn bg-green-500 text-white hover:bg-green-600 "
+              >
+                ir a Pagar!
+              </a>
+
+              <label
+                htmlFor="Pagaritem"
+                className="btn bg-red-500 text-white hover:bg-red-600 "
+              >
+                Cerrar
+              </label>
+            </div>
+          </div>
+        </div>
       </tr>
     </tbody>
   );
