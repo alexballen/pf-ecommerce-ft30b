@@ -18,10 +18,9 @@ import Footer from "./components/Nav/Footer";
 import CartPaymentspending from "./components/Cart/CartPaymentspending";
 import CartPaymentsfail from "./components/Cart/CartPaymentsfail";
 import ItemPayments from "./components/Cart/ItemPayments";
+import DashboardAdmin from "./views/DashboardAdmin";
 
-function App()
-{
-
+function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [open, setOpen] = React.useState(false)
@@ -33,10 +32,8 @@ function App()
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
 
-  useEffect(() =>
-  {
-    if (isAuthenticated)
-    {
+  useEffect(() => {
+    if (isAuthenticated) {
       dispatch(getCurrentUser(user));
     }
     console.log("Usuario: " + loggedUser);
@@ -50,19 +47,16 @@ function App()
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/dashboard" element={<DashboardAdmin />} />
         <Route path="/" element={<Nav />}>
           <Route path="/" element={<Home />} />
           <Route path="/addproduct" element={<CreateProduct />} />
-
           <Route path="/Products/:id" element={<ProductDetail />} />
-
-
-          <Route path="/registerUser" element={<CompleteSignUp />} />
+          <Route path="/completeSignUp" element={<CompleteSignUp />} />{" "}
           <Route path="/payments/:id" element={<CartPayments />} />
           <Route path="/ipayments/:id" element={<ItemPayments />} />
           <Route path="/paymentsfail" element={<CartPaymentsfail />} />
           <Route path="/paymentspending" element={<CartPaymentspending />} />
-
           <Route path="/completeSignUp" element={<CompleteSignUp />} />
           <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
             <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />
