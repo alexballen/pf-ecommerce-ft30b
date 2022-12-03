@@ -11,7 +11,7 @@ import BlockPopUp from "./components/BlockPopup/BlockPopup";
 function ProtectedRoutes() {
   const { isAuthenticated, isLoading, getAccessTokenSilently, user } = useAuth0();
   const dispatch = useDispatch();
-  const userLogged = useSelector(state => state.userLogged)
+  const userLogged = useSelector(state => state.user)
 
 //   useEffect(() => {
 //     if (isAuthenticated) {

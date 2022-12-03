@@ -38,7 +38,8 @@ import {
   sortUser,
 } from "../reducers/userSlice";
 
-export const getProducts = (userId) => async (dispatch) => {
+export const getProducts = (userId) => async (dispatch) =>
+{
   console.log({ userId });
   if (userId)
     axios
@@ -176,7 +177,8 @@ export const createNewProduct = (data) => async () => {
 export function getCurrentUser(user) {
   // Obtener la info del user loggeado
 
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     console.log("USER ACTION: ", user);
 
     const config = {
@@ -292,4 +294,15 @@ export const getUser = () => async (dispatch) => {
 export const deleteUserId = (id) => async (dispatch) => {
   await dispatch(deleteUser(id));
   await axios.delete(`/user/delete/${id}`);
+};
+
+export const updateUser = (data, id) =>
+{
+  return async function ()
+  {
+    const response = await axios.put(`/userData/${id}`, data);
+
+    console.log(response)
+    return response
+  };
 };

@@ -8,6 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
+import UserProfile from "./views/UserProfile";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
 import CompleteSignUp from "./views/CompleteSignUp";
@@ -36,7 +37,7 @@ function App() {
     if (isAuthenticated) {
       dispatch(getCurrentUser(user));
     }
-    console.log("Usuario: " + loggedUser);
+    console.log('Usuario: ', loggedUser)
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())
@@ -63,6 +64,15 @@ function App() {
           </Route>
           <Route path="/Cart" element={<Cart />} />
           <Route path="/favorites" element={<Favorites />} />
+
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/user/:id" element={<UserProfile />} />
+          </Route>
+
+          <Route element={<AdminRoutes />}>
+            <Route path="/addproduct" element={<CreateProduct />} />
+          </Route>
+
         </Route>
       </Routes>
       <Footer />
