@@ -11,12 +11,20 @@ const desarrolladores = [
         photo: '/assets/images/Felipe.jpg',
         redes: [
             {
-                href: '',
+                href: 'https://www.linkedin.com/in/fm9408/',
                 icon: '/assets/icons/linkedin.svg'
             },
             {
-                github: '',
+                href: 'https://github.com/FM9408',
                 icon: '/assets/icons/github.svg'
+            },
+            {
+                href: 'https://twitter.com/FeLiPe_MeDiNa_',
+                icon: '/assets/icons/twitter.svg'
+            },
+            {
+                href: 'https://www.facebook.com/FeliMed94',
+                icon: '/assets/icons/facebook.svg'
             }
         ]
 
@@ -30,7 +38,7 @@ const desarrolladores = [
                 icon: '/assets/icons/linkedin.svg'
             },
             {
-                github: '',
+                href: 'https://github.com/GrachiNieto33',
                 icon: '/assets/icons/github.svg'
             }
         ]
@@ -44,7 +52,7 @@ const desarrolladores = [
                 icon: '/assets/icons/linkedin.svg'
             },
             {
-                github: '',
+                href: 'https://github.com/alexballen',
                 icon: '/assets/icons/github.svg'
             }
         ]
@@ -58,7 +66,7 @@ const desarrolladores = [
                 icon: '/assets/icons/linkedin.svg'
             },
             {
-                github: '',
+                href: 'https://github.com/JOSY12',
                 icon: '/assets/icons/github.svg'
             }
         ]
@@ -71,7 +79,7 @@ const desarrolladores = [
                 icon: '/assets/icons/linkedin.svg'
             },
             {
-                github: '',
+                href: 'https://github.com/IggyMartin',
                 icon: '/assets/icons/github.svg'
             }
         ]
@@ -85,7 +93,7 @@ const desarrolladores = [
                 icon: '/assets/icons/linkedin.svg'
             },
             {
-                href: '',
+                href: 'https://github.com/Arres2',
                 icon: '/assets/icons/github.svg'
             }
         ]
@@ -180,17 +188,27 @@ export function Desarrollador({open, setOpen}) {
            
             <div style={{ width: '100%' , height: 'fit-content' }}>
                 <div><button onClick={() => handleClose()}><img src='/assets/icons/x-circle.svg'/></button></div>
-                        <div style={{ width: '50%', display: 'flex', justifyContent: 'center', float: 'left' }}>
+                <div style={{ width: '50%', float: 'left', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ alignContent:'center', display:'flex', justifyContent:'center', backgroundColor: 'white', borderRadius: '50%', width: '26em', height:'26em' }}>
                     <img src={desarrolladorDetails.photo} className={`developerPhoto ${classVar}`} />
                         </div>
-                <h1 style={{ fontSize: '3em', textAlign: 'center' }}>{desarrolladorDetails.name}</h1>
+                </div>
                 <div>
-                    <div><h2>Contacto y redes sociales:</h2></div>
                     <div>
+                        <h1 style={{ fontSize: '3em', textAlign: 'center' }}>{desarrolladorDetails.name}</h1>
+                    </div>
+                    <hr/>
+                    <div style={{height: '20em'}}>
+                
+                    </div>
+                </div>
+                <div style={{float: 'right'}}>
+                    <div style={{display:'block', width: '100%'}}><h2>Contacto y redes sociales:</h2></div>
+                    <div style={{display: 'auto'}}>
                         {
                             desarrolladorDetails.redes.map(red => {
                                 return (
-                                    <a href={red.href} target='_blank' style={{display: 'inline-flex', marginLeft:'1%', alignContent: 'center'}}><img src={red.icon} alt='icon' /></a>
+                                   <div style={{margin: 'auto', display: 'inline-flex', padding: '1%'}}> <a href={red.href} target='_blank' style={{margin:'auto'}}><img src={red.icon} alt='icon' /></a></div>
                                 )
                             })
                         }

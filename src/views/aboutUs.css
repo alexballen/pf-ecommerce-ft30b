@@ -23,10 +23,13 @@
     width: 25em;
     height: 25em;
     display: flex;
+    object-position: center;
     padding: 0%;
     float: left;
     opacity: 100%;
     transition: all 2s ease-in-out;
+    display: flex;
+    align-self: center;
 }
 
 .miniDev {
