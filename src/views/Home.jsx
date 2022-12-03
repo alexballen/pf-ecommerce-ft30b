@@ -75,9 +75,6 @@ const Home = () => {
               })
             : "No Products"}
         </div>
-        <div>
-          <p>Footer</p>
-        </div>
       </div>
     </>
   );

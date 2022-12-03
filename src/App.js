@@ -7,15 +7,14 @@ import { getCurrentUser } from "./redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
-import AdminRoutes from "./AdminRoutes";
-import ProtectedRoutes from "./ProtectedRoutes";
+import { AboutUsPage, Desarrollador } from "./views/aboutUs";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
 import CompleteSignUp from "./views/CompleteSignUp";
 import { useDispatch, useSelector } from "react-redux";
 import CartPayments from "./components/Cart/CartPayments";
 import Cart from "./components/Cart/Cart";
-
+import Footer from "./components/Nav/Footer";
 import CartPaymentspending from "./components/Cart/CartPaymentspending";
 import CartPaymentsfail from "./components/Cart/CartPaymentsfail";
 import ItemPayments from "./components/Cart/ItemPayments";
@@ -25,8 +24,7 @@ function App()
 
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
-  console.log("USER IN APP.JS:", user);
-
+  const [open, setOpen] = React.useState(false)
   const { loggedUser } = useSelector((state) => state.user);
   //   useEffect(() => {
 
@@ -59,18 +57,21 @@ function App()
           <Route path="/Products/:id" element={<ProductDetail />} />
 
 
-          <Route path="/registerUser" element={<RegisterUser />} />
+          <Route path="/registerUser" element={<CompleteSignUp />} />
           <Route path="/payments/:id" element={<CartPayments />} />
           <Route path="/ipayments/:id" element={<ItemPayments />} />
           <Route path="/paymentsfail" element={<CartPaymentsfail />} />
           <Route path="/paymentspending" element={<CartPaymentspending />} />
 
           <Route path="/completeSignUp" element={<CompleteSignUp />} />
-
+          <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
+            <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />
+          </Route>
           <Route path="/Cart" element={<Cart />} />
           <Route path="/favorites" element={<Favorites />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
