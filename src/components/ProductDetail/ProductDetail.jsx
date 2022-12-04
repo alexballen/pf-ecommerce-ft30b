@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { comprartodo } from "../../redux/actions";
 import { GetProductById, buyproduct, addtocart } from "../../redux/actions";
-
+import './ProductDetail.css'
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -20,8 +20,13 @@ const ProductDetail = () => {
   const { product } = useSelector((state) => state.products);
   const { paymenturl } = useSelector((state) => state.products);
   const { loggedUser } = useSelector((state) => state.user);
-
+  const image = document.getElementById('productDetailImage')
+  const imageContainer =document.getElementById('imageContainer')
   const [amoutstock, setbuy] = useState(1);
+  const [cordinates, setCordinates] = useState({
+    x: '',
+    y: ''
+  })
 
   // const email = loggedUser.data?.email;
   const productid = product.id;
@@ -35,7 +40,23 @@ const ProductDetail = () => {
     const value = parseInt(e.target.value);
     setbuy(value);
   }
+  
+  function mobileZoom(e) {
+    setCordinates({
+      x: '50',
+      y: '50'
+    })
+    image.style.objectPosition = 'center'
+    image.style.transform ='scale(1.3)'
+    image.style.top = `${cordinates.y - e.clientY/7}%`
+    image.style.left = `${cordinates.x - e.clientX/12}%`
+  }
 
+  function zoomOut(e) {
+    image.style.top = '0px'
+    image.style.left = '0px'
+    image.style.transform = 'scale(1.0)'
+  }
   function Generarlink() {
     dispatch(buyproduct(amoutstock, id));
   }
@@ -52,8 +73,8 @@ const ProductDetail = () => {
             {product.photos
               ? product.photos.map((e, i) => {
                   return (
-                    <div key={i} className="carousel-item h-full ">
-                      <img alt="imagetext" src={e.url} />
+                    <div onMouseMove={(e) => mobileZoom(e)} onPointerLeave={(e) => zoomOut(e)}  key={i} id='imageContainer' className="carousel-item overflow-hidden ">
+                      <img  id='productDetailImage' alt="imagetext" src={e.url} />
                     </div>
                   );
                 })
