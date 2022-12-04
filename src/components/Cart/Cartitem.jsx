@@ -15,10 +15,8 @@ import { Link } from "react-router-dom";
 function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state) => state.user);
-  const userid = loggedUser?.id;
+  const userId = loggedUser?.id;
   const { Cartitems } = useSelector((state) => state.Cart);
-  const { total } = useSelector((state) => state.Cart);
-
   const [cantidad, setcantidad] = useState(quantity);
   const { paymenturl } = useSelector((state) => state.products);
   function Generarlink() {
@@ -26,24 +24,23 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
   }
   var totals = 0;
   function borrar() {
-    dispatch(removeritem(id, userid));
+    dispatch(removeritem(id, userId));
   }
-
+ 
   function add(e) {
-    const value = e.target.value;
+    const value =  e.target.value;
     setcantidad(value);
-    // dispatch(updatecart(userid, id, cantidad));
+    // dispatch(updatecart(userId, id, cantidad));
   }
 
   useEffect(() => {
-    totals = 0;
 
     for (let e of Cartitems) {
       totals = totals + e.quantity * e.unitPrice;
       dispatch(alltopay(totals));
     }
-    console.log("cambio cantidad");
-  }, [Cartitems.length, total, cantidad]);
+ 
+  }, [Cartitems]);
 
   return (
     <tbody>
@@ -98,47 +95,20 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
             onClick={Generarlink}
             className="btn  btn-ghost  "
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-truck"
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="#7bc62d"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <circle cx="7" cy="17" r="2" />
-              <circle cx="17" cy="17" r="2" />
-              <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
-            </svg>
+           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-green-600">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+</svg>
+
           </label>
           <span className=""></span>
           <label className="btn  btn-ghost  ">
-            <svg
-              onClick={borrar}
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-shopping-cart-x"
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="#ff2825"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <circle cx="6" cy="19" r="2" />
-              <circle cx="17" cy="19" r="2" />
-              <path d="M17 17h-11v-14h-2" />
-              <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-              <path d="M17 3l4 4" />
-              <path d="M21 3l-4 4" />
-            </svg>
+
+          <svg   onClick={borrar} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-red-600 ">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+</svg>
+
+          
+             
           </label>
         </th>
 
@@ -163,13 +133,13 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
                   </svg>
 
                   <p className=" text-black py-4   font-bold  ">
-                    Quieres comprar x{cantidad} {name}
+                      Quieres comprar este producto?
                   </p>
                 </div>
               </div>
             </h3>
 
-            <div className="modal-action">
+        {paymenturl ?  <div className="modal-action">
               <a
                 href={paymenturl}
                 htmlFor="Pagaritem"
@@ -184,7 +154,15 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
               >
                 Cerrar
               </label>
-            </div>
+            </div> :     <a
+                href={paymenturl}
+                htmlFor="Pagaritem"
+                className="btn bg-green-500 text-white hover:bg-green-600 "
+              >
+              Generando pago........
+              </a>}
+
+            
           </div>
         </div>
       </tr>

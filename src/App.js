@@ -20,7 +20,9 @@ import CartPaymentspending from "./components/Cart/CartPaymentspending";
 import CartPaymentsfail from "./components/Cart/CartPaymentsfail";
 import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
+import Historial from "./components/Cart/Historial";
 import EditProduct from "./components/dashboard/EditProduct";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +62,7 @@ function App() {
           <Route path="/ipayments/:id" element={<ItemPayments />} />
           <Route path="/paymentsfail" element={<CartPaymentsfail />} />
           <Route path="/paymentspending" element={<CartPaymentspending />} />
+          <Route path="/Historial" element={<Historial />} />
           <Route path="/completeSignUp" element={<CompleteSignUp />} />
           <Route
             path="/aboutUs"

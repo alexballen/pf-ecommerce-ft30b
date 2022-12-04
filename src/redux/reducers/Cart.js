@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
+
 const CartSlice = createSlice({
   name: "Cart",
   initialState: {
     Cartitems: [],
+    Comprados: [],
     paymenturl: "",
     pagarcarrito: "",
-    total: 0,
+    total: 0 ,
     info: {},
   },
   reducers: {
@@ -27,6 +31,7 @@ const CartSlice = createSlice({
     },
     urlcarpayment(state, action) {
       state.paymenturl = action.payload;
+      
     },
     totalapagar(state, action) {
       state.total = action.payload;
@@ -35,15 +40,25 @@ const CartSlice = createSlice({
       state.pagarcarrito = action.payload;
     },
     clearlinks(state) {
+      state.paymenturl = ""
       state.pagarcarrito = "";
     },
     info(state, action) {
       state.info = action.payload;
     },
-    updatecartitem(state, action) {
-      // console.log(console.log(action.payload));
-      // state.Cartitems = state.Cartitems.map((e) => e.id === action.payload);
+    agregarcomprado(state, action) {
+      state.Comprados = [...state.Comprados, action.payload];
     },
+    
+    updatecartitem(state, action) {
+      const id = action.productId
+      const qty = action.qty
+      
+      state.Cartitems = [
+        ...state.Cartitems.map((e) => e.id === id ? e.quantity = qty : e.quantity)
+      ]
+    }
+    
   },
 });
 
@@ -55,7 +70,7 @@ export const {
   urlcarpayment,
   totalapagar,
   comprartodolink,
-  clearlinks,
-  info,
+  clearlinks,agregarcomprado,
+  info,updatecartitem
 } = CartSlice.actions;
 export default CartSlice.reducer;
