@@ -94,7 +94,7 @@ const Nav = () => {
                   </li>
                 </Link>
 
-                <Link to={"/Items"}>
+                <Link to={"/Historial"}>
                   <li>
                     <span className="justify-between text-xl  ">
                       Mis compras

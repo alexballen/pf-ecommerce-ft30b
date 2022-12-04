@@ -15,15 +15,15 @@ function Cart() {
   const { total } = useSelector((state) => state.Cart);
 
   const { pagarcarrito } = useSelector((state) => state.Cart);
-  const userid = loggedUser?.id;
+  const userId = loggedUser?.id;
 
   function limpiarcart() {
-    dispatch(cleancart(userid));
+    dispatch(cleancart(userId));
     dispatch(clearlink());
   }
 
   function Pagartodo() {
-    dispatch(comprartodo(userid));
+    dispatch(comprartodo(userId));
   }
 
   useEffect(() => {}, [Cartitems.length, total]);
@@ -153,8 +153,9 @@ function Cart() {
             </div>
           </h3>
 
-          <div className="modal-action">
-            <a
+      
+          {pagarcarrito ?     <div className="modal-action">
+           <a
               href={pagarcarrito}
               htmlFor="Pagartodo"
               className="btn   text-white hover:bg-green-600 "
@@ -167,8 +168,17 @@ function Cart() {
               className="btn  text-white hover:bg-red-600 "
             >
               Cerrar
-            </label>
-          </div>
+            </label>          </div> 
+            : <a
+              href={pagarcarrito}
+              htmlFor="Pagartodo"
+              className="btn   text-white hover:bg-green-600 "
+            >
+         Generando pago......
+            </a>}
+
+            
+ 
         </div>
       </div>
     </>

@@ -25,12 +25,12 @@ const ProductDetail = () => {
 
   // const email = loggedUser.data?.email;
   const productid = product.id;
-  const userid = loggedUser?.id;
+  const userId = loggedUser?.id;
 
   function agregarcarrito() {
-    dispatch(addtocart(userid, productid, amoutstock, product));
+    dispatch(addtocart(userId, productid, amoutstock, product));
   }
-  console.log(paymenturl);
+ 
   function getvalue(e) {
     const value = parseInt(e.target.value);
     setbuy(value);
