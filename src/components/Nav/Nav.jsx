@@ -5,10 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import logo from "../../images/HCoutureLogo.png";
 
 import UserCart from "../Cart/UserCart";
+import { useSelector } from "react-redux"
 const Nav = () => {
   const [loged, setloged] = useState(false);
+  const { loggedUser } = useSelector(state => state.user)
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
-
+  console.log(user)
   return (
     <>
       <div className="navbar  bg-white" style={{ width: "100%" }}>
@@ -61,9 +63,9 @@ const Nav = () => {
                 tabIndex={0}
                 className="  btn btn-ghost btn-circle  avatar"
               >
-                {user ? (
+                {loggedUser.photo ? (
                   <div className="w-10 rounded-full">
-                    <img src={user.picture} alt="profilepicture" />
+                    <img src={loggedUser.photo.url} alt="profilepicture" />
                   </div>
                 ) : (
                   <div className="w-10 rounded-full">
