@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
-import qs from "qs";
+//import qs from "qs";
 import {
   allProducts,
   allProductsForUser,
@@ -321,4 +320,8 @@ export const banerProductId = (id) => async () => {
 
 export const restoreBanerProductId = (id) => async () => {
   await axios.delete(`/products/softDelete/${id}?restore=true`);
+};
+
+export const editProductId = (data, id) => async () => {
+  await axios.put(`/products/update?productId=${id}`, data);
 };
