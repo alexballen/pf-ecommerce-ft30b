@@ -69,7 +69,9 @@ const UsersTable = () => {
           <thead className="bg-stone-400 border-b sticky top-12">
             <tr>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                N°
+                <div className="tooltip" data-tip="Id">
+                  N°
+                </div>
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
                 Foto
@@ -93,7 +95,9 @@ const UsersTable = () => {
                 Nombre de Usuario
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Opciones
+                <div className="tooltip" data-tip="Editar-Eliminar-Baneo">
+                  Opciones
+                </div>
               </th>
             </tr>
           </thead>

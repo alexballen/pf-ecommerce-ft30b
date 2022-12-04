@@ -44,10 +44,10 @@ const ProductTable = () => {
       dangerMode: true,
     }).then((result) => {
       if (result) {
-        //window.location.href = `/editproduct/${e}`;
-        swal(
+        window.location.href = `/editproduct/${e}`;
+        /* swal(
           "¡👍! ¡En el momento tenemos problemas para editar el producto, intenta mas tarde!"
-        );
+        ); */
       } else {
         swal("¡👍! ¡Tu Producto no sufrio cambios!");
       }
@@ -68,7 +68,9 @@ const ProductTable = () => {
           <thead className="bg-stone-400 border-b sticky top-24">
             <tr>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                N°
+                <div className="tooltip" data-tip="Id">
+                  N°
+                </div>
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
                 Nombre
@@ -86,7 +88,9 @@ const ProductTable = () => {
                 Precio Unitario
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Opciones
+                <div className="tooltip" data-tip="Editar-Eliminar-Baneo">
+                  Opciones
+                </div>
               </th>
             </tr>
           </thead>

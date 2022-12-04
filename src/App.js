@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
-import { TermsAndConditions, PrivacyPolicy } from './views/legal'
+import { TermsAndConditions, PrivacyPolicy } from "./views/legal";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
 import CompleteSignUp from "./views/CompleteSignUp";
@@ -20,11 +20,12 @@ import CartPaymentspending from "./components/Cart/CartPaymentspending";
 import CartPaymentsfail from "./components/Cart/CartPaymentsfail";
 import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
+import EditProduct from "./components/dashboard/EditProduct";
 
 function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
   const { loggedUser } = useSelector((state) => state.user);
   //   useEffect(() => {
 
@@ -49,6 +50,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/dashboard" element={<DashboardAdmin />} />
+        <Route path="/editproduct/:id" element={<EditProduct />} />
         <Route path="/" element={<Nav />}>
           <Route path="/" element={<Home />} />
           <Route path="/addproduct" element={<CreateProduct />} />
@@ -59,8 +61,14 @@ function App() {
           <Route path="/paymentsfail" element={<CartPaymentsfail />} />
           <Route path="/paymentspending" element={<CartPaymentspending />} />
           <Route path="/completeSignUp" element={<CompleteSignUp />} />
-          <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
-            <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />
+          <Route
+            path="/aboutUs"
+            element={<AboutUsPage open={open} setOpen={setOpen} />}
+          >
+            <Route
+              path=":desarrollador"
+              element={<Desarrollador open={open} setOpen={setOpen} />}
+            />
           </Route>
           <Route path="/termsandconditions" element={<TermsAndConditions />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
