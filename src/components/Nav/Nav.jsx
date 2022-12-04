@@ -5,13 +5,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserCart from "../Cart/UserCart";
 import { useSelector } from "react-redux"
 const Nav = () => {
-  const [loged, setloged] = useState(false);
+  const [loged, setloged] = React.useState(false);
   const { loggedUser } = useSelector(state => state.user)
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
   console.log(user)
   return (
     <>
-      <div className="navbar bg-white" style={{ width: "100%" }}>
+      <div className="navbar bg-white " style={{ width: "100%" }}>
         <div style={{ width: "fit-content" }}>
           <Link to={"/"} style={{ width: "fit-content" }}>
             <img
