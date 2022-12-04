@@ -3,12 +3,12 @@ import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import UserCart from "../Cart/UserCart";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 const Nav = () => {
   const [loged, setloged] = React.useState(false);
-  const { loggedUser } = useSelector(state => state.user)
+  const { loggedUser } = useSelector((state) => state.user);
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
-  console.log(user)
+  console.log(user);
   return (
     <>
       <div className="navbar bg-white " style={{ width: "100%" }}>
@@ -26,16 +26,16 @@ const Nav = () => {
             />
           </Link>
         </div>
-        {!isAuthenticated && (
-          <div className="w-full justify-end mr-5">
+        <div className="w-full justify-end mr-5 mt-2">
+          {!isAuthenticated && (
             <span
               className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
               onClick={loginWithPopup}
             >
               Iniciar Sesión
             </span>
-          </div>
-        )}
+          )}
+        </div>
         {isAuthenticated && <UserCart />}
         {isAuthenticated && (
           <div className="flex-none mr-8 m-2 ">
