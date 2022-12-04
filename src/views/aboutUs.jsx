@@ -1,104 +1,12 @@
 import React from "react"
-import { Link, Outlet, useParams, useNavigate } from "react-router-dom"
+import { Outlet, useParams, useNavigate } from "react-router-dom"
+import desarrolladores from "../hooks/desarrolladores"
 import './aboutUs.css'
 
 
 
 
-const desarrolladores = [
-    {
-        name: 'Felipe Akvaar Medina Carrillo',
-        photo: '/assets/images/Felipe.jpg',
-        redes: [
-            {
-                href: 'https://www.linkedin.com/in/fm9408/',
-                icon: '/assets/icons/linkedin.svg'
-            },
-            {
-                href: 'https://github.com/FM9408',
-                icon: '/assets/icons/github.svg'
-            },
-            {
-                href: 'https://twitter.com/FeLiPe_MeDiNa_',
-                icon: '/assets/icons/twitter.svg'
-            },
-            {
-                href: 'https://www.facebook.com/FeliMed94',
-                icon: '/assets/icons/facebook.svg'
-            }
-        ]
 
-    },
-    {
-        name: 'Graciela Irene Nieto Ayala',
-        photo: '/assets/images/Graciela.jpg',
-        redes: [
-            {
-                href: '',
-                icon: '/assets/icons/linkedin.svg'
-            },
-            {
-                href: 'https://github.com/GrachiNieto33',
-                icon: '/assets/icons/github.svg'
-            }
-        ]
-    },
-    {
-        name: 'Jose Alexander Ballen Meneses',
-        photo: '/assets/images/Alex.jpg',
-        redes: [
-            {
-                href: '',
-                icon: '/assets/icons/linkedin.svg'
-            },
-            {
-                href: 'https://github.com/alexballen',
-                icon: '/assets/icons/github.svg'
-            }
-        ]
-    },
-    {
-        name: 'Josmer Uriel Bertel Calle',
-        photo: '/assets/images/josmer.jpg',
-        redes: [
-            {
-                href: 'https://www.linkedin.com/in/josmer-bertel-calle-12569a236/',
-                icon: '/assets/icons/linkedin.svg'
-            },
-            {
-                href: 'https://github.com/JOSY12',
-                icon: '/assets/icons/github.svg'
-            }
-        ]
-    },
-    {
-        name: 'Ignacio Martin',
-        redes: [
-            {
-                href: '',
-                icon: '/assets/icons/linkedin.svg'
-            },
-            {
-                href: 'https://github.com/IggyMartin',
-                icon: '/assets/icons/github.svg'
-            }
-        ]
-    },
-    {
-        name: 'Andres Eduardo Cardozo Landaeta',
-        photo: '/assets/images/Andres.jpg',
-        redes: [
-            {
-                href: 'https://www.linkedin.com/in/andr%C3%A9s-eduardo-cardozo-landaeta-8940ba150/',
-                icon: '/assets/icons/linkedin.svg'
-            },
-            {
-                href: 'https://github.com/Arres2',
-                icon: '/assets/icons/github.svg'
-            }
-        ]
-    }
-]
 
 export function AboutUsPage({ open, setOpen }) {
     const navigate = useNavigate()
@@ -146,7 +54,7 @@ export function AboutUsPage({ open, setOpen }) {
             <Outlet />
             <div onPointerEnter={() => setOpen(false)} style={{width: '100%', textAlign: 'center'}}>
                 <div style={{width: '100%'}}>
-                    <h1 style={{fontSize: '5em'}}>Nuesta vision:</h1>
+                    <h1 style={{fontSize: '3em'}}>Nuesta vision:</h1>
                 </div>
             </div>
         </div>
@@ -199,9 +107,14 @@ export function Desarrollador({open, setOpen}) {
                     </div>
                     <hr/>
                     <div style={{height: '20em'}}>
-                
+                        <h2>Aportes a la pagina: {desarrolladorDetails.aport }</h2>
+                    </div>
+                    <hr />
+                    <div>
+                        <p>{desarrolladorDetails.description}</p>
                     </div>
                 </div>
+                <hr />
                 <div style={{float: 'right'}}>
                     <div style={{display:'block', width: '100%'}}><h2>Contacto y redes sociales:</h2></div>
                     <div style={{display: 'auto'}}>

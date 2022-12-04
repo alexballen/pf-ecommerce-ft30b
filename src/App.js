@@ -8,6 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
+import { TermsAndConditions, PrivacyPolicy } from './views/legal'
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
 import CompleteSignUp from "./views/CompleteSignUp";
@@ -61,6 +62,8 @@ function App() {
           <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
             <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />
           </Route>
+          <Route path="/termsandconditions" element={<TermsAndConditions />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/favorites" element={<Favorites />} />
         </Route>

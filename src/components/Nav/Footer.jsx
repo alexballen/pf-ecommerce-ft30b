@@ -26,6 +26,10 @@ class Footer extends React.Component {
                             <a className="link" href='mailto:pfweb30bfrupo19@gmail.com'>pfweb30bfrupo19@gmail.com</a>
                         </div>
                     </div>
+                    <div className="Container">
+                        <Link className='link' style={{display: 'block'}} to='/termsandconditions'>Términos y condiciones</Link>
+                        <Link className="link" style={{display:'block'}} to='/privacyPolicy'>Pólitica de privacidad</Link>
+                    </div>
                 </div>
             </div>
         )
