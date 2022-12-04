@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-// import logo from "../../images/HCoutureLogo.png";
 
 import UserCart from "../Cart/UserCart";
 import { useSelector } from "react-redux"
@@ -13,7 +11,7 @@ const Nav = () => {
   console.log(user)
   return (
     <>
-      <div className="navbar  bg-white" style={{ width: "100%" }}>
+      <div className="navbar bg-white" style={{ width: "100%" }}>
         <div style={{ width: "fit-content" }}>
           <Link to={"/"} style={{ width: "fit-content" }}>
             <img
@@ -28,25 +26,8 @@ const Nav = () => {
             />
           </Link>
         </div>
-
-        {!loged && (
-          <div className=" flex-1">
-            <Link to="/addproduct">
-              <button className="btn btn-ghost normal-case   text-black  ml-8 text-base">
-                Crear Producto
-              </button>
-            </Link>
-          </div>
-        )}
-
         {!isAuthenticated && (
-          <div>
-            <Link to={"/registerUser"}>
-              <span className="btn btn-ghost normal-case   text-white  text-base m-2  bg-stone-400 hover:bg-stone-500">
-                Regístrate
-              </span>
-            </Link>
-
+          <div className="w-full justify-end mr-5">
             <span
               className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
               onClick={loginWithPopup}
