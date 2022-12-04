@@ -294,3 +294,19 @@ export const deleteUserId = (id) => async (dispatch) => {
   await dispatch(deleteUser(id));
   await axios.delete(`/user/delete/${id}`);
 };
+
+export const banerUserId = (id) => async () => {
+  await axios.delete(`/user/softDelete/${id}`);
+};
+
+export const restoreBanerUserId = (id) => async () => {
+  await axios.delete(`/user/softDelete/${id}?restore=true`);
+};
+
+export const banerProductId = (id) => async () => {
+  await axios.delete(`/products/softDelete/${id}`);
+};
+
+export const restoreBanerProductId = (id) => async () => {
+  await axios.delete(`/products/softDelete/${id}?restore=true`);
+};
