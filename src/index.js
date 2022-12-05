@@ -8,7 +8,8 @@ import axios from "axios";
 import "@tremor/react/dist/esm/tremor.css";
 
 axios.defaults.baseURL =
-  'http://localhost:3001'
+  "https://pf-ecommerce-ft-30-b-odxfhjkfia-uc.a.run.app/";
+  /* 'http://localhost:3001' */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
