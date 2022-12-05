@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 //import logo from "../../images/HCoutureLogo.png";
 
 import UserCart from "../Cart/UserCart";
+
 const Nav = () => {
 
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
@@ -16,8 +17,6 @@ const Nav = () => {
   // if(loggedUser.phoneNumber ===null || loggedUser.cityOfOrigin ===null){
   //   navigate("/completeSignUp")
   // }
-
-
 
   return (
     <>
@@ -37,27 +36,18 @@ const Nav = () => {
           </Link>
         </div>
 
+        <div className="w-full justify-end mr-5 mt-2">
+          {!isAuthenticated && (
+            <span
+              className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
+              onClick={loginWithPopup}
+            >
+              Iniciar Sesión
+            </span>
+          )}
+        </div>
+        {isAuthenticated && <UserCart />}
 
-
-        {!isAuthenticated && (
-          <div>
-            <UserCart />
-            <div>
-              {/* <Link to={"/registerUser"}>
-                <span className="btn btn-ghost normal-case   text-white  text-base m-2  bg-stone-400 hover:bg-stone-500">
-                  Regístrate
-                </span>
-              </Link> */}
-
-              <span
-                className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
-                onClick={loginWithPopup}
-              >
-                Iniciar Sesión
-              </span>
-            </div>
-          </div>
-        )}
         {isAuthenticated && (
           <div className=" mr-8 m-2">
 
