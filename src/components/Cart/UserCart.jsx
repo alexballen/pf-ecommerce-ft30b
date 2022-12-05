@@ -1,13 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { removeritem } from "../../redux/actions";
+
 const UserCart = () => {
   const { Cartitems } = useSelector((state) => state.Cart);
-  const { loggedUser } = useSelector((state) => state.user);
-  const userid = loggedUser?.id;
-  const dispatch = useDispatch();
 
   return (
     <div className="dropdown dropdown-end  ">

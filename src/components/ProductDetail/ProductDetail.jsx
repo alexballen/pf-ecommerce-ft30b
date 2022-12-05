@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { comprartodo } from "../../redux/actions";
 import { GetProductById, buyproduct, addtocart } from "../../redux/actions";
-
+import './ProductDetail.css'
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -20,26 +20,48 @@ const ProductDetail = () => {
   const { product } = useSelector((state) => state.products);
   const { paymenturl } = useSelector((state) => state.products);
   const { loggedUser } = useSelector((state) => state.user);
-
+  const image = document.getElementById('productDetailImage')
+  const imageContainer =document.getElementById('imageContainer')
   const [amoutstock, setbuy] = useState(1);
+  const [cordinates, setCordinates] = useState({
+    x: '',
+    y: ''
+  })
 
   // const email = loggedUser.data?.email;
   const productid = product.id;
-  const userid = loggedUser?.id;
+  const userId = loggedUser?.id;
 
   function agregarcarrito() {
-    dispatch(addtocart(userid, productid, amoutstock, product));
-    dispatch(comprartodo(Cartitems));
+    dispatch(addtocart(userId, productid, amoutstock, product));
   }
-
+ 
   function getvalue(e) {
     const value = parseInt(e.target.value);
     setbuy(value);
-    dispatch(buyproduct(value, id));
+  }
+  
+  function mobileZoom(e) {
+    setCordinates({
+      x: '50',
+      y: '50'
+    })
+    image.style.objectPosition = 'center'
+    image.style.transform ='scale(1.3)'
+    image.style.top = `${cordinates.y - e.clientY/7}%`
+    image.style.left = `${cordinates.x - e.clientX/12}%`
+  }
+
+  function zoomOut(e) {
+    image.style.top = '0px'
+    image.style.left = '0px'
+    image.style.transform = 'scale(1.0)'
+  }
+  function Generarlink() {
+    dispatch(buyproduct(amoutstock, id));
   }
 
   useEffect(() => {
-    dispatch(buyproduct(amoutstock, id));
     dispatch(GetProductById(id));
   }, []);
 
@@ -51,8 +73,8 @@ const ProductDetail = () => {
             {product.photos
               ? product.photos.map((e, i) => {
                   return (
-                    <div key={i} className="carousel-item h-full ">
-                      <img alt="imagetext" src={e.url} />
+                    <div onMouseMove={(e) => mobileZoom(e)} onPointerLeave={(e) => zoomOut(e)}  key={i} id='imageContainer' className="carousel-item overflow-hidden ">
+                      <img  id='productDetailImage' alt="imagetext" src={e.url} />
                     </div>
                   );
                 })
@@ -134,12 +156,13 @@ const ProductDetail = () => {
 
               {isAuthenticated ? (
                 <div>
-                  <a
-                    href={paymenturl}
+                  <label
+                    onClick={Generarlink}
+                    htmlFor="Pagartodo"
                     className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-green-500 border-0 py-2 px-2 focus:outline-none rounded"
                   >
-                    Comprar ahora
-                  </a>
+                    Comprar
+                  </label>
                 </div>
               ) : (
                 <div>
@@ -151,6 +174,52 @@ const ProductDetail = () => {
                   </a>
                 </div>
               )}
+            </div>
+
+            <input type="checkbox" id="Pagartodo" className="modal-toggle " />
+            <div className="modal ">
+              <div className="modal-box   ">
+                <h3 className="font-bold  text-lg">
+                  <div className="alert   shadow-lg">
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="stroke-current flex-shrink-0 h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        />
+                      </svg>
+
+                      <p className=" text-black py-4   font-bold  ">
+                        Quieres comprar x{amoutstock} {product.name}
+                      </p>
+                    </div>
+                  </div>
+                </h3>
+
+                <div className="modal-action">
+                  <a
+                    href={paymenturl}
+                    htmlFor="Pagartodo"
+                    className="btn bg-green-500 text-white hover:bg-green-600 "
+                  >
+                    ir a Pagar!
+                  </a>
+
+                  <label
+                    htmlFor="Pagartodo"
+                    className="btn bg-red-500 text-white hover:bg-red-600 "
+                  >
+                    Cerrar
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>

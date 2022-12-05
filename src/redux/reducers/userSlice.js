@@ -7,6 +7,7 @@ const userSlice = createSlice({
     loggedUser: {},
     favorites: [],
     users: [],
+    filterUser: [],
   },
   reducers: {
     loggedUser: (state, action) => {
@@ -21,13 +22,17 @@ const userSlice = createSlice({
     },
     allUser: (state, action) => {
       state.users = action.payload;
+      state.filterUser = action.payload;
     },
     deleteUser(state, action) {
       const delPro = state.filterUser.filter((e) => e.id !== action.payload);
       state.users = delPro;
     },
     searchByUser(state, action) {
-      state.users = action.payload;
+      let filtUser = state.filterUser.filter((us) =>
+        us.username.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      state.users = filtUser;
     },
     sortUser: (state, action) => {
       const orderFullname =

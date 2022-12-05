@@ -11,6 +11,7 @@ import ProtectedRoutes from "./ProtectedRoutes"
 import BlockedUserRoutes from "./BlockedUserRoutes"
 import AdminRoutes from "./AdminRoutes"
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
+import { TermsAndConditions, PrivacyPolicy } from "./views/legal";
 import UserProfile from "./views/UserProfile";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
@@ -23,11 +24,14 @@ import CartPaymentspending from "./components/Cart/CartPaymentspending";
 import CartPaymentsfail from "./components/Cart/CartPaymentsfail";
 import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
+import Historial from "./components/Cart/Historial";
+import EditProduct from "./components/dashboard/EditProduct";
+
 
 function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
   const { loggedUser } = useSelector((state) => state.user);
   //   useEffect(() => {
 
@@ -67,6 +71,8 @@ function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path="/completeSignUp" element={<CompleteSignUp />} />
               <Route path="/user/:id" element={<UserProfile />} />
+              <Route path="/Cart" element={<Cart />} />
+              <Route path="/favorites" element={<Favorites />} />
             </Route>
 
             <Route element={<AdminRoutes />}>
@@ -75,11 +81,13 @@ function App() {
               <Route path="/paymentsfail" element={<CartPaymentsfail />} />
               <Route path="/paymentspending" element={<CartPaymentspending />} />
               <Route path="/dashboard" element={<DashboardAdmin />} />
+              <Route path="/editproduct/:id" element={<EditProduct />} />
               <Route path="/addproduct" element={<CreateProduct />} />
             </Route>
 
           </Route>
-
+          <Route path="/termsandconditions" element={<TermsAndConditions />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
         </Route>
       </Routes>
       <Footer />
