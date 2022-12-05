@@ -13,6 +13,8 @@ import {
   pagePaginated,
   urlpayment,
   deleteProduct,
+  baneoProduct,
+  restoreBanProduct,
 } from "../reducers/getProductsSlice";
 
 import {
@@ -20,11 +22,12 @@ import {
   agregaracart,
   limpiarcart,
   quitaritem,
- 
   totalapagar,
   comprartodolink,
-  clearlinks,agregarcomprado,
-  info,updatecartitem
+  clearlinks,
+  agregarcomprado,
+  info,
+  updatecartitem,
 } from "../reducers/Cart";
 
 import {
@@ -35,90 +38,96 @@ import {
   deleteUser,
   searchByUser,
   sortUser,
+  baneoUser,
+  restoreBanUser,
 } from "../reducers/userSlice";
 
-export const getProducts = (userId) => async (dispatch) =>
-{
- 
+export const getProducts = (userId) => async (dispatch) => {
   if (userId)
     axios
       .get(`/products?userId=${userId}`)
       .then((res) => dispatch(allProductsForUser(res.data)))
-      .catch(error => { throw new Error(error) });
+      .catch((error) => {
+        throw new Error(error);
+      });
   else
     axios
       .get(`/products`)
       .then((res) => dispatch(allProducts(res.data)))
-      .catch((error) => {throw new Error(error) });
+      .catch((error) => {
+        throw new Error(error);
+      });
 };
 
 export const getCategories = () => async (dispatch) => {
   axios
     .get(`/products/categories`)
     .then((res) => dispatch(allCategories(res.data)))
-    .catch((error) => {throw new Error(error)});
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const getBrand = () => async (dispatch) => {
   axios
-      .get(`/products/brands`)
-      .then((res) => dispatch(allBrands(res.data)))
-      .catch((error) => {
-          throw new Error(error)
-      })
+    .get(`/products/brands`)
+    .then((res) => dispatch(allBrands(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const getCountry = () => async (dispatch) => {
   axios
-      .get(`/country`)
-      .then((res) => dispatch(getCountries(res.data)))
-      .catch((error) => {
-          throw new Error(error)
-      })
+    .get(`/country`)
+    .then((res) => dispatch(getCountries(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const completeSignUp = (userId, data) => async (dispatch) => {
   await axios({
-      method: 'PATCH',
-      url: `/user/${userId}`,
-      data: data
+    method: "PATCH",
+    url: `/user/${userId}`,
+    data: data,
   }).catch((error) => {
-      throw new Error(error)
-  })
+    throw new Error(error);
+  });
 };
 
 export const getUserFavorites = (userId) => async (dispatch) => {
   axios
-      .get(`/user/favorites/${userId}`)
-      .then((res) => dispatch(getFavorites(res.data.products)))
-      .catch((error) => {
-          throw new Error(error)
-      })
+    .get(`/user/favorites/${userId}`)
+    .then((res) => dispatch(getFavorites(res.data.products)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const addFavorites = (data) => async (dispatch) => {
   await axios({
-      method: 'POST',
-      url: `/user/favorites`,
-      data: data
+    method: "POST",
+    url: `/user/favorites`,
+    data: data,
   })
-      .then(() => dispatch(getProducts(data.userId)))
-      .catch((error) => {
-          throw new Error(error)
-      })
+    .then(() => dispatch(getProducts(data.userId)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const deleteFavorites = (data) => async (dispatch) => {
   await axios({
-      method: 'DELETE',
-      url: `/user/removeFromFavorites`,
-      data: data
+    method: "DELETE",
+    url: `/user/removeFromFavorites`,
+    data: data,
   })
-      .then(() => dispatch(getProducts(data.userId)))
-      .then(() => dispatch(getUserFavorites(data.userId)))
-      .catch((error) => {
-          throw new Error(error)
-      })
+    .then(() => dispatch(getProducts(data.userId)))
+    .then(() => dispatch(getUserFavorites(data.userId)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const byCategory = (data) => async (dispatch) => {
@@ -162,12 +171,12 @@ export const Clearproduct = () => {
 };
 export const createNewUser = (data) => async () => {
   await axios({
-      method: 'POST',
-      url: `/user/register`,
-      data: data
+    method: "POST",
+    url: `/user/register`,
+    data: data,
   }).catch((error) => {
-      throw new Error(error)
-  })
+    throw new Error(error);
+  });
 };
 
 export const currentPagePaginated = (page) => async (dispatch) => {
@@ -176,12 +185,12 @@ export const currentPagePaginated = (page) => async (dispatch) => {
 
 export const createNewProduct = (data) => async () => {
   await axios({
-      method: 'POST',
-      url: `/products`,
-      data: data
+    method: "POST",
+    url: `/products`,
+    data: data,
   }).catch((error) => {
-      throw new Error(error)
-  })
+    throw new Error(error);
+  });
 };
 
 // export const currentPagePaginated = (page) => async (dispatch) => {
@@ -191,10 +200,7 @@ export const createNewProduct = (data) => async () => {
 export function getCurrentUser(user) {
   // Obtener la info del user loggeado
 
-  return async function (dispatch)
-  {
-    
-
+  return async function (dispatch) {
     const config = {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
@@ -207,10 +213,10 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-export const buyproduct = (quantity, id,userId) => {
+export const buyproduct = (quantity, id, userId) => {
   const getproduct = {
     quantity: quantity,
-    userId:userId,
+    userId: userId,
   };
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
@@ -218,7 +224,7 @@ export const buyproduct = (quantity, id,userId) => {
     dispatch(urlpayment(url.data));
   };
 };
- 
+
 export const addtocart = (userId, productId, qty, product) => {
   const adddingtocart = {
     userId: userId,
@@ -226,15 +232,12 @@ export const addtocart = (userId, productId, qty, product) => {
     qty: qty,
   };
   return async function (dispatch) {
-    
     await axios.post(`/store/add`, adddingtocart);
     dispatch(agregaracart(product));
   };
 };
 
-
 export const addcomprado = (product) => {
- 
   return async function (dispatch) {
     // await axios.post(`/store/addhistorial`, adddingtocart);
     dispatch(agregarcomprado(product));
@@ -248,7 +251,6 @@ export const updatecart = (userId, productId, qty) => {
     qty: qty,
   };
   return async function (dispatch) {
-  
     // await axios.put(`/store/update`, updated);
     dispatch(updatecartitem(productId, qty));
   };
@@ -284,7 +286,7 @@ export const comprartodo = (userId) => {
 export const Rectificar = () => {
   return async function (dispatch) {
     const url = await axios.get(`/store/payments`);
-    
+
     dispatch(info(url));
   };
 };
@@ -314,11 +316,11 @@ export const deleteProductId = (id) => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
   axios
-      .get(`/user`)
-      .then((res) => dispatch(allUser(res.data)))
-      .catch((error) => {
-          throw new Error(error)
-      })
+    .get(`/user`)
+    .then((res) => dispatch(allUser(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 
 export const deleteUserId = (id) => async (dispatch) => {
@@ -326,29 +328,30 @@ export const deleteUserId = (id) => async (dispatch) => {
   await axios.delete(`/user/delete/${id}`);
 };
 
-export const updateUser = (data, id) =>
-{
-  return async function ()
-  {
+export const updateUser = (data, id) => {
+  return async function () {
     const response = await axios.put(`/userData/${id}`, data);
 
-    
-    return response
+    return response;
   };
 };
-export const banerUserId = (id) => async () => {
+export const banerUserId = (id) => async (dispatch) => {
+  dispatch(baneoUser(id));
   await axios.delete(`/user/softDelete/${id}`);
 };
 
-export const restoreBanerUserId = (id) => async () => {
+export const restoreBanerUserId = (id) => async (dispatch) => {
+  dispatch(restoreBanUser());
   await axios.delete(`/user/softDelete/${id}?restore=true`);
 };
 
-export const banerProductId = (id) => async () => {
+export const banerProductId = (id) => async (dispatch) => {
+  dispatch(baneoProduct(id));
   await axios.delete(`/products/softDelete/${id}`);
 };
 
-export const restoreBanerProductId = (id) => async () => {
+export const restoreBanerProductId = (id) => async (dispatch) => {
+  dispatch(restoreBanProduct());
   await axios.delete(`/products/softDelete/${id}?restore=true`);
 };
 

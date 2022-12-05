@@ -11,7 +11,6 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 const UsersTable = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
- 
 
   useEffect(() => {
     dispatch(getUser());

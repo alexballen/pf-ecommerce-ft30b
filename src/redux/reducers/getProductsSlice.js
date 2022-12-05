@@ -146,6 +146,14 @@ const productSlice = createSlice({
       const delPro = state.products.filter((e) => e.id !== action.payload);
       state.filteredProducts = delPro;
     },
+    baneoProduct(state, action) {
+      const banPro = state.products.filter((e) => e.id !== action.payload);
+      state.filteredProducts = banPro;
+    },
+    restoreBanProduct(state, action) {
+      const resPro = state.products.filter((e) => e.id);
+      state.filteredProducts = resPro;
+    },
   },
 });
 
@@ -163,5 +171,7 @@ export const {
   pagePaginated,
   urlpayment,
   deleteProduct,
+  baneoProduct,
+  restoreBanProduct,
 } = productSlice.actions;
 export default productSlice.reducer;
