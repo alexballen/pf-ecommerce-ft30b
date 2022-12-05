@@ -6,12 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 
-
 function AdminRoutes() {
-  const loggedUser = useSelector((state) => state.user);
-  const navigate = useNavigate()
+  const { loggedUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
-  const { isAuthenticated, isLoading, getAccessTokenSilently, user} =
+  const { isAuthenticated, isLoading, getAccessTokenSilently, user } =
     useAuth0();
   const dispatch = useDispatch();
 
