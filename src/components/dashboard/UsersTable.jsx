@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser, deleteUserId } from "../../redux/actions";
 import FilterUsers from "./FilterUsers";
+import perfil from "../../images/perfil.png";
 import swal from "sweetalert";
+import { AiFillEdit } from "react-icons/ai";
+import { TfiTrash } from "react-icons/tfi";
+import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 const UsersTable = () => {
   const dispatch = useDispatch();
@@ -51,6 +55,10 @@ const UsersTable = () => {
     });
   };
 
+  const handleAlert = (e) => {
+    swal(e.target.value);
+  };
+
   return (
     <>
       <div className="mx-6 border-b sticky top-0">
@@ -58,10 +66,12 @@ const UsersTable = () => {
       </div>
       <div className="mx-6 bg-stone-300">
         <table className="w-full">
-          <thead className="bg-stone-400 border-b sticky top-24">
+          <thead className="bg-stone-400 border-b sticky top-12">
             <tr>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                N°
+                <div className="tooltip" data-tip="Id">
+                  N°
+                </div>
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
                 Foto
@@ -81,14 +91,13 @@ const UsersTable = () => {
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
                 Fecha de Registro
               </th>
-              {/* <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Nombre de Usuario
-              </th> */}
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Editar
+                Nombre de Usuario
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Eliminar
+                <div className="tooltip" data-tip="Editar-Eliminar-Baneo">
+                  Opciones
+                </div>
               </th>
             </tr>
           </thead>
@@ -97,14 +106,23 @@ const UsersTable = () => {
               <tbody>
                 <tr>
                   <td className="border border-white px-4 py-2">
-                    <div className="flex justify-center">{i + 1}</div>
+                    <div className="flex justify-center">
+                      <button
+                        className="btn btn-xs"
+                        value={e.id}
+                        onClick={(e) => handleAlert(e)}
+                      >
+                        {i + 1}
+                      </button>
+                    </div>
                   </td>
                   <td className="border border-white px-4 py-2">
                     <div className="flex justify-center bg-red-600">
                       <img
-                        src={e.photo.url}
+                        src={e.photo.url ? perfil : e.photo.url}
                         alt="Not found"
-                        className="w-full h-full"
+                        width={45}
+                        height={25}
                       />
                     </div>
                   </td>
@@ -122,14 +140,21 @@ const UsersTable = () => {
                     {e.unitedAt}
                   </td>
                   <td className="border border-white px-4 py-2">
-                    <button onClick={() => handleEdit(e.id)} className="btn">
-                      Editar
-                    </button>
+                    {e.username}
                   </td>
-                  <td className="border border-gray-400 px-4 py-2">
-                    <button onClick={() => handleDelete(e.id)} className="btn">
-                      Eliminar
-                    </button>
+                  <td className="border border-white px-4 py-2">
+                    <div className="flex flex-row">
+                      <button onClick={() => handleEdit(e.id)} className="mr-2">
+                        <AiFillEdit />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(e.id)}
+                        className="mr-2"
+                      >
+                        <TfiTrash />
+                      </button>
+                      {e.isBan === false ? <FcApprove /> : <FcDisapprove />}
+                    </div>
                   </td>
                 </tr>
               </tbody>

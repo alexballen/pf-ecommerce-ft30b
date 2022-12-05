@@ -1,0 +1,17 @@
+#productDetailImage {
+    width: 25em;
+    height: 25em;
+    object-fit: scale-down;
+    position: absolute;
+    
+}
+
+
+
+#imageContainer {
+    border-radius: 20px;
+    width: 27em;
+    height: 27em;
+    overflow: hidden;
+    position: relative
+}

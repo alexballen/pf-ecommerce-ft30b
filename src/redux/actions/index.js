@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import {
   allProducts,
@@ -21,11 +20,11 @@ import {
   agregaracart,
   limpiarcart,
   quitaritem,
-  urlcarpayment,
+ 
   totalapagar,
   comprartodolink,
-  clearlinks,
-  info,
+  clearlinks,agregarcomprado,
+  info,updatecartitem
 } from "../reducers/Cart";
 
 import {
@@ -191,9 +190,10 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-export const buyproduct = (quantity, id) => {
+export const buyproduct = (quantity, id,userId) => {
   const getproduct = {
     quantity: quantity,
+    userId:userId,
   };
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
@@ -201,17 +201,7 @@ export const buyproduct = (quantity, id) => {
     dispatch(urlpayment(url.data));
   };
 };
-export const buyproductcart = (quantity, id) => {
-  const getproduct = {
-    quantity: quantity,
-  };
-  return async function (dispatch) {
-    const url = await axios.post(`/store/${id}`, getproduct);
-    console.log(url.data);
-    dispatch(urlcarpayment(url.data));
-  };
-};
-
+ 
 export const addtocart = (userId, productId, qty, product) => {
   const adddingtocart = {
     userId: userId,
@@ -221,6 +211,28 @@ export const addtocart = (userId, productId, qty, product) => {
   return async function (dispatch) {
     await axios.post(`/store/add`, adddingtocart);
     dispatch(agregaracart(product));
+  };
+};
+
+
+export const addcomprado = (product) => {
+ 
+  return async function (dispatch) {
+    // await axios.post(`/store/addhistorial`, adddingtocart);
+    dispatch(agregarcomprado(product));
+  };
+};
+
+export const updatecart = (userId, productId, qty) => {
+  const updated = {
+    userId: userId,
+    productId: productId,
+    qty: qty,
+  };
+  return async function (dispatch) {
+  
+    // await axios.put(`/store/update`, updated);
+    dispatch(updatecartitem(productId, qty));
   };
 };
 
@@ -240,9 +252,9 @@ export const clearlink = () => {
   };
 };
 
-export const comprartodo = (userid) => {
+export const comprartodo = (userId) => {
   const final = {
-    userId: userid,
+    userId: userId,
   };
 
   return async function (dispatch) {
@@ -292,4 +304,24 @@ export const getUser = () => async (dispatch) => {
 export const deleteUserId = (id) => async (dispatch) => {
   await dispatch(deleteUser(id));
   await axios.delete(`/user/delete/${id}`);
+};
+
+export const banerUserId = (id) => async () => {
+  await axios.delete(`/user/softDelete/${id}`);
+};
+
+export const restoreBanerUserId = (id) => async () => {
+  await axios.delete(`/user/softDelete/${id}?restore=true`);
+};
+
+export const banerProductId = (id) => async () => {
+  await axios.delete(`/products/softDelete/${id}`);
+};
+
+export const restoreBanerProductId = (id) => async () => {
+  await axios.delete(`/products/softDelete/${id}?restore=true`);
+};
+
+export const editProductId = (data, id) => async () => {
+  await axios.put(`/products/update?productId=${id}`, data);
 };

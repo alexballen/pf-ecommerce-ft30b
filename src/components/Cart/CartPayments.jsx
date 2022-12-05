@@ -1,25 +1,40 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { cleancart, clearlink } from "../../redux/actions";
+import { addcomprado } from "../../redux/actions";
 
 function CartPayments() {
+ 
   const dispatch = useDispatch();
+  const {id} = useParams()
   const { loggedUser } = useSelector((state) => state.user);
-  const userid = loggedUser?.id;
+  const userId = loggedUser?.id;
+  const { Cartitems } = useSelector((state) => state.Cart);
+  const { Comprados } = useSelector((state) => state.Cart);
+  function cleabcart() {
+    for(let e of Cartitems){
+      dispatch(addcomprado(e))
+    }
 
-  function clearcart() {
-    if (userid) {
-      dispatch(cleancart(userid));
+    if (userId) {
+      dispatch(cleancart(userId));
       dispatch(clearlink());
     }
   }
-
+  console.log(Cartitems) 
+  console.log(Comprados)
   useEffect(() => {
-    dispatch(cleancart(userid));
+    
+    for(let e of Cartitems){
+      dispatch(addcomprado(e))
+    }
+    
+    dispatch(cleancart(userId));
     dispatch(clearlink());
   }, []);
 
@@ -45,7 +60,7 @@ function CartPayments() {
               Pago realizado correctamente disfute de sus productos.
             </p>
             <Link to={"/"}>
-              <button onClick={clearcart} className="btn btn-accent">
+              <button onClick={cleabcart} className="btn btn-accent">
                 Ir a comprar
               </button>
             </Link>
