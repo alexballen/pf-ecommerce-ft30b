@@ -312,7 +312,7 @@ const UserProfile = () => {
                             type="text"
                             value={userData.postalCode}
                             onChange={handleChange}
-                            name="codigoPostal"
+                            name="postalCode"
                             id="codigoPostal"
                             autoComplete="postal-code"
                             className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
