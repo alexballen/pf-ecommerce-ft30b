@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
+import { useAuth0 } from "@auth0/auth0-react";
+import
+{
   getProducts,
   Clearproduct,
   currentPagePaginated,
@@ -13,8 +15,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const { filteredProducts: products } = useSelector((state) => state.products);
   const { page } = useSelector((state) => state.page);
-  const { loggedUser, isAuthenticated } = useSelector((state) => state.user);
 
+  const { loggedUser } = useSelector(state => state.user);
+  const {isAuthenticated} = useAuth0()
   const [currentPage, setCurrentPage] = useState(page);
   const [productsByPage, setProductsByPage] = useState(8);
 
@@ -32,10 +35,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(Clearproduct());
-    console.log({ isAuthenticated });
-    console.log({ loggedUser });
-    if (isAuthenticated) dispatch(getProducts(loggedUser.id));
-    else dispatch(getProducts());
+
+    if (isAuthenticated)
+      dispatch(getProducts(loggedUser.id));
+    else
+      dispatch(getProducts());
   }, [isAuthenticated]);
   return (
     <>

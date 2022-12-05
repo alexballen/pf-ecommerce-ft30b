@@ -7,8 +7,12 @@ import { getCurrentUser } from "./redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
+import ProtectedRoutes from "./ProtectedRoutes"
+import BlockedUserRoutes from "./BlockedUserRoutes"
+import AdminRoutes from "./AdminRoutes"
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
 import { TermsAndConditions, PrivacyPolicy } from "./views/legal";
+import UserProfile from "./views/UserProfile";
 import Nav from "./components/Nav/Nav";
 import Favorites from "./components/Favorites/Favorites";
 import CompleteSignUp from "./views/CompleteSignUp";
@@ -40,7 +44,7 @@ function App() {
     if (isAuthenticated) {
       dispatch(getCurrentUser(user));
     }
-    console.log("Usuario: " + loggedUser);
+    console.log('Usuario: ', loggedUser)
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())
@@ -51,32 +55,39 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/dashboard" element={<DashboardAdmin />} />
-        <Route path="/editproduct/:id" element={<EditProduct />} />
-        <Route path="/" element={<Nav />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/addproduct" element={<CreateProduct />} />
-          <Route path="/Products/:id" element={<ProductDetail />} />
-          <Route path="/completeSignUp" element={<CompleteSignUp />} />{" "}
-          <Route path="/payments/:id" element={<CartPayments />} />
-          <Route path="/ipayments/:id" element={<ItemPayments />} />
-          <Route path="/paymentsfail" element={<CartPaymentsfail />} />
-          <Route path="/paymentspending" element={<CartPaymentspending />} />
-          <Route path="/Historial" element={<Historial />} />
-          <Route path="/completeSignUp" element={<CompleteSignUp />} />
-          <Route
-            path="/aboutUs"
-            element={<AboutUsPage open={open} setOpen={setOpen} />}
-          >
-            <Route
-              path=":desarrollador"
-              element={<Desarrollador open={open} setOpen={setOpen} />}
-            />
+        <Route element={<BlockedUserRoutes />}>
+          
+          <Route path="/" element={<Nav />}>
+
+            <Route path="/" element={<Home />} />
+            <Route path="/Products/:id" element={<ProductDetail />} />
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="/favorites" element={<Favorites />} />
+
+            <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
+              <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />
+            </Route>
+
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/completeSignUp" element={<CompleteSignUp />} />
+              <Route path="/user/:id" element={<UserProfile />} />
+              <Route path="/Cart" element={<Cart />} />
+              <Route path="/favorites" element={<Favorites />} />
+            </Route>
+
+            <Route element={<AdminRoutes />}>
+              <Route path="/payments/:id" element={<CartPayments />} />
+              <Route path="/ipayments/:id" element={<ItemPayments />} />
+              <Route path="/paymentsfail" element={<CartPaymentsfail />} />
+              <Route path="/paymentspending" element={<CartPaymentspending />} />
+              <Route path="/dashboard" element={<DashboardAdmin />} />
+              <Route path="/editproduct/:id" element={<EditProduct />} />
+              <Route path="/addproduct" element={<CreateProduct />} />
+            </Route>
+
           </Route>
           <Route path="/termsandconditions" element={<TermsAndConditions />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/favorites" element={<Favorites />} />
         </Route>
       </Routes>
       <Footer />

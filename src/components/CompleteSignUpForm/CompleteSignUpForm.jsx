@@ -103,9 +103,7 @@ const CompleteSignUpForm = () =>
                             <label>Ciudad de origen</label>
                             <select className="select w-full max-w-xs" name="city" onChange={(e) => handleInputChange(e)}>
                                 <option disabled selected>elegir</option>
-                                {countries
-                                    .find(country => country.id === input.country)
-                                    ?.cities
+                                {countries?.find(country => country.id === input.country)?.cities
                                     .map(city =>
                                         <option value={city.id}>{city.name}</option>)
                                 }

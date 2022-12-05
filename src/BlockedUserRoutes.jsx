@@ -1,23 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 // import { getCurrentUser} from "./redux/actions";
 import ClipLoader from "react-spinners/ClipLoader";
-import LoginPopup from "./components/LoginPopup/LoginPopup";
 import BlockPopUp from "./components/BlockPopup/BlockPopup";
 
 
-function ProtectedRoutes() {
-  const { isAuthenticated, isLoading, getAccessTokenSilently, user } = useAuth0();
-  const dispatch = useDispatch();
+function BlockedUserRoutes() {
+  const { isAuthenticated, isLoading } = useAuth0();
   const userLogged = useSelector(state => state.user)
 
   //HAY QUE VERIFICAR QUE SU EMAIL ESTÉ VERIFICADO Y 
   // QUE TENGA TODOS LOS CAMPOS NECESARIOS LLENOS
   return (
     
-    isAuthenticated  ? (
+    !isAuthenticated ?  (
     <Outlet />
     ) : isLoading ? 
     ( <div
@@ -31,11 +29,11 @@ function ProtectedRoutes() {
       <ClipLoader color="#ef8354" size={70} margin={10} />
       </div>
     ) 
-    :
+    :isAuthenticated && userLogged.isBan ?
     (
-    <LoginPopup />
-    )
+    <BlockPopUp />
+    ): <Outlet />
   )
 }
 
-export default ProtectedRoutes;
+export default BlockedUserRoutes;

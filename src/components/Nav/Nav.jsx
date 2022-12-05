@@ -1,17 +1,26 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { getCurrentUser } from "../../redux/actions/index"
+import { useSelector, useDispatch } from "react-redux";
+//import logo from "../../images/HCoutureLogo.png";
 
 import UserCart from "../Cart/UserCart";
-import { useSelector } from "react-redux";
+
 const Nav = () => {
-  const [loged, setloged] = React.useState(false);
-  const { loggedUser } = useSelector((state) => state.user);
+
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
-  console.log(user);
+  const { loggedUser } = useSelector(state => state.user);
+
+  // const navigate = useNavigate()
+  // if(loggedUser.phoneNumber ===null || loggedUser.cityOfOrigin ===null){
+  //   navigate("/completeSignUp")
+  // }
+
   return (
     <>
-      <div className="navbar bg-white " style={{ width: "100%" }}>
+      <div className="navbar flex justify-between bg-white" style={{ width: "100%" }}>
         <div style={{ width: "fit-content" }}>
           <Link to={"/"} style={{ width: "fit-content" }}>
             <img
@@ -26,6 +35,7 @@ const Nav = () => {
             />
           </Link>
         </div>
+
         <div className="w-full justify-end mr-5 mt-2">
           {!isAuthenticated && (
             <span
@@ -37,8 +47,25 @@ const Nav = () => {
           )}
         </div>
         {isAuthenticated && <UserCart />}
+
         {isAuthenticated && (
-          <div className="flex-none mr-8 m-2 ">
+          <div className=" mr-8 m-2">
+
+            <UserCart />
+
+          {loggedUser && loggedUser.isAdmin && (
+            <div className=" flex-1">
+              <Link to="/dashboard">
+                <button className="btn btn-ghost normal-case   text-black  ml-8 text-base">
+                  Panel de Admin
+                </button>
+              </Link>
+            </div>
+          )}
+
+      
+
+          {loggedUser ? (
             <div className="dropdown dropdown-end   ">
               <label
                 tabIndex={0}
@@ -56,14 +83,13 @@ const Nav = () => {
                     />
                   </div>
                 )}
-
                 <span className="justify-between text-black">
                   {user.name ? user.name : user.nickname}
                 </span>
               </label>
               {/* active mediante log in o inactivemediante log out */}
               <ul className="menu    menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <Link to={"/Profile"}>
+                <Link to={`/user/${loggedUser.id}`}>
                   <li>
                     <span className="justify-between text-xl  ">Perfil</span>
                   </li>
@@ -84,13 +110,7 @@ const Nav = () => {
                     </span>
                   </li>
                 </Link>
-                <Link to={"/Settings"}>
-                  <li>
-                    <span className="justify-between text-xl  ">
-                      Editar perfil
-                    </span>
-                  </li>
-                </Link>
+
                 <li>
                   <button className="text-xl" onClick={logout}>
                     Cerrar Sesión
@@ -98,6 +118,9 @@ const Nav = () => {
                 </li>
               </ul>
             </div>
+          ) : (
+            null
+          )}
           </div>
         )}
       </div>

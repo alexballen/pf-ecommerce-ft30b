@@ -8,18 +8,14 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 
 
 function AdminRoutes() {
-  const userDetail = useSelector((state) => state.userLogged);
+  const loggedUser = useSelector((state) => state.user);
   const navigate = useNavigate()
 
   const { isAuthenticated, isLoading, getAccessTokenSilently, user} =
     useAuth0();
   const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     dispatch(getCurrentUser(getAccessTokenSilently, user));
-//   }, [dispatch, user]);
-
-  return isAuthenticated && userDetail.isAdmin ? (
+  return isAuthenticated && loggedUser.isAdmin ? (
     <Outlet />
   ) : isLoading ? (
     <div
