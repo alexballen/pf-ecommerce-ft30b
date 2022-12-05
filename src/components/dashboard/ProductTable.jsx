@@ -10,7 +10,7 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 const ProductTable = () => {
   const dispatch = useDispatch();
   const { filteredProducts: products } = useSelector((state) => state.products);
-  console.log(products);
+ 
 
   useEffect(() => {
     dispatch(getProducts());

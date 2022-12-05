@@ -85,7 +85,7 @@ const EditProduct = () => {
   const { categories } = useSelector((state) => state.categories);
   const { products } = useSelector((state) => state.products);
   const { product } = useSelector((state) => state.product);
-  console.log(product);
+
   const categDelHM = categories.filter(
     (e) => e.name !== "Hombre" && e.name !== "Mujer"
   );
@@ -179,7 +179,7 @@ const EditProduct = () => {
       ...newProduct,
       [e.target.name]: e.target.value,
     });
-    console.log(e.target.value);
+   
   };
 
   const handleBlur = (e) => {

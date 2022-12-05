@@ -151,7 +151,7 @@ const CreateProduct = () => {
       ...newProduct,
       [e.target.name]: e.target.value,
     });
-    console.log(e.target.value);
+   
   };
 
   const handleBlur = (e) => {

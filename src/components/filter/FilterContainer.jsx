@@ -54,8 +54,8 @@ const FilterContainer = () => {
             Categorías
           </option>
           <option value="All">All</option>
-          {category.map((el) => (
-            <option value={el}>{el}</option>
+          {category.map((el, i) => (
+            <option key={i} value={el}>{el}</option>
           ))}
         </select>
       </div>
@@ -68,8 +68,8 @@ const FilterContainer = () => {
             Marcas
           </option>
           <option value="All">All</option>
-          {brand.map((el) => (
-            <option value={el}>{el}</option>
+          {brand.map((el, i) => (
+            <option key={i} value={el}>{el}</option>
           ))}
         </select>
       </div>
@@ -90,7 +90,7 @@ const FilterContainer = () => {
           className="select min-w-0 btn-ghost"
           onChange={(e) => handleByOrder(e)}
         >
-          <option disabled selected>
+          <option disabled selected >
             Orden
           </option>
           <option value="A-Z">A-Z</option>

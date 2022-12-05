@@ -85,20 +85,20 @@ const ProductDetail = () => {
             <h2 className="text-sm  text-slate-700 font-bold title-font  tracking-widest mb-2 ">
               {product.brand ? product.brand.name : "no product brand found"}
             </h2>
-            <h2 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
+            <h3 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
               {product.categories
                 ? product.categories.map((e, i) => {
                     return (
-                      <h2
+                      <p
                         key={i}
                         className="badge  text-white bg-slate-400 border-0 ml-1 "
                       >
                         {e.name}
-                      </h2>
+                      </p>
                     );
                   })
                 : "no product gender found"}
-            </h2>
+            </h3>
             <h1 className="text-slate-700  text-3xl title-font font-medium mb-1">
               {product ? product.name : "no product name found"}
             </h1>

@@ -49,7 +49,7 @@ const desarrolladores = [
     },
     {
         name: 'Josmer Uriel Bertel Calle',
-        photo: '/assets/images/josmer.jpg',
+        photo: '/assets/images/Josmer.jpg',
         redes: [
             {
                 href: 'https://www.linkedin.com/in/josmer-bertel-calle-12569a236/',
