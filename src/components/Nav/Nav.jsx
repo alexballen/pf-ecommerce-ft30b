@@ -1,17 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getCurrentUser } from "../../redux/actions/index"
 import { useSelector, useDispatch } from "react-redux";
 //import logo from "../../images/HCoutureLogo.png";
 
 import UserCart from "../Cart/UserCart";
-const Nav = () => { 
-  const dispatch = useDispatch()
-  const [loged, setloged] = useState(false);
+const Nav = () => {
+
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
   const { loggedUser } = useSelector(state => state.user);
+
+  // const navigate = useNavigate()
+  // if(loggedUser.phoneNumber ===null || loggedUser.cityOfOrigin ===null){
+  //   navigate("/completeSignUp")
+  // }
 
 
 
@@ -33,74 +37,43 @@ const Nav = () => {
           </Link>
         </div>
 
-      
+
 
         {!isAuthenticated && (
           <div>
-            <Link to={"/registerUser"}>
-              <span className="btn btn-ghost normal-case   text-white  text-base m-2  bg-stone-400 hover:bg-stone-500">
-                Regístrate
-              </span>
-            </Link>
+            <UserCart />
+            <div>
+              {/* <Link to={"/registerUser"}>
+                <span className="btn btn-ghost normal-case   text-white  text-base m-2  bg-stone-400 hover:bg-stone-500">
+                  Regístrate
+                </span>
+              </Link> */}
 
-            <span
-              className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
-              onClick={loginWithPopup}
-            >
-              Iniciar Sesión
-            </span>
+              <span
+                className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
+                onClick={loginWithPopup}
+              >
+                Iniciar Sesión
+              </span>
+            </div>
           </div>
         )}
-        {isAuthenticated && <UserCart />}
         {isAuthenticated && (
           <div className=" mr-8 m-2">
 
+            <UserCart />
+
             {loggedUser && loggedUser.isAdmin && (
               <div className=" flex-1">
-                <Link to="/addproduct">
+                <Link to="/dashboard">
                   <button className="btn btn-ghost normal-case   text-black  ml-8 text-base">
-                    Crear Producto
+                    Panel de Admin
                   </button>
                 </Link>
               </div>
             )}
 
-            <div className="dropdown dropdown-end mr-6 ">
-              <label tabIndex={0} className="btn  btn-ghost btn-circle mr-10">
-                <div className="indicator ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                </div>
-                <span className="badge badge-sm indicator-item bg-black   ">
-                  {"items"}
-                </span>
-              </label>
-              <div className=" mt-3 card card-compact  dropdown-content w-50 bg-base-100 shadow">
-                <div className="card-body ">
-                  <span className="font-bold text-lg">{"caritems"}</span>
-                  <span className="text-info">
-                    {"$/valoresamostrar/dinero$"}
-                  </span>
-                  <div className="card-actions">
-                    <button className="btn btn-primary  btn-block">
-                      Ver Carrito
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+      
 
           {loggedUser ? (
             <div className="dropdown dropdown-end   ">

@@ -22,7 +22,7 @@ function LoginPopup() {
       <div className={styles.overlay} />
       <div className={styles.popup}>
         <div className={styles.i}>
-          <img src="/images/Clothes 4Crew Logo.JPG" alt="Company Logo" />
+          <img src="/assets/images/HCoutureLogo.png" alt="Company Logo" />
         </div>
         <div className={styles.title}>
           To acces this page you need to sign in

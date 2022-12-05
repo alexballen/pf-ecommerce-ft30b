@@ -13,14 +13,6 @@ function ProtectedRoutes() {
   const dispatch = useDispatch();
   const userLogged = useSelector(state => state.user)
 
-//   useEffect(() => {
-//     if (isAuthenticated) {
-//       if(!userLogged._id){
-//         dispatch(getCurrentUser(getAccessTokenSilently, user));
-//       }
-//     }
-//   }, [dispatch, user, userLogged]);
-
   //HAY QUE VERIFICAR QUE SU EMAIL ESTÉ VERIFICADO Y 
   // QUE TENGA TODOS LOS CAMPOS NECESARIOS LLENOS
   return (
@@ -41,7 +33,7 @@ function ProtectedRoutes() {
     ) 
     :
     (
-    <LoginPopup userDetail={userLogged }/>
+    <LoginPopup />
     )
   )
 }
