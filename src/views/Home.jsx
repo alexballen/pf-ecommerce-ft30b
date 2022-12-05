@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
+import { useAuth0 } from "@auth0/auth0-react";
+import
+{
   getProducts,
   Clearproduct,
   currentPagePaginated,
@@ -8,14 +10,14 @@ import {
 import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
-//import BestProducts from "../components/BestProducts/BestProducts";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { filteredProducts: products } = useSelector((state) => state.products);
-  //const { filteredProducts } = useSelector((state) => state.filteredProducts);
   const { page } = useSelector((state) => state.page);
 
+  const { loggedUser } = useSelector(state => state.user);
+  const {isAuthenticated} = useAuth0()
   const [currentPage, setCurrentPage] = useState(page);
   const [productsByPage, setProductsByPage] = useState(8);
 
@@ -33,11 +35,12 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(Clearproduct());
-    if (products.length === 0) {
-      dispatch(getProducts());
-    }
-  }, [dispatch]);
 
+    if (isAuthenticated)
+      dispatch(getProducts(loggedUser.id));
+    else
+      dispatch(getProducts());
+  }, [isAuthenticated]);
   return (
     <>
       <div>
@@ -61,19 +64,20 @@ const Home = () => {
                   <div key={i} className="w-400 h-250">
                     <Card
                       id={e.id}
+                      view={"home"}
                       image={e.photos[0].url}
                       brand={e.brand.name}
                       name={e.name}
+                      quantity={e.quantity}
                       unitPrice={e.unitPrice}
                       description={e.description}
+                      stock={e.stock}
+                      isFavorite={isAuthenticated ? e.isFavorite : null}
                     />
                   </div>
                 );
               })
             : "No Products"}
-        </div>
-        <div>
-          <p>Footer</p>
         </div>
       </div>
     </>

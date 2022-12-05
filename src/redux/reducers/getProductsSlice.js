@@ -63,7 +63,27 @@ const productSlice = createSlice({
     },
     allProducts: (state, action) => {
       state.products = action.payload;
-      state.filteredProducts = action.payload;
+      state.filteredProducts = sortAndFilter(
+        action.payload,
+        state.nameFilter,
+        state.categoryFilter,
+        state.brandFilter,
+        state.sortType
+      );
+    },
+    allProductsForUser: (state, action) => {
+      const products = action.payload.map((product) => ({
+        ...product,
+        isFavorite: product.favorites.length > 0,
+      }));
+      state.products = products;
+      state.filteredProducts = sortAndFilter(
+        products,
+        state.nameFilter,
+        state.categoryFilter,
+        state.brandFilter,
+        state.sortType
+      );
     },
     allCategories: (state, action) => {
       state.categories = action.payload;
@@ -122,11 +142,16 @@ const productSlice = createSlice({
     urlpayment(state, action) {
       state.paymenturl = action.payload;
     },
+    deleteProduct(state, action) {
+      const delPro = state.products.filter((e) => e.id !== action.payload);
+      state.filteredProducts = delPro;
+    },
   },
 });
 
 export const {
   allProducts,
+  allProductsForUser,
   allCategories,
   allBrands,
   GetProduct,
@@ -137,5 +162,6 @@ export const {
   sort,
   pagePaginated,
   urlpayment,
+  deleteProduct,
 } = productSlice.actions;
 export default productSlice.reducer;
