@@ -16,6 +16,7 @@ const Nav = () => {
   // if(loggedUser.phoneNumber ===null || loggedUser.cityOfOrigin ===null){
   //   navigate("/completeSignUp")
   // }
+ 
 
   return (
     <>

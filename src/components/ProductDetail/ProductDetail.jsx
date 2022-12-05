@@ -18,10 +18,10 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const { Cartitems } = useSelector((state) => state.Cart);
   const { product } = useSelector((state) => state.products);
+  const [qty, setqty] = React.useState()
   const { paymenturl } = useSelector((state) => state.products);
   const { loggedUser } = useSelector((state) => state.user);
   const image = document.getElementById('productDetailImage')
-  const imageContainer =document.getElementById('imageContainer')
   const [amoutstock, setbuy] = useState(1);
   const [cordinates, setCordinates] = useState({
     x: '',
@@ -33,12 +33,15 @@ const ProductDetail = () => {
   const userId = loggedUser?.id;
 
   function agregarcarrito() {
-    dispatch(addtocart(userId, productid, amoutstock, product));
+    
+    dispatch(addtocart(userId, productid, amoutstock, qty));
   }
  
   function getvalue(e) {
     const value = parseInt(e.target.value);
     setbuy(value);
+    setqty({ ...product, quantity: amoutstock+1 })
+    
   }
   
   function mobileZoom(e) {
@@ -63,10 +66,11 @@ const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(GetProductById(id));
-  }, []);
+    
+  }, [amoutstock]);
 
   return (
-    <section className="body-font overflow-hidden   bg-base-500   ">
+    <section onLoad={() => setqty(product)} className="body-font overflow-hidden   bg-base-500   ">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap p-10 m-10">
           <div className="h-96 carousel carousel-vertical rounded-box">
@@ -85,20 +89,20 @@ const ProductDetail = () => {
             <h2 className="text-sm  text-slate-700 font-bold title-font  tracking-widest mb-2 ">
               {product.brand ? product.brand.name : "no product brand found"}
             </h2>
-            <h2 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
+            <h3 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
               {product.categories
                 ? product.categories.map((e, i) => {
                     return (
-                      <h2
+                      <p
                         key={i}
                         className="badge  text-white bg-slate-400 border-0 ml-1 "
                       >
                         {e.name}
-                      </h2>
+                      </p>
                     );
                   })
                 : "no product gender found"}
-            </h2>
+            </h3>
             <h1 className="text-slate-700  text-3xl title-font font-medium mb-1">
               {product ? product.name : "no product name found"}
             </h1>
@@ -124,7 +128,8 @@ const ProductDetail = () => {
                     name="quantity"
                     min={1}
                     value={amoutstock}
-                    onChange={getvalue}
+                    
+                    onChange={(e)=>getvalue(e)}
                     max={product.stock}
                     className="rounded border text-center title-font text-slate-700   appearance-none border-gray-400 py-2  text-base   "
                     type={"number"}

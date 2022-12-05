@@ -39,74 +39,86 @@ import {
 
 export const getProducts = (userId) => async (dispatch) =>
 {
-  console.log({ userId });
+ 
   if (userId)
     axios
       .get(`/products?userId=${userId}`)
       .then((res) => dispatch(allProductsForUser(res.data)))
-      .catch((e) => console.log(e));
+      .catch(error => { throw new Error(error) });
   else
     axios
       .get(`/products`)
       .then((res) => dispatch(allProducts(res.data)))
-      .catch((e) => console.log(e));
+      .catch((error) => {throw new Error(error) });
 };
 
 export const getCategories = () => async (dispatch) => {
   axios
     .get(`/products/categories`)
     .then((res) => dispatch(allCategories(res.data)))
-    .catch((e) => console.log(e));
+    .catch((error) => {throw new Error(error)});
 };
 
 export const getBrand = () => async (dispatch) => {
   axios
-    .get(`/products/brands`)
-    .then((res) => dispatch(allBrands(res.data)))
-    .catch((e) => console.log(e));
+      .get(`/products/brands`)
+      .then((res) => dispatch(allBrands(res.data)))
+      .catch((error) => {
+          throw new Error(error)
+      })
 };
 
 export const getCountry = () => async (dispatch) => {
   axios
-    .get(`/country`)
-    .then((res) => dispatch(getCountries(res.data)))
-    .catch((e) => console.log(e));
+      .get(`/country`)
+      .then((res) => dispatch(getCountries(res.data)))
+      .catch((error) => {
+          throw new Error(error)
+      })
 };
 
 export const completeSignUp = (userId, data) => async (dispatch) => {
   await axios({
-    method: "PATCH",
-    url: `/user/${userId}`,
-    data: data,
-  }).catch((e) => console.log(e));
+      method: 'PATCH',
+      url: `/user/${userId}`,
+      data: data
+  }).catch((error) => {
+      throw new Error(error)
+  })
 };
 
 export const getUserFavorites = (userId) => async (dispatch) => {
   axios
-    .get(`/user/favorites/${userId}`)
-    .then((res) => dispatch(getFavorites(res.data.products)))
-    .catch((e) => console.log(e));
+      .get(`/user/favorites/${userId}`)
+      .then((res) => dispatch(getFavorites(res.data.products)))
+      .catch((error) => {
+          throw new Error(error)
+      })
 };
 
 export const addFavorites = (data) => async (dispatch) => {
   await axios({
-    method: "POST",
-    url: `/user/favorites`,
-    data: data,
+      method: 'POST',
+      url: `/user/favorites`,
+      data: data
   })
-    .then(() => dispatch(getProducts(data.userId)))
-    .catch((e) => console.log(e));
+      .then(() => dispatch(getProducts(data.userId)))
+      .catch((error) => {
+          throw new Error(error)
+      })
 };
 
 export const deleteFavorites = (data) => async (dispatch) => {
   await axios({
-    method: "DELETE",
-    url: `/user/removeFromFavorites`,
-    data: data,
+      method: 'DELETE',
+      url: `/user/removeFromFavorites`,
+      data: data
   })
-    .then(() => dispatch(getProducts(data.userId)))
-    .then(() => dispatch(getUserFavorites(data.userId)))
-    .catch((e) => console.log(e));
+      .then(() => dispatch(getProducts(data.userId)))
+      .then(() => dispatch(getUserFavorites(data.userId)))
+      .catch((error) => {
+          throw new Error(error)
+      })
 };
 
 export const byCategory = (data) => async (dispatch) => {
@@ -140,7 +152,6 @@ export const search = (input) => async (dispatch) => {
 export const GetProductById = (id) => {
   return async function (dispatch) {
     const data = await axios.get(`/products/${id}`);
-    console.log(data.data);
     dispatch(GetProduct(data.data));
   };
 };
@@ -151,10 +162,12 @@ export const Clearproduct = () => {
 };
 export const createNewUser = (data) => async () => {
   await axios({
-    method: "POST",
-    url: `/user/register`,
-    data: data,
-  }).catch((e) => console.log(e));
+      method: 'POST',
+      url: `/user/register`,
+      data: data
+  }).catch((error) => {
+      throw new Error(error)
+  })
 };
 
 export const currentPagePaginated = (page) => async (dispatch) => {
@@ -163,10 +176,12 @@ export const currentPagePaginated = (page) => async (dispatch) => {
 
 export const createNewProduct = (data) => async () => {
   await axios({
-    method: "POST",
-    url: `/products`,
-    data: data,
-  }).catch((e) => console.log(e));
+      method: 'POST',
+      url: `/products`,
+      data: data
+  }).catch((error) => {
+      throw new Error(error)
+  })
 };
 
 // export const currentPagePaginated = (page) => async (dispatch) => {
@@ -178,7 +193,7 @@ export function getCurrentUser(user) {
 
   return async function (dispatch)
   {
-    console.log("USER ACTION: ", user);
+    
 
     const config = {
       headers: {
@@ -211,6 +226,7 @@ export const addtocart = (userId, productId, qty, product) => {
     qty: qty,
   };
   return async function (dispatch) {
+    
     await axios.post(`/store/add`, adddingtocart);
     dispatch(agregaracart(product));
   };
@@ -268,7 +284,7 @@ export const comprartodo = (userId) => {
 export const Rectificar = () => {
   return async function (dispatch) {
     const url = await axios.get(`/store/payments`);
-    console.log("accion url" + url);
+    
     dispatch(info(url));
   };
 };
@@ -298,9 +314,11 @@ export const deleteProductId = (id) => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
   axios
-    .get(`/user`)
-    .then((res) => dispatch(allUser(res.data)))
-    .catch((e) => console.log(e));
+      .get(`/user`)
+      .then((res) => dispatch(allUser(res.data)))
+      .catch((error) => {
+          throw new Error(error)
+      })
 };
 
 export const deleteUserId = (id) => async (dispatch) => {
@@ -314,7 +332,7 @@ export const updateUser = (data, id) =>
   {
     const response = await axios.put(`/userData/${id}`, data);
 
-    console.log(response)
+    
     return response
   };
 };

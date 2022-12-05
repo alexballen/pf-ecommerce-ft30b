@@ -33,6 +33,7 @@ function App() {
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [open, setOpen] = React.useState(false);
   const { loggedUser } = useSelector((state) => state.user);
+  const {products} = useSelector((state) => state.products);
   //   useEffect(() => {
 
   //     if (isAuthenticated) {
@@ -44,7 +45,7 @@ function App() {
     if (isAuthenticated) {
       dispatch(getCurrentUser(user));
     }
-    console.log('Usuario: ', loggedUser)
+   
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())

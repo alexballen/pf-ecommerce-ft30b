@@ -19,7 +19,19 @@ const CartSlice = createSlice({
     },
 
     agregaracart(state, action) {
-      state.Cartitems = [...state.Cartitems, action.payload];
+      const filterdItem = [...state.Cartitems.filter(item => item.id === action.payload.id)]
+      const allproducts = [
+          ...state.Cartitems.filter((item) => item.id !== action.payload.id)
+      ]
+
+      if (filterdItem[0]) {
+        filterdItem[0].quantity += action.payload.quantity;
+        const setProducts = [...allproducts, filterdItem[0]]
+        state.Cartitems = setProducts
+      } else {
+        state.Cartitems = [...state.Cartitems,  action.payload]
+      }
+       
     },
     limpiarcart(state) {
       state.Cartitems = [];
