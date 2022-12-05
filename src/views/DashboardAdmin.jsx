@@ -13,15 +13,6 @@ const DashboardAdmin = () => {
   return (
     <>
       <main className="bg-white p-6 sm:p-10">
-        <img
-          src={logo}
-          alt="not found"
-          style={{
-            width: "14em",
-            height: "fit-content",
-            objectFit: "cover",
-          }}
-        />
         <h1 className="text-white text-2xl">Dashboard</h1>
         <p className="text-white">Bienvenido Alexander</p>
         <TabList
