@@ -26,6 +26,7 @@ import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
 import Historial from "./components/Cart/Historial";
 import EditProduct from "./components/dashboard/EditProduct";
+import OffersPromos from "./components/offers&promos/offers&promos";
 
 
 function App() {
@@ -54,46 +55,84 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<BlockedUserRoutes />}>
-          
-          <Route path="/" element={<Nav />}>
+      <BrowserRouter>
+          <OffersPromos />
+          <Routes>
+              <Route element={<BlockedUserRoutes />}>
+                  <Route path='/' element={<Nav />}>
+                      <Route path='/' element={<Home />} />
+                      <Route path='/Products/:id' element={<ProductDetail />} />
+                      <Route path='/Cart' element={<Cart />} />
+                      <Route path='/favorites' element={<Favorites />} />
 
-            <Route path="/" element={<Home />} />
-            <Route path="/Products/:id" element={<ProductDetail />} />
-            <Route path="/Cart" element={<Cart />} />
-            <Route path="/favorites" element={<Favorites />} />
+                      <Route
+                          path='/aboutUs'
+                          element={
+                              <AboutUsPage open={open} setOpen={setOpen} />
+                          }
+                      >
+                          <Route
+                              path=':desarrollador'
+                              element={
+                                  <Desarrollador
+                                      open={open}
+                                      setOpen={setOpen}
+                                  />
+                              }
+                          />
+                      </Route>
 
-            <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
-              <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />
-            </Route>
+                      <Route element={<ProtectedRoutes />}>
+                          <Route
+                              path='/completeSignUp'
+                              element={<CompleteSignUp />}
+                          />
+                          <Route path='/user/:id' element={<UserProfile />} />
+                          <Route path='/Cart' element={<Cart />} />
+                          <Route path='/favorites' element={<Favorites />} />
+                      </Route>
 
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/completeSignUp" element={<CompleteSignUp />} />
-              <Route path="/user/:id" element={<UserProfile />} />
-              <Route path="/Cart" element={<Cart />} />
-              <Route path="/favorites" element={<Favorites />} />
-            </Route>
-
-            <Route element={<AdminRoutes />}>
-              <Route path="/payments/:id" element={<CartPayments />} />
-              <Route path="/ipayments/:id" element={<ItemPayments />} />
-              <Route path="/paymentsfail" element={<CartPaymentsfail />} />
-              <Route path="/paymentspending" element={<CartPaymentspending />} />
-              <Route path="/dashboard" element={<DashboardAdmin />} />
-              <Route path="/editproduct/:id" element={<EditProduct />} />
-              <Route path="/addproduct" element={<CreateProduct />} />
-            </Route>
-
-          </Route>
-          <Route path="/termsandconditions" element={<TermsAndConditions />} />
-          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
-        </Route>
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-  );
+                      <Route element={<AdminRoutes />}>
+                          <Route
+                              path='/payments/:id'
+                              element={<CartPayments />}
+                          />
+                          <Route
+                              path='/ipayments/:id'
+                              element={<ItemPayments />}
+                          />
+                          <Route
+                              path='/paymentsfail'
+                              element={<CartPaymentsfail />}
+                          />
+                          <Route
+                              path='/paymentspending'
+                              element={<CartPaymentspending />}
+                          />
+                          <Route
+                              path='/dashboard'
+                              element={<DashboardAdmin />}
+                          />
+                          <Route
+                              path='/editproduct/:id'
+                              element={<EditProduct />}
+                          />
+                          <Route
+                              path='/addproduct'
+                              element={<CreateProduct />}
+                          />
+                      </Route>
+                  </Route>
+                  <Route
+                      path='/termsandconditions'
+                      element={<TermsAndConditions />}
+                  />
+                  <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
+              </Route>
+          </Routes>
+          <Footer />
+      </BrowserRouter>
+  )
 }
 
 export default App;
