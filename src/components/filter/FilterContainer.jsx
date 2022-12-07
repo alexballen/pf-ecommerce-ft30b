@@ -44,11 +44,11 @@ const FilterContainer = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 ml-10">
-      <div className="flex-1">
+    <div className="navbar bg-base-100 md:ml-10 w-full">
+      <div className="md:flex-1 md:flex">
         <select
           onChange={(e) => handleByCategory(e)}
-          className="select min-w-0 btn-ghost"
+          className="select md:w-fit w-full btn-ghost"
         >
           <option disabled selected>
             Categorías
@@ -59,10 +59,10 @@ const FilterContainer = () => {
           ))}
         </select>
       </div>
-      <div className="flex-1">
+      <div className="md:flex-1 md:flex">
         <select
           onChange={(e) => handleByBrand(e)}
-          className="select min-w-0 btn-ghost"
+          className="select md:w-fit w-full btn-ghost"
         >
           <option disabled selected>
             Marcas
@@ -73,9 +73,9 @@ const FilterContainer = () => {
           ))}
         </select>
       </div>
-      <div className="flex-1">
+      <div className="md:flex-1">
         <select
-          className="select min-w-0 btn-ghost"
+          className="select md:w-fit md:flex  btn-ghost"
           onChange={(e) => handleByOrderPrice(e)}
         >
           <option disabled selected>
@@ -85,9 +85,9 @@ const FilterContainer = () => {
           <option value="MinPrice">Min</option>
         </select>
       </div>
-      <div className="flex-1">
+      <div className="md:flex-1">
         <select
-          className="select min-w-0 btn-ghost"
+          className="select md:w-fit md:flex hidden btn-ghost"
           onChange={(e) => handleByOrder(e)}
         >
           <option disabled selected >
@@ -97,7 +97,7 @@ const FilterContainer = () => {
           <option value="Z-A">Z-A</option>
         </select>
       </div>
-      <div className="mb-2">
+      <div className="md:mb-2 w-1/5 mr-2 md:w-fit md:flex ">
         <Searchbar />
       </div>
     </div>

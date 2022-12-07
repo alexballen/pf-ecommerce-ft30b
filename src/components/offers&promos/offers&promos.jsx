@@ -1,32 +1,65 @@
 import React from "react"
 import ReactDOM from 'react-dom'
 import './offers&promos.css'
+import axios from 'axios'
 
-const messages = ['Vea "¿Usted es más listo que una celebridad?", los miercoles por FOX, ¡Así es! ahora tenenos anuncios mientras visitas paginas que estas programando', '¡Finlandia!', 'No patricio la mayonesa no es un instrumento... los rabanos picantes tampoco', '!Estaba soñando con Ricky!', "Hello Salem! my name is Winifred, what's your's?", 'Felipe no está está disponible ya que viajó a Cuzco y lo convirtieron en llama']
 
+let messages = []
+
+
+async function getMessages() {
+    try {
+        const allmessages = await axios.get("/message")
+        messages = allmessages.data
+
+    } catch (error) {
+        throw new Error(error)
+    }
+}
 class OffersPromos extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             show: false,
-            message: ''
+            message: '',
+            width: this.getWindowsize()
         }
     }
 
-    componentDidMount() {
-        setInterval(() => {
-            const messageRan = messages[Math.floor(Math.random() * messages.length)]
-            this.setState({
-                message: messageRan
-            })
-        this.setState({
-            show: true
-        })
-            setTimeout(() => {
-                 this.setState({show: false})
-            }, 30000)
-        }, 60000);
+    getWindowsize() {
+        const {innerWidth} = window;
+        return innerWidth
     }
+
+    handleWindowrezise() {
+        this.setState({width: this.getWindowSize()})
+    }
+    
+
+    componentDidMount() {
+        window.addEventListener('resize', this.handleWindowrezise)
+        setInterval(async () => {
+           try {
+              await getMessages()
+               const messagefororder = messages[Math.floor(Math.random()*messages.length)].message
+                this.setState({
+                    message: messagefororder
+                })
+                this.setState({
+                    show: true
+                })
+                setTimeout(() => {
+                    this.setState({ show: false})
+                }, this.state.width < 600 ? 30500: 50500)
+            
+            } catch (error) {
+                throw new Error(error)
+            }   
+        }, this.state.width < 600 ? 60000 : 100000);
+    }
+
+   
+  
 
     render() {
         return (

@@ -52,7 +52,7 @@ const ProductDetail = () => {
     image.style.objectPosition = 'center'
     image.style.transform ='scale(1.3)'
     image.style.top = `${cordinates.y - e.clientY/7}%`
-    image.style.left = `${cordinates.x - e.clientX/12}%`
+    image.style.left = window.innerWidth < 700 ? `${cordinates.x - e.clientX/6}%`: `${cordinates.x - e.clientX/12}%`
   }
 
   function zoomOut(e) {

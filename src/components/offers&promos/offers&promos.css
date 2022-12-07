@@ -1,14 +1,37 @@
-#carrousel {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.542);
-    overflow: hidden;
+
+
+@media (max-width: 600px) {
+    .carrouselText {
+            color: aliceblue;
+            animation: 30s linear infinite forwards moviment;
+    
+        }
+        #carrousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.542);
+            overflow: hidden;
+        }
+    
 }
-.carrouselText {
-    color: aliceblue;
-    animation: 30s linear infinite forwards moviment;
+
+@media (min-width: 601px) {
+    #carrousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            background-color: rgba(0, 0, 0, 0.542);
+            overflow: hidden;
+    }
+    .carrouselText {
+            color: aliceblue;
+            animation: 50s linear infinite forwards moviment;
+    
+        }
+    
 }
 
 
@@ -23,11 +46,11 @@
         height: 2em;
      }
      95% {
-        transform: translateX(-60%);
+        transform: translateX(-120%);
         height: 2em;
      }
      100% {
-        transform: translateX(-60%);
+        transform: translateX(-120%);
         height: 0px;
      }
 

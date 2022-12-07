@@ -54,7 +54,8 @@ function App() {
     //     dispatch(getBrands())
   }, [isAuthenticated]);
 
-  return (
+    return (
+      <div style={{width: '100%', overflow:'hidden'}}>
       <BrowserRouter>
           <OffersPromos />
           <Routes>
@@ -131,7 +132,8 @@ function App() {
               </Route>
           </Routes>
           <Footer />
-      </BrowserRouter>
+            </BrowserRouter>
+            </div>
   )
 }
 
