@@ -45,8 +45,8 @@ const CartSlice = createSlice({
       state.paymenturl = action.payload;
       
     },
-    totalapagar(state, action) {
-      state.total = action.payload;
+    totalapagar(state  ) {
+      state.total = state.Cartitems.reduce((ac,e)=> ac+e.quantity * e.unitPrice,0)
     },
     comprartodolink(state, action) {
       state.pagarcarrito = action.payload;
@@ -62,14 +62,22 @@ const CartSlice = createSlice({
       state.Comprados = [...state.Comprados, action.payload];
     },
     
-    updatecartitem(state, action) {
-      const id = action.productId
-      const qty = action.qty
+    updatecartitem(state, {payload}) {
+    
+      const id = payload.productId
+      const qty = payload.qty
+ 
+      // const altered = state.Cartitems.find((e)=> e.id === id)
       
-      state.Cartitems = [
-        ...state.Cartitems.map((e) => e.id === id ? e.quantity = qty : e.quantity)
-      ]
+      // altered.quantity = qty
+      // const allproducts = state.Cartitems.filter((e)=> e.id !== id)
+
+      // const all = [...allproducts,altered]
+
+      state.Cartitems = state.Cartitems.filter((e)=> e.id === id? e.quantity = qty: e.quantity)
+       
     }
+
     
   },
 });

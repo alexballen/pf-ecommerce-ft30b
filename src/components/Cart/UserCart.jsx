@@ -105,11 +105,7 @@ const UserCart = () => {
                 Ver Carrito
               </button>
             </Link>
-            <Link className="content-center" to={"/favorites"}>
-              <button className="btn btn-primary    btn-block">
-                Ver Favoritos
-              </button>
-            </Link>
+       
           </div>
         </div>
       </div>
