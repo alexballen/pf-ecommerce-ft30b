@@ -19,7 +19,7 @@ const Nav = () => {
  
 
   return (
-    <>
+    <div style={{width:'100%'}}>
       <div
         className="navbar flex justify-between bg-white"
         style={{ width: "100%" }}
@@ -122,7 +122,7 @@ const Nav = () => {
         )}
       </div>
       <Outlet />
-    </>
+    </div>
   );
 };
 
