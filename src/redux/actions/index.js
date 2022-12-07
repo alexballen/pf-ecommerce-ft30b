@@ -277,7 +277,7 @@ export const comprartodo = (Cartitems,userId) => {
     userId : userId,
     Cartitems: Cartitems,
   };
-console.log(final)
+
   return async function (dispatch) {
     const url = await axios.post(`/store/buyall`, final);
       
