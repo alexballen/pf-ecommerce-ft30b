@@ -27,7 +27,7 @@ function Cart() {
   }
 
   useEffect(() => {}, [Cartitems.length, total]);
-console.log(loggedUser)
+ 
   return (
     <>
       {Cartitems.length ? (
