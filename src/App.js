@@ -61,8 +61,6 @@ function App() {
 
             <Route path="/" element={<Home />} />
             <Route path="/Products/:id" element={<ProductDetail />} />
-            <Route path="/Cart" element={<Cart />} />
-            <Route path="/favorites" element={<Favorites />} />
 
             <Route path='/aboutUs' element={<AboutUsPage open={open} setOpen={setOpen} />}>
               <Route path=':desarrollador' element={<Desarrollador open={open} setOpen={ setOpen} />} />

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../redux/actions";
@@ -6,33 +7,47 @@ import { updateUser } from "../redux/actions";
 const UserProfile = () => {
 
   const { loggedUser } = useSelector(state => state.user);
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState(
+    {
     firstName:loggedUser.firstName ? loggedUser.firstName: "",
     lastName:loggedUser.lastName ? loggedUser.lastName: "",
     username:loggedUser.username,
     photo: loggedUser.photo?.url ? loggedUser.photo.url: "",
-    country:loggedUser.country ? loggedUser.country: "",
-    address:loggedUser.address ? loggedUser.address: "",
-    city:loggedUser.cityOfOrigin ? loggedUser.cityOfOrigin: "",
-    state:loggedUser.state ? loggedUser.state: "",
-    postalCode:loggedUser.postalCode ? loggedUser.postalCode: "",
     phone:loggedUser.phoneNumber ? loggedUser.phoneNumber: "",
-  })
-  const [userPreference, setUserPreference] = useState({
+  }
+  )
+  const [selectedAddress, setSelectedAddress] = useState()
+
+  const [userAddress, setUserAddress] = useState(
+    {
+    // userId
+    country:selectedAddress?.country ? selectedAddress.country: "",
+    city:selectedAddress?.cityOfOrigin ? selectedAddress.cityOfOrigin: "",
+    state:selectedAddress?.state ? selectedAddress.state: "",
+    zipCode:selectedAddress?.zipCode ? selectedAddress.zipCode: "",
+    neighborhood:selectedAddress?.neighborhood ? selectedAddress.neighborhood: "",
+    street:selectedAddress?.street ? selectedAddress.street: "",
+    houseNumber:selectedAddress?.houseNumber ? selectedAddress.houseNumber: "",
+  }
+  )
+  const [userPreference, setUserPreference] = useState(
+    {
     newProducts:loggedUser?.preference?.newProducts ? loggedUser.preference.newProducts: false,
     offers:loggedUser?.preference?.offers ? loggedUser.preference.offers: false,
     favorites:loggedUser?.preference?.favorites ? loggedUser.preference.favorites: false
-  })
-  const [image, setImage] = useState("");
+  }
+  )
 
-
+  
   const dispatch = useDispatch()
 
   const handleSubmit = ()=>{
    
 
   }
-
+  const addressChange =()=> {
+    setSelectedAddress(loggedUser.address[0])
+  }
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
@@ -50,7 +65,7 @@ const UserProfile = () => {
     );
     const file = await res.json();
     setUserData({...userData, photo:file.secure_url});
-    setImage(file.secure_url)
+
 };
 
   const handleChange = (e)=>{
@@ -217,6 +232,31 @@ const UserProfile = () => {
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
+
+                        <div className="col-span-6 sm:col-span-3">
+                          <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                            Select Address
+                          </label>
+                          <select
+                            value={userAddress.country}
+                            onChange={addressChange}
+                            type="text"
+                            name="country"
+                            id="country"
+                            autoComplete="country-name"
+                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          >
+                            {loggedUser.addresses.forEach(element => {
+                              
+                          
+
+                              <option>{element.country}</option>
+                             
+
+                            })}
+
+                          </select>
+                        </div>
                         
 
                         <div className="col-span-6 sm:col-span-3">
@@ -224,7 +264,7 @@ const UserProfile = () => {
                             Pais
                           </label>
                           <select
-                            value={userData.country}
+                            value={userAddress.country}
                             onChange={handleChange}
                             type="text"
                             name="country"
@@ -246,7 +286,7 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.phoneNumber}
                             type="number"
-                            value={userData.phone}
+                            value={userAddress.phone}
                             onChange={handleChange}
                             name="phone"
                             id="phone"
@@ -262,7 +302,7 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.address}
                             type="text"
-                            value={userData.address}
+                            value={userAddress.address}
                             onChange={handleChange}
                             name="address"
                             id="address"
@@ -278,7 +318,7 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.cityOfOrigin}
                             type="text"
-                            value={userData.city}
+                            value={userAddress.city}
                             onChange={handleChange}
                             name="city"
                             id="city"
@@ -294,7 +334,7 @@ const UserProfile = () => {
                           <input
                             // placeholder={loggedUser.cityOfOrigin}
                             type="text"
-                            value={userData.state}
+                            value={userAddress.state}
                             onChange={handleChange}
                             name="state"
                             id="state"
@@ -310,7 +350,7 @@ const UserProfile = () => {
                           <input
                             // placeholder={loggedUser.cityOfOrigin}
                             type="text"
-                            value={userData.postalCode}
+                            value={userAddress.postalCode}
                             onChange={handleChange}
                             name="postalCode"
                             id="codigoPostal"
