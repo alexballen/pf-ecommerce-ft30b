@@ -11,7 +11,6 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 const UsersTable = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
-  console.log(users);
 
   useEffect(() => {
     dispatch(getUser());
@@ -103,7 +102,7 @@ const UsersTable = () => {
           </thead>
           {users &&
             users.map((e, i) => (
-              <tbody>
+              <tbody key={i}>
                 <tr>
                   <td className="border border-white px-4 py-2">
                     <div className="flex justify-center">

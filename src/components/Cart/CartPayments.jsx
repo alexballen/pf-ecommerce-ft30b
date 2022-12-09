@@ -26,8 +26,7 @@ function CartPayments() {
       dispatch(clearlink());
     }
   }
-  console.log(Cartitems) 
-  console.log(Comprados)
+  
   useEffect(() => {
     
     for(let e of Cartitems){

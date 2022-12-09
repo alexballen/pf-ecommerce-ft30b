@@ -25,8 +25,8 @@ const userSlice = createSlice({
       state.filterUser = action.payload;
     },
     deleteUser(state, action) {
-      const delPro = state.filterUser.filter((e) => e.id !== action.payload);
-      state.users = delPro;
+      const delUser = state.filterUser.filter((e) => e.id !== action.payload);
+      state.users = delUser;
     },
     searchByUser(state, action) {
       let filtUser = state.filterUser.filter((us) =>
@@ -41,6 +41,14 @@ const userSlice = createSlice({
           : state.users.sort((a, b) => (a.email > b.email ? -1 : 1));
       state.users = [...orderFullname];
     },
+    baneoUser(state, action) {
+      const banUser = state.filterUser.filter((e) => e.id !== action.payload);
+      state.users = banUser;
+    },
+    restoreBanUser(state, action) {
+      const resUser = state.filterUser.filter((e) => e.id);
+      state.users = resUser;
+    },
   },
 });
 
@@ -52,5 +60,7 @@ export const {
   deleteUser,
   searchByUser,
   sortUser,
+  baneoUser,
+  restoreBanUser,
 } = userSlice.actions;
 export default userSlice.reducer;

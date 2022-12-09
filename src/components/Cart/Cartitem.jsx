@@ -34,7 +34,7 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
   }
 
   useEffect(() => {
-
+    setcantidad(quantity)
     for (let e of Cartitems) {
       totals = totals + e.quantity * e.unitPrice;
       dispatch(alltopay(totals));
@@ -51,7 +51,7 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
               <div className="avatar text-center  content-center  align-middle  ">
                 <td className="text-center ">
                   <div className="   w-20 h-20">
-                    <img src={image} alt="Avatar Tailwind CSS Component" />
+                    <img src={image} style={{objectFit: 'scale-down', objectPosition:'center', width:'10em'}} alt="Avatar Tailwind CSS Component" />
                   </div>
                 </td>
               </div>

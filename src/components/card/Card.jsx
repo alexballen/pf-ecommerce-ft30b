@@ -20,6 +20,7 @@ const Card = ({
   const dispatch = useDispatch();
   const { loginWithPopup } = useAuth0();
   const { loggedUser, isAuthenticated } = useSelector((state) => state.user);
+  
 
   const addFavorite = () => {
     dispatch(addFavorites({ userId: loggedUser?.id, productId: id }));

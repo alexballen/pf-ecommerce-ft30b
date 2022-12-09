@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import
-{
-  getProducts,
-  Clearproduct,
-  currentPagePaginated,
-} from "../redux/actions";
+  {
+    getProducts,
+    Clearproduct,
+    currentPagePaginated,
+    byCategory
+  } from "../redux/actions";
 import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { filteredProducts: products } = useSelector((state) => state.products);
+  const { filteredProducts:products } = useSelector((state) => state.products);
   const { page } = useSelector((state) => state.page);
-
+  const totalpages = Math.ceil(products.length/8)
   const { loggedUser } = useSelector(state => state.user);
   const {isAuthenticated} = useAuth0()
   const [currentPage, setCurrentPage] = useState(page);
@@ -35,12 +36,14 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(Clearproduct());
-
+    if (currentPage > totalpages) {
+      setCurrentPage(1)
+    }
     if (isAuthenticated)
       dispatch(getProducts(loggedUser.id));
     else
       dispatch(getProducts());
-  }, [isAuthenticated]);
+  }, [isAuthenticated, totalpages]);
   return (
     <>
       <div>
