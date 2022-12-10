@@ -7,35 +7,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { cleancart, clearlink } from "../../redux/actions";
 import { addcomprado } from "../../redux/actions";
+import { useSearchParams } from "react-router-dom";
 
 function CartPayments() {
  
   const dispatch = useDispatch();
-  const {id} = useParams()
+   
+ 
   const { loggedUser } = useSelector((state) => state.user);
+ 
   const userId = loggedUser?.id;
-  const { Cartitems } = useSelector((state) => state.Cart);
-  const { Comprados } = useSelector((state) => state.Cart);
-  function cleabcart() {
-    for(let e of Cartitems){
-      dispatch(addcomprado(e))
-    }
-
-    if (userId) {
-      dispatch(cleancart(userId));
-      dispatch(clearlink());
-    }
-  }
+  const [searchParams, setSearchParams] = useSearchParams()
   
+  const preference_id =   searchParams.get("preference_id")
+  const status =   searchParams.get("status")
+  const collection_id =   searchParams.get("collection_id")
+  const collection_status =   searchParams.get("collection_status")
+  const payment_type =   searchParams.get("payment_type")
+  const merchant_order_id =   searchParams.get("merchant_order_id")
+  
+  const datapay= {
+    preference_id: preference_id,
+    status: status,
+    collection_id:collection_id,
+    collection_status:collection_status,
+    payment_type:payment_type,
+    merchant_order_id: merchant_order_id
+  }
+
+ 
   useEffect(() => {
     
-    for(let e of Cartitems){
-      dispatch(addcomprado(e))
-    }
-    
-    dispatch(cleancart(userId));
-    dispatch(clearlink());
-  }, []);
+    if(userId !== undefined && datapay){
+      console.log(userId)
+      dispatch(addcomprado(userId,datapay))
+    } 
+
+  }, [userId ]);
 
   return (
     <div>
@@ -59,7 +67,7 @@ function CartPayments() {
               Pago realizado correctamente disfute de sus productos.
             </p>
             <Link to={"/"}>
-              <button onClick={cleabcart} className="btn btn-accent">
+              <button   className="btn btn-accent">
                 Ir a comprar
               </button>
             </Link>

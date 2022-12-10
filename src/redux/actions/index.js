@@ -41,7 +41,8 @@ import {
   baneoUser,
   restoreBanUser,
 } from "../reducers/userSlice";
-
+ 
+ const { REACT_APP_MPAGOTOKEN } = process.env 
 export const getProducts = (userId) => async (dispatch) => {
   if (userId)
     axios
@@ -237,12 +238,24 @@ export const addtocart = (userId, productId, qty, product) => {
   };
 };
 
-export const addcomprado = (product) => {
-  return async function (dispatch) {
-    // await axios.post(`/store/addhistorial`, adddingtocart);
-    dispatch(agregarcomprado(product));
-  };
+export const addcomprado = (userId, {preference_id
+  ,status,collection_id,collection_status,
+  payment_type,merchant_order_id}) => async (dispatch) => {
+    const compra = {
+      userId : userId,
+      preference_id:  preference_id,
+      status:  status,
+      collection_id: collection_id,
+      collection_status: collection_status,
+      payment_type:  payment_type,
+      merchant_order_id: merchant_order_id
+
+  }
+  await axios.post(`/store/paymentcomplete`, compra);
+  
 };
+
+ 
 
 export const updatecart = (userId, productId, qty) => {
   const updated = {
@@ -251,7 +264,6 @@ export const updatecart = (userId, productId, qty) => {
     qty: qty,
   };
   return async function (dispatch) {
-  //  await axios.put(`/store/update`, updated);
     dispatch(updatecartitem(updated));
   };
 };
@@ -292,6 +304,21 @@ export const Rectificar = () => {
     dispatch(info(url));
   };
 };
+ export const alldatapagos = (idpago) => {
+  return async function (dispatch) {
+    const response = await axios.get(`https://api.mercadopago.com/v1/payments/${idpago}`, {
+      headers: {
+          'Authorization': `Bearer ${REACT_APP_MPAGOTOKEN}`
+      }
+
+    
+  });
+  
+  // const envio = await axios.post(`/store/update`)
+  
+  dispatch(info(response));
+}
+ }
 
 export const alltopay = (total) => {
   return async function (dispatch) {
