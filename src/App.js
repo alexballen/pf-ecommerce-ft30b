@@ -63,8 +63,8 @@ function App() {
                   <Route path='/' element={<Nav />}>
                       <Route path='/' element={<Home />} />
                       <Route path='/Products/:id' element={<ProductDetail />} />
-                      <Route path='/Cart' element={<Cart />} />
-                      <Route path='/favorites' element={<Favorites />} />
+                     
+                      {/* <Route path='/favorites' element={<Favorites />} /> */}
 
                       <Route
                           path='/aboutUs'
@@ -95,19 +95,19 @@ function App() {
 
                       <Route element={<AdminRoutes />}>
                           <Route
-                              path='/payments/:id'
+                              path='/cartpayments/'
                               element={<CartPayments />}
                           />
                           <Route
-                              path='/ipayments/:id'
+                              path='/ipayments/'
                               element={<ItemPayments />}
                           />
                           <Route
-                              path='/paymentsfail'
+                              path='/paymentsfail/'
                               element={<CartPaymentsfail />}
                           />
                           <Route
-                              path='/paymentspending'
+                              path='/paymentspending/'
                               element={<CartPaymentspending />}
                           />
                           <Route

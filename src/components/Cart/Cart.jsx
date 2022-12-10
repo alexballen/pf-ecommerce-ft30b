@@ -23,11 +23,11 @@ function Cart() {
   }
 
   function Pagartodo() {
-    dispatch(comprartodo(userId));
+    dispatch(comprartodo(Cartitems,userId));
   }
 
   useEffect(() => {}, [Cartitems.length, total]);
-
+ 
   return (
     <>
       {Cartitems.length ? (
@@ -126,6 +126,10 @@ function Cart() {
         </>
       )}
 
+
+
+
+
       <input type="checkbox" id="Pagartodo" className="modal-toggle " />
       <div className="modal  ">
         <div className="modal-box    ">
@@ -154,29 +158,36 @@ function Cart() {
           </h3>
 
       
-          {pagarcarrito ?     <div className="modal-action">
+
+
+          {pagarcarrito  ?     <div className="modal-action ">
            <a
               href={pagarcarrito}
               htmlFor="Pagartodo"
-              className="btn   text-white hover:bg-green-600 "
+              className="btn   text-white hover:bg-green-600 flex  "
             >
               ir a Pagar!
             </a>
 
             <label
               htmlFor="Pagartodo"
-              className="btn  text-white hover:bg-red-600 "
+              className="btn  text-white hover:bg-red-600  flex "
             >
               Cerrar
             </label>          </div> 
             : <a
               href={pagarcarrito}
               htmlFor="Pagartodo"
-              className="btn   text-white hover:bg-green-600 "
+              className="btn bg-green-500 text-white hover:bg-green-600 content-center  flex   "
             >
          Generando pago......
             </a>}
-
+            <label
+              htmlFor="Pagartodo"
+              className="btn bg-red-500 text-white hover:bg-red-600 flex  "
+            >
+              Cerrar
+            </label> 
             
  
         </div>

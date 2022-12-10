@@ -220,8 +220,8 @@ export const buyproduct = (quantity, id, userId) => {
   };
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
-
-    dispatch(urlpayment(url.data));
+    
+    dispatch(urlpayment(url.data.init_point));
   };
 };
 
@@ -251,8 +251,8 @@ export const updatecart = (userId, productId, qty) => {
     qty: qty,
   };
   return async function (dispatch) {
-    // await axios.put(`/store/update`, updated);
-    dispatch(updatecartitem(productId, qty));
+  //  await axios.put(`/store/update`, updated);
+    dispatch(updatecartitem(updated));
   };
 };
 
@@ -272,14 +272,16 @@ export const clearlink = () => {
   };
 };
 
-export const comprartodo = (userId) => {
+export const comprartodo = (Cartitems,userId) => {
   const final = {
-    userId: userId,
+    userId : userId,
+    Cartitems: Cartitems,
   };
 
   return async function (dispatch) {
     const url = await axios.post(`/store/buyall`, final);
-    dispatch(comprartodolink(url.data));
+      
+    dispatch(comprartodolink(url.data.init_point));
   };
 };
 
