@@ -7,9 +7,10 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import axios from "axios";
 import "@tremor/react/dist/esm/tremor.css";
 
-axios.defaults.baseURL =
-  "https://pf-ecommerce-ft-30-b-odxfhjkfia-uc.a.run.app/";
+axios.defaults.baseURL =  "https://pf-ecommerce-ft-30-b-odxfhjkfia-uc.a.run.app/";
   /* 'http://localhost:3001' */
+ 
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

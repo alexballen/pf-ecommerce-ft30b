@@ -28,9 +28,8 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
   }
  
   function add(e) {
-    const value =  e.target.value;
-    setcantidad(value);
-    // dispatch(updatecart(userId, id, cantidad));
+    setcantidad(e.target.value);
+     dispatch(updatecart(userId, id, e.target.value ));
   }
 
   useEffect(() => {
@@ -143,25 +142,30 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity, brand }) {
               <a
                 href={paymenturl}
                 htmlFor="Pagaritem"
-                className="btn bg-green-500 text-white hover:bg-green-600 "
+                className="btn bg-green-500 text-white hover:bg-green-600 flex "
               >
                 ir a Pagar!
               </a>
 
               <label
                 htmlFor="Pagaritem"
-                className="btn bg-red-500 text-white hover:bg-red-600 "
+                className="btn bg-red-500 text-white hover:bg-red-600 flex "
               >
                 Cerrar
               </label>
             </div> :     <a
                 href={paymenturl}
                 htmlFor="Pagaritem"
-                className="btn bg-green-500 text-white hover:bg-green-600 "
+                className="btn bg-green-500 text-white hover:bg-green-600 flex "
               >
               Generando pago........
               </a>}
-
+              <label
+                htmlFor="Pagaritem"
+                className="btn bg-red-500 text-white hover:bg-red-600 flex  "
+              >
+                Cerrar
+              </label>
             
           </div>
         </div>
