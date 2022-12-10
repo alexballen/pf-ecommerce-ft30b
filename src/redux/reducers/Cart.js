@@ -56,7 +56,7 @@ const CartSlice = createSlice({
       state.pagarcarrito = "";
     },
     info(state, action) {
-      state.info = action.payload;
+      state.Comprados = [...state.Comprados, action.payload]
     },
     agregarcomprado(state, action) {
       state.Comprados = [...state.Comprados, action.payload];

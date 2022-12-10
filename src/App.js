@@ -91,23 +91,40 @@ function App() {
                           <Route path='/user/:id' element={<UserProfile />} />
                           <Route path='/Cart' element={<Cart />} />
                           <Route path='/favorites' element={<Favorites />} />
+                          <Route path='/Historial' element={<Historial />} />
+                          <Route
+                              path='/cartpayments'
+                              element={<CartPayments />}
+                          />
+                          <Route
+                              path='/itempayments'
+                              element={<ItemPayments />}
+                          />
+                          <Route
+                              path='/paymentsfail'
+                              element={<CartPaymentsfail />}
+                          />
+                          <Route
+                              path='/paymentspending'
+                              element={<CartPaymentspending />}
+                          />
                       </Route>
 
                       <Route element={<AdminRoutes />}>
                           <Route
-                              path='/cartpayments/'
+                              path='/cartpayments'
                               element={<CartPayments />}
                           />
                           <Route
-                              path='/ipayments/'
+                              path='/itempayments'
                               element={<ItemPayments />}
                           />
                           <Route
-                              path='/paymentsfail/'
+                              path='/paymentsfail'
                               element={<CartPaymentsfail />}
                           />
                           <Route
-                              path='/paymentspending/'
+                              path='/paymentspending'
                               element={<CartPaymentspending />}
                           />
                           <Route

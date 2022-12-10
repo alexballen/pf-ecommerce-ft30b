@@ -1,8 +1,34 @@
 import React from "react";
+import { useEffect } from "react";
 
-import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link,   } from "react-router-dom";
+ 
+import { useSearchParams } from "react-router-dom";
 function CartPaymentsfail() {
+  const dispatch = useDispatch();
+  
+  const { loggedUser } = useSelector((state) => state.user);
+ 
+  const userId = loggedUser?.id;
+  const [searchParams, setSearchParams] = useSearchParams()
+   
+  const preference_id =   searchParams.get("preference_id")
+  const status =   searchParams.get("status")
+  const collection_id =   searchParams.get("collection_id")
+  const collection_status =   searchParams.get("collection_status")
+  const payment_type =   searchParams.get("payment_type")
+  const merchant_order_id =   searchParams.get("merchant_order_id")
+
+   const datapay= {
+    preference_id: preference_id,
+    status: status,
+    collection_id:collection_id,
+    collection_status:collection_status,
+    payment_type:payment_type,
+    merchant_order_id: merchant_order_id
+  }
+
   return (
     <div>
       <div
