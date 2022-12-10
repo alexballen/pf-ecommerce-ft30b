@@ -55,7 +55,7 @@ function App() {
   }, [isAuthenticated]);
 
     return (
-      <div style={{width: '100%', overflow:'hidden'}}>
+      <div style={{width: '100%', overflow:'hidden', position: 'relative'}}>
       <BrowserRouter>
           <OffersPromos />
           <Routes>
