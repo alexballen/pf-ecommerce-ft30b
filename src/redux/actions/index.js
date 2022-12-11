@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import {
   allProducts,
@@ -25,7 +26,6 @@ import {
   totalapagar,
   comprartodolink,
   clearlinks,
-  agregarcomprado,
   info,
   updatecartitem,
 } from "../reducers/Cart";
@@ -214,10 +214,11 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-export const buyproduct = (quantity, id, userId) => {
+export const buyproduct = (quantity, id, userId,inputs) => {
   const getproduct = {
     quantity: quantity,
     userId: userId,
+    inputs:inputs
   };
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
@@ -228,9 +229,9 @@ export const buyproduct = (quantity, id, userId) => {
 
 export const addtocart = (userId, productId, qty, product) => {
   const adddingtocart = {
-    userId: userId,
-    productId: productId,
-    qty: qty,
+   userId,
+   productId,
+   qty,
   };
   return async function (dispatch) {
     await axios.post(`/store/add`, adddingtocart);
@@ -242,13 +243,13 @@ export const addcomprado = (userId, {preference_id
   ,status,collection_id,collection_status,
   payment_type,merchant_order_id}) => async (dispatch) => {
     const compra = {
-      userId : userId,
-      preference_id:  preference_id,
-      status:  status,
-      collection_id: collection_id,
-      collection_status: collection_status,
-      payment_type:  payment_type,
-      merchant_order_id: merchant_order_id
+    userId,
+    preference_id,
+    status,
+    collection_id,
+    collection_status,
+    payment_type,
+    merchant_order_id
 
   }
   await axios.post(`/store/paymentcomplete`, compra);
@@ -259,9 +260,9 @@ export const addcomprado = (userId, {preference_id
 
 export const updatecart = (userId, productId, qty) => {
   const updated = {
-    userId: userId,
-    productId: productId,
-    qty: qty,
+   userId,
+   productId,
+   qty,
   };
   return async function (dispatch) {
     dispatch(updatecartitem(updated));
@@ -270,7 +271,7 @@ export const updatecart = (userId, productId, qty) => {
 
 export const cleancart = (userId) => {
   const borrado = {
-    userId: userId,
+    userId,
   };
   return async function (dispatch) {
     await axios.post(`/store/clean`, borrado);
@@ -284,10 +285,11 @@ export const clearlink = () => {
   };
 };
 
-export const comprartodo = (Cartitems,userId) => {
+export const comprartodo = (Cartitems,userId,inputs) => {
   const final = {
-    userId : userId,
-    Cartitems: Cartitems,
+    userId,
+    Cartitems,
+    inputs
   };
 
   return async function (dispatch) {
@@ -296,30 +298,36 @@ export const comprartodo = (Cartitems,userId) => {
     dispatch(comprartodolink(url.data.init_point));
   };
 };
+  
 
-export const Rectificar = () => {
+ export const alldatapagos = (collection_id) => {
   return async function (dispatch) {
-    const url = await axios.get(`/store/payments`);
-
-    dispatch(info(url));
-  };
-};
- export const alldatapagos = (idpago) => {
-  return async function (dispatch) {
-    const response = await axios.get(`https://api.mercadopago.com/v1/payments/${idpago}`, {
+    const response = await axios.get(`https://api.mercadopago.com/v1/payments/${collection_id}`, {
       headers: {
           'Authorization': `Bearer ${REACT_APP_MPAGOTOKEN}`
       }
 
     
   });
-  
-  // const envio = await axios.post(`/store/update`)
-  
-  dispatch(info(response));
+   
+    console.log(response)
+  // dispatch(info(response));
 }
  }
 
+ export const datadecompra = (preference_id) => {
+  return async function (dispatch) {
+    const response = await axios.get(`https://api.mercadopago.com/checkout/preferences/${preference_id}`, {
+      headers: {
+          'Authorization': `Bearer ${REACT_APP_MPAGOTOKEN}`
+      }
+
+    
+  });
+  console.log(response)
+}
+ }
+ 
 export const alltopay = (total) => {
   return async function (dispatch) {
     dispatch(totalapagar(total));
@@ -328,8 +336,8 @@ export const alltopay = (total) => {
 
 export const removeritem = (productId, userId) => {
   const removeitem = {
-    userId: userId,
-    productId: productId,
+    userId,
+    productId,
   };
 
   return async function (dispatch) {
