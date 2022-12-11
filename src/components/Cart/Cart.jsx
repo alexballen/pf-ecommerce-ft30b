@@ -1,42 +1,35 @@
-/* eslint-disable react/jsx-no-target-blank */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {   cleancart } from "../../redux/actions";
 import Cartitem from "./Cartitem";
 import { comprartodo, clearlink } from "../../redux/actions";
  import { useState } from "react";
+import {Pais} from './data'
 
 
 function Cart() {
   const dispatch = useDispatch();
-
   const { Cartitems } = useSelector((state) => state.Cart);
   const { loggedUser } = useSelector((state) => state.user);
   const { total } = useSelector((state) => state.Cart);
-
   const { pagarcarrito } = useSelector((state) => state.Cart);
   const userId = loggedUser?.id;
-
- 
-  const [inputs, setinputs] = useState({
-    
-});
-const [Errors, setErrors] = useState({Nombre : 1}  );
+  const [inputs, setinputs] = useState({});
+  const [Errors, setErrors] = useState({Nombre : 1}  );
+  const Ciudades = inputs.Pais ? Pais.find((e)=> e.Pais === inputs.Pais ) : "no hay Pais seleccionado" 
 
   function limpiarcart() {
     dispatch(cleancart(userId));
     dispatch(clearlink());
   }
    function Pagartodo() {
-    dispatch(comprartodo(Cartitems,userId));
+
+
+    dispatch(comprartodo(Cartitems,userId,inputs));
     
   }
-  
   function validate(input) {
     let Errors = {};
-
 
 
    ///nombre
@@ -94,7 +87,15 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
     Errors.Prefijo = "Prefijo es muy largo";
   }
   
+//pais
+if (!input.Pais) {
+  Errors.Pais = "se requiere Pais";
+}  
 
+//Ciudad
+if (!input.Ciudad) {
+  Errors.Ciudad = "se requiere Ciudad";
+}  
 
    ///barrio 
    if (!input.Barrio) {
@@ -323,14 +324,16 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
                 Nombre
                 </label>
                 <input name="Nombre" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder=   "juanito"></input>
-                
+                {Errors.Nombre && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Nombre}</p>} 
+
               </div>
               <div className="w-full md:w-1/2 px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
               Apellido
                 </label>
-                
-                <input  name="Apellido" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Peralta"></input>
+                 <input  name="Apellido" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Peralta"></input>
+                 {Errors.Apellido && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Apellido}</p>} 
+
               </div>
             </div>
 
@@ -341,13 +344,16 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
      Telefono:
       </label>
       <input name="Telefono" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="number" placeholder="33032021"></input>
-      
+      {Errors.Telefono && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Telefono}</p>} 
+
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
     Prefijo
       </label>
       <input  name="Prefijo" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="+57"></input>
+      {Errors.Prefijo && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Prefijo}</p>} 
+
     </div>
   </div>
  
@@ -361,14 +367,13 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
       </label>
 
 
-       <select onChange={ guardardireccion } name="Pais" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"      >   
-       <option disabled selected>  Pais</option>
-          
+       <select  onChange={ guardardireccion } name="Pais" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"      >   
+       <option disabled selected>  --Pais--</option>  
+        {Pais.map((e)=> {return ( <option  >  {e.Pais}</option>)})}
             
-     <option >  Colombia</option>
-      <option   >Chile</option>
-      <option   >Venzuela</option> </select>
- 
+ </select>
+ {Errors.Pais && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Pais}</p>} 
+   
     </div>
   </div>
   <div className="flex flex-wrap -mx-3 mb-2">
@@ -378,31 +383,41 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
       
       </label>
       <select onChange={ guardardireccion } name="Ciudad" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"      >   
-       <option disabled selected>  Ciudad</option>
-             
-     <option >   </option>
-      <option   > </option>
-      <option   > </option> </select>
-    
+       <option disabled selected> -- Ciudad--</option>
+ 
+      
+       {Ciudades.Ciudades.map((e)=> {return ( <option  >  {e}</option>)})}
+   
+                 </select>
+     {Errors.Ciudad && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Ciudad}</p>} 
+
     </div>
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
       Barrio
       </label>
       <input  name="Barrio" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="San bernardo"></input>
+      {Errors.Barrio && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Barrio}</p>} 
+
     </div> 
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
       Calle
       </label>
       <input  name="Calle" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Avenida,carrera,calle"></input>
+      {Errors.Calle && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Calle}</p>} 
+
     </div>
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
       #calle
       </label>
+      
       <input  name="calle1" onChange={guardardireccion} className="   appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="number" placeholder="21-"></input>
+      {Errors.calle1 && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.calle1}</p>} 
+
       <input  name="calle2" onChange={guardardireccion} className="mt-2 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="number" placeholder="15"></input>
+      {Errors.calle2 && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.calle2}</p>} 
 
     </div>
      
@@ -411,9 +426,11 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
         Estado/Departamento.
       </label>
       <div className="relative">
+      
       <input name="Estado" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Cordoba"></input>
 
-      
+      {Errors.Estado && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.Estado}</p>} 
+
       </div>
     </div>
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5 ">
@@ -421,6 +438,8 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
        codigo Zip
       </label>
       <input  name="zipcode" onChange={guardardireccion} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder="54321"></input>
+      {Errors.zipcode && <p className="text-gray-600 text-xs italic  text-red-500">{Errors.zipcode}</p>} 
+
     </div>
   
     <p className="text-gray-600 text-sm italic  text-red-500">Asegurate de que todos los datos esten correctos.</p>
@@ -459,7 +478,7 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
 
                   { Object.entries(Errors).length === 0  && !pagarcarrito ? 
                 
-                      <a
+                      <button
 
                     onClick={Pagartodo}
 
@@ -467,7 +486,7 @@ const [Errors, setErrors] = useState({Nombre : 1}  );
                     className="btn bg-sky-500 text-white font-bold hover:bg-sky-600 content-center  flex   "
                     >
                     Generar pago.
-                    </a>  
+                    </button>  
                         :  ""}
  
 

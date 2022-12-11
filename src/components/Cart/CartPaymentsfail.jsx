@@ -1,9 +1,10 @@
+/* eslint-disable */
 import React from "react";
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link,   } from "react-router-dom";
- 
+import { addcomprado } from "../../redux/actions";
 import { useSearchParams } from "react-router-dom";
 function CartPaymentsfail() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function CartPaymentsfail() {
   const payment_type =   searchParams.get("payment_type")
   const merchant_order_id =   searchParams.get("merchant_order_id")
 
-   const datapay= {
+   const datapay = {
     preference_id: preference_id,
     status: status,
     collection_id:collection_id,
@@ -28,7 +29,14 @@ function CartPaymentsfail() {
     payment_type:payment_type,
     merchant_order_id: merchant_order_id
   }
+  useEffect(() => {
+    
+    if(userId !== undefined && datapay){
+      
+      dispatch(addcomprado(userId,datapay))
+    } 
 
+  }, [userId ]);
   return (
     <div>
       <div
@@ -49,6 +57,17 @@ function CartPaymentsfail() {
             </h1>
             <p className="mb-5 text-black text-bold font-bold">
               Hubo un error en el pago intentelo denuevo o mas tarde.
+
+                  
+            <ul className="list-disc text-start break-normal">
+              <li>ID Compra:  {datapay.collection_id }</li>
+              <li>Estado de compra:  {datapay.collection_status }</li>
+              <li>Forma de pago:  {datapay.payment_type }</li>
+              <li >Referencia de compra:  {datapay.preference_id }</li>
+              <li>Id mercader:  {datapay.merchant_order_id }</li>
+              <li>Estado General:  {datapay.status }</li>
+            </ul>
+          
             </p>
             <Link to={"/Cart"}>
               <button className="btn btn-info">Ver Carrito</button>
