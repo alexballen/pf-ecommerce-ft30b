@@ -8,6 +8,7 @@ const userSlice = createSlice({
     favorites: [],
     users: [],
     filterUser: [],
+    banerUser: [],
   },
   reducers: {
     loggedUser: (state, action) => {
@@ -46,8 +47,11 @@ const userSlice = createSlice({
       state.users = banUser;
     },
     restoreBanUser(state, action) {
-      const resUser = state.filterUser.filter((e) => e.id);
-      state.users = resUser;
+      const objAction = state.filterUser.filter((e) => e);
+      state.users = objAction;
+    },
+    getBanerUser(state, action) {
+      state.banerUser = action.payload;
     },
   },
 });
@@ -62,5 +66,6 @@ export const {
   sortUser,
   baneoUser,
   restoreBanUser,
+  getBanerUser,
 } = userSlice.actions;
 export default userSlice.reducer;
