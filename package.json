@@ -44,7 +44,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://pf-ecommerce-ft-30-b-odxfhjkfia-uc.a.run.app/",
   "browserslist": {
     "production": [
       ">0.2%",
