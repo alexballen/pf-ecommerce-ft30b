@@ -17,6 +17,7 @@ import {
   baneoProduct,
   restoreBanProduct,
   getBanerProd,
+  setRelatedProducts
 } from "../reducers/getProductsSlice";
 
 import {
@@ -113,7 +114,7 @@ export const getUserFavorites = (userId) => async (dispatch) => {
 export const addFavorites = (data) => async (dispatch) => {
   await axios({
     method: "POST",
-    url: `/user/favorites`,
+    url: `/user/favorites/`,
     data: data,
   })
     .then(() => dispatch(getProducts(data.userId)))
@@ -183,7 +184,33 @@ export const createNewUser = (data) => async () => {
     throw new Error(error);
   });
 };
-
+export const getRelatedProducts = (product) => async(dispatch) => {
+  const {tags} = product
+  console.log(product)
+  const taggedProducts = []
+  try {
+    let productsraw = await axios.get('/products')
+    const products = productsraw.data
+    const relatedProducts = products.filter(p => p.tags !== null && p.id !== product.id)
+      for (let i = 0; i < relatedProducts.length; i++) {
+        let k = Math.floor(Math.random() * relatedProducts.length)
+        let temp = relatedProducts[i]
+        relatedProducts[i] = relatedProducts[k]
+        relatedProducts[k] = temp
+      }
+    
+        for (let i = 0; i < tags?.length; i++) {
+          for (let j = 0; j < relatedProducts.length; j++) {
+            if (relatedProducts[j].tags.includes(tags[i]) && !taggedProducts.includes(relatedProducts[j])) {
+              taggedProducts.push(relatedProducts[j])
+            }
+          }
+        }
+        dispatch(setRelatedProducts(taggedProducts))
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 export const currentPagePaginated = (page) => async (dispatch) => {
   dispatch(pagePaginated(page));
 };

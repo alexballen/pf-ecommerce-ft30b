@@ -13,7 +13,7 @@
     width: 27em;
     height: 27em;
     overflow: hidden;
-    position: relative
+    position: relative;
 }
 
 
@@ -27,6 +27,7 @@
     width: 25%;
     height: 25em;
     display: inline-flex;
+    margin-top: 12%;
   }
     #muestra3 {
      
@@ -148,7 +149,7 @@
   text-decoration: none;
 }
 
-#favorite {
+.favorite {
   width: 2em;
   cursor: pointer;
   filter: invert(100%);
@@ -156,11 +157,16 @@
   
 }
 
-#favorite.fill {
+.favorite.fill {
   animation: 1s ease-in backwards heartfilled;
   filter: invert(100%);
   mix-blend-mode: normal;
  
+}
+
+.favorite.break {
+  position: absolute;
+ display: none
 }
 
 

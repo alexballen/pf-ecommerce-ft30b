@@ -14,17 +14,14 @@ axios.defaults.baseURL = (process.env.NODE_ENV === "production")? process.env.RE
  
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <Auth0Provider
-    domain={process.env.REACT_APP_AUTH_DOMAIN}
-    clientId={process.env.REACT_APP_CLIENT_ID}
-    audience={process.env.ENV === "prod" ? process.env.REACT_APP_AUDIENCE : process.env.REACT_APP_LOCAL_AUDIENCE}
-    redirectUri={window.location.origin}
-  >
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>
-  </Auth0Provider>
+root.render( 
+    <Auth0Provider domain = { process.env.REACT_APP_AUTH_DOMAIN }
+    clientId = { process.env.REACT_APP_CLIENT_ID }
+    audience = { process.env.NODE_ENV === 'production' ? process.env.REACT_APP_AUDIENCE : process.env.REACT_APP_LOCAL_AUDIENCE }
+    redirectUri = { window.location.origin } >
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </Auth0Provider>
 );
+
