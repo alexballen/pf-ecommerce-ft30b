@@ -27,7 +27,9 @@ import {
   comprartodolink,
   clearlinks,
   info,
+  todaslascompras,
   updatecartitem,
+  agregarcomprado,
 } from "../reducers/Cart";
 
 import {
@@ -41,8 +43,8 @@ import {
   baneoUser,
   restoreBanUser,
 } from "../reducers/userSlice";
- 
- const { REACT_APP_MPAGOTOKEN } = process.env 
+
+const { REACT_APP_MPAGOTOKEN } = process.env;
 export const getProducts = (userId) => async (dispatch) => {
   if (userId)
     axios
@@ -214,24 +216,56 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-export const buyproduct = (quantity, id, userId,inputs) => {
+export const buyproduct = (
+  quantity,
+  id,
+  userId,
+  {
+    Apellido,
+    Barrio,
+    tipoCalle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+    numerocalle,
+  }
+) => {
   const getproduct = {
-    quantity: quantity,
-    userId: userId,
-    inputs:inputs
+    quantity,
+    userId,
+    Apellido,
+    Barrio,
+    tipoCalle,
+    numerocalle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
   };
+  console.log(getproduct);
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
-    
+
     dispatch(urlpayment(url.data.init_point));
   };
 };
 
 export const addtocart = (userId, productId, qty, product) => {
   const adddingtocart = {
-   userId,
-   productId,
-   qty,
+    userId,
+    productId,
+    qty,
   };
   return async function (dispatch) {
     await axios.post(`/store/add`, adddingtocart);
@@ -239,30 +273,36 @@ export const addtocart = (userId, productId, qty, product) => {
   };
 };
 
-export const addcomprado = (userId, {preference_id
-  ,status,collection_id,collection_status,
-  payment_type,merchant_order_id}) => async (dispatch) => {
-    const compra = {
+export const addcomprado =
+  (
     userId,
-    preference_id,
-    status,
-    collection_id,
-    collection_status,
-    payment_type,
-    merchant_order_id
-
-  }
-  await axios.post(`/store/paymentcomplete`, compra);
-  
-};
-
- 
+    {
+      preference_id,
+      status,
+      collection_id,
+      collection_status,
+      payment_type,
+      merchant_order_id,
+    }
+  ) =>
+  async (dispatch) => {
+    const compra = {
+      userId,
+      preference_id,
+      status,
+      collection_id,
+      collection_status,
+      payment_type,
+      merchant_order_id,
+    };
+    await axios.post(`/store/paymentcomplete`, compra);
+  };
 
 export const updatecart = (userId, productId, qty) => {
   const updated = {
-   userId,
-   productId,
-   qty,
+    userId,
+    productId,
+    qty,
   };
   return async function (dispatch) {
     dispatch(updatecartitem(updated));
@@ -285,49 +325,152 @@ export const clearlink = () => {
   };
 };
 
-export const comprartodo = (Cartitems,userId,inputs) => {
+export const comprartodo = (
+  Cartitems,
+  userId,
+  {
+    Apellido,
+    Barrio,
+    Calle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+    tipoCalle,
+    numerocalle,
+  }
+) => {
   const final = {
     userId,
     Cartitems,
-    inputs
+    Apellido,
+    Barrio,
+    Calle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+    tipoCalle,
+    numerocalle,
   };
 
   return async function (dispatch) {
     const url = await axios.post(`/store/buyall`, final);
-      
+
     dispatch(comprartodolink(url.data.init_point));
   };
 };
-  
 
- export const alldatapagos = (collection_id) => {
+export const getuserpaymets = (userId) => {
+  const final = {
+    userId,
+  };
   return async function (dispatch) {
-    const response = await axios.get(`https://api.mercadopago.com/v1/payments/${collection_id}`, {
-      headers: {
-          'Authorization': `Bearer ${REACT_APP_MPAGOTOKEN}`
-      }
+    const pagos = await axios.post(`/store/payments`, final);
 
-    
-  });
-   
-    console.log(response)
-  // dispatch(info(response));
-}
- }
+    dispatch(info(pagos.data));
+  };
+};
 
- export const datadecompra = (preference_id) => {
+export const alldatapagos = (collection_id) => {
   return async function (dispatch) {
-    const response = await axios.get(`https://api.mercadopago.com/checkout/preferences/${preference_id}`, {
-      headers: {
-          'Authorization': `Bearer ${REACT_APP_MPAGOTOKEN}`
+    const confimacion = await axios.get(
+      `https://api.mercadopago.com/v1/payments/${collection_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+        },
       }
+    );
 
-    
-  });
-  console.log(response)
-}
- }
- 
+    for (let e of confimacion.data.additional_info.items) {
+      const item = [];
+      const id = confimacion.data.id;
+      item.push(e, id);
+
+      dispatch(agregarcomprado(item));
+    }
+  };
+};
+
+// export const datadecompra = (preference_id) => {
+//   return async function (dispatch) {
+//     const response = await axios.get(
+//       `https://api.mercadopago.com/checkout/preferences/${preference_id}`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+//         },
+//       }
+//     );
+//     console.log(response);
+//   };
+// };
+
+export const getdataadmin = () => {
+  return async function (dispatch) {
+    const response = await axios.get(
+      `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
+      {
+        headers: {
+          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+        },
+      }
+    );
+
+    for (let e of response.data.results) {
+    }
+
+// MLA: Mercado Libre Argentina
+// MLB: Mercado Libre Brasil
+// MLC: Mercado Libre Chile
+// MLM: Mercado Libre México
+// MLU: Mercado Libre Uruguay
+// MCO: Mercado Libre Colombia
+// MPE: Mercado Libre Perú
+
+    for(let e of response.data.results){
+      
+    }
+
+    const Argentina = 0
+    const Brasil = 0
+    const Chile = 0
+    const México = 0
+    const Uruguay = 0
+    const Colombia = 0
+    const Perú = 0
+
+
+    const impuestocompra = response.data.results.reduce(
+      (ac, e) => ac + e.fee_details[0].amount,
+      0
+    );
+
+    const totalpagado = response.data.results.reduce(
+      (ac, e) => ac + e.transaction_details.total_paid_amount,
+      0
+    );
+
+    const ventasnetas = response.data.results.reduce(
+      (ac, e) => ac + e.transaction_details.net_received_amount,
+      0
+    );
+
+    // dispatch(todaslascompras(response.data.results));
+  };
+};
+
 export const alltopay = (total) => {
   return async function (dispatch) {
     dispatch(totalapagar(total));
