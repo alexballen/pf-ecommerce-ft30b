@@ -9,6 +9,8 @@ import user from "./reducers/userSlice";
 import Cart from "./reducers/Cart";
 import users from "./reducers/userSlice";
 import filteredUsers from "./reducers/userSlice";
+import getBanerUser from "./reducers/userSlice";
+import getBanerProd from "./reducers/getProductsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +24,7 @@ export const store = configureStore({
     users,
     filteredUsers,
     product,
+    getBanerUser,
+    getBanerProd,
   },
 });

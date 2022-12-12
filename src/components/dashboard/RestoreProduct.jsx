@@ -7,7 +7,7 @@ const BanProduct = () => {
   const dispatch = useDispatch();
   const [id, setId] = useState(null);
 
-  const handleBan = () => {
+  /* const handleBan = () => {
     swal({
       title: "Esta seguro?",
       text: "Una vez baneado, ¡El producto no estara disponible para los clientes! ¡☠!",
@@ -24,9 +24,9 @@ const BanProduct = () => {
         swal("¡😅! ¡El Producto seguira visible para los clientes!");
       }
     });
-  };
+  }; */
 
-  /* const handleRestore = () => {
+  const handleRestore = () => {
     swal({
       title: "Esta seguro?",
       text: "Una vez restaurado, ¡El producto sera visible para todos los clientes! ¡☠!",
@@ -43,7 +43,7 @@ const BanProduct = () => {
         swal("¡😅! ¡El Producto seguira bloqueado!");
       }
     });
-  }; */
+  };
 
   const handleChange = (e) => {
     setId(e.target.value);
@@ -58,12 +58,12 @@ const BanProduct = () => {
         type="input"
         placeholder="Id del Producto"
       />
-      <button onClick={handleBan} className="btn btn-xs">
+      {/* <button onClick={handleBan} className="btn btn-xs">
         Banear
-      </button>
-      {/*  <button onClick={handleRestore} className="btn btn-xs ml-2">
-        Restaurar
       </button> */}
+      <button onClick={handleRestore} className="btn btn-xs ml-2">
+        Restaurar
+      </button>
     </div>
   );
 };

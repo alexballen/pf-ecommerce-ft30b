@@ -7,35 +7,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { cleancart, clearlink } from "../../redux/actions";
 import { addcomprado } from "../../redux/actions";
+import { useSearchParams } from "react-router-dom";
 
 function CartPayments() {
- 
   const dispatch = useDispatch();
-  const {id} = useParams()
-  const { loggedUser } = useSelector((state) => state.user);
-  const userId = loggedUser?.id;
-  const { Cartitems } = useSelector((state) => state.Cart);
-  const { Comprados } = useSelector((state) => state.Cart);
-  function cleabcart() {
-    for(let e of Cartitems){
-      dispatch(addcomprado(e))
-    }
 
-    if (userId) {
-      dispatch(cleancart(userId));
-      dispatch(clearlink());
-    }
-  }
-  
+  const { loggedUser } = useSelector((state) => state.user);
+
+  const userId = loggedUser?.id;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const preference_id = searchParams.get("preference_id");
+  const status = searchParams.get("status");
+  const collection_id = searchParams.get("collection_id");
+  const collection_status = searchParams.get("collection_status");
+  const payment_type = searchParams.get("payment_type");
+  const merchant_order_id = searchParams.get("merchant_order_id");
+
+  const datapay = {
+    preference_id: preference_id,
+    status: status,
+    collection_id: collection_id,
+    collection_status: collection_status,
+    payment_type: payment_type,
+    merchant_order_id: merchant_order_id,
+  };
+
   useEffect(() => {
-    
-    for(let e of Cartitems){
-      dispatch(addcomprado(e))
+    if (userId !== undefined && datapay) {
+      dispatch(addcomprado(userId, datapay));
     }
-    
-    dispatch(cleancart(userId));
-    dispatch(clearlink());
-  }, []);
+  }, [userId]);
 
   return (
     <div>
@@ -57,11 +59,17 @@ function CartPayments() {
             </h1>
             <p className="mb-5 text-black text-bold font-bold">
               Pago realizado correctamente disfute de sus productos.
+              <ul className="list-disc text-start break-normal">
+                <li>ID Compra: {datapay.collection_id}</li>
+                <li>Estado de compra: {datapay.collection_status}</li>
+                <li>Forma de pago: {datapay.payment_type}</li>
+                <li>Referencia de compra: {datapay.preference_id}</li>
+                <li>Id mercader: {datapay.merchant_order_id}</li>
+                <li>Estado General: {datapay.status}</li>
+              </ul>
             </p>
             <Link to={"/"}>
-              <button onClick={cleabcart} className="btn btn-accent">
-                Ir a comprar
-              </button>
+              <button className="btn btn-accent">Ir a comprar</button>
             </Link>
           </div>
         </div>

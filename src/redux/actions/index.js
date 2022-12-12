@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import {
   allProducts,
@@ -15,6 +16,8 @@ import {
   deleteProduct,
   baneoProduct,
   restoreBanProduct,
+  getBanerProd,
+  setRelatedProducts
 } from "../reducers/getProductsSlice";
 
 import {
@@ -25,9 +28,10 @@ import {
   totalapagar,
   comprartodolink,
   clearlinks,
-  agregarcomprado,
   info,
+  todaslascompras,
   updatecartitem,
+  agregarcomprado,
 } from "../reducers/Cart";
 
 import {
@@ -40,8 +44,10 @@ import {
   sortUser,
   baneoUser,
   restoreBanUser,
+  getBanerUser,
 } from "../reducers/userSlice";
 
+const { REACT_APP_MPAGOTOKEN } = process.env;
 export const getProducts = (userId) => async (dispatch) => {
   if (userId)
     axios
@@ -108,7 +114,7 @@ export const getUserFavorites = (userId) => async (dispatch) => {
 export const addFavorites = (data) => async (dispatch) => {
   await axios({
     method: "POST",
-    url: `/user/favorites`,
+    url: `/user/favorites/`,
     data: data,
   })
     .then(() => dispatch(getProducts(data.userId)))
@@ -178,7 +184,33 @@ export const createNewUser = (data) => async () => {
     throw new Error(error);
   });
 };
-
+export const getRelatedProducts = (product) => async(dispatch) => {
+  const {tags} = product
+  console.log(product)
+  const taggedProducts = []
+  try {
+    let productsraw = await axios.get('/products')
+    const products = productsraw.data
+    const relatedProducts = products.filter(p => p.tags !== null && p.id !== product.id)
+      for (let i = 0; i < relatedProducts.length; i++) {
+        let k = Math.floor(Math.random() * relatedProducts.length)
+        let temp = relatedProducts[i]
+        relatedProducts[i] = relatedProducts[k]
+        relatedProducts[k] = temp
+      }
+    
+        for (let i = 0; i < tags?.length; i++) {
+          for (let j = 0; j < relatedProducts.length; j++) {
+            if (relatedProducts[j].tags.includes(tags[i]) && !taggedProducts.includes(relatedProducts[j])) {
+              taggedProducts.push(relatedProducts[j])
+            }
+          }
+        }
+        dispatch(setRelatedProducts(taggedProducts))
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 export const currentPagePaginated = (page) => async (dispatch) => {
   dispatch(pagePaginated(page));
 };
@@ -192,10 +224,6 @@ export const createNewProduct = (data) => async () => {
     throw new Error(error);
   });
 };
-
-// export const currentPagePaginated = (page) => async (dispatch) => {
-//   dispatch(pagePaginated(page));
-// };
 
 export function getCurrentUser(user) {
   // Obtener la info del user loggeado
@@ -213,23 +241,58 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-export const buyproduct = (quantity, id, userId) => {
+ 
+export const buyproduct = (
+  quantity,
+  id,
+  userId,
+  {
+    Apellido,
+    Barrio,
+    tipoCalle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+    numerocalle,
+  }
+) => {
   const getproduct = {
-    quantity: quantity,
-    userId: userId,
+    quantity,
+    userId,
+    Apellido,
+    Barrio,
+    tipoCalle,
+    numerocalle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+ 
   };
+  console.log(getproduct);
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
 
-    dispatch(urlpayment(url.data));
+    dispatch(urlpayment(url.data.init_point));
   };
 };
 
 export const addtocart = (userId, productId, qty, product) => {
   const adddingtocart = {
-    userId: userId,
-    productId: productId,
-    qty: qty,
+    userId,
+    productId,
+    qty,
   };
   return async function (dispatch) {
     await axios.post(`/store/add`, adddingtocart);
@@ -237,28 +300,45 @@ export const addtocart = (userId, productId, qty, product) => {
   };
 };
 
-export const addcomprado = (product) => {
-  return async function (dispatch) {
-    // await axios.post(`/store/addhistorial`, adddingtocart);
-    dispatch(agregarcomprado(product));
+export const addcomprado =
+  (
+    userId,
+    {
+      preference_id,
+      status,
+      collection_id,
+      collection_status,
+      payment_type,
+      merchant_order_id,
+    }
+  ) =>
+  async (dispatch) => {
+    const compra = {
+      userId,
+      preference_id,
+      status,
+      collection_id,
+      collection_status,
+      payment_type,
+      merchant_order_id,
+    };
+    await axios.post(`/store/paymentcomplete`, compra);
   };
-};
 
 export const updatecart = (userId, productId, qty) => {
   const updated = {
-    userId: userId,
-    productId: productId,
-    qty: qty,
+    userId,
+    productId,
+    qty,
   };
   return async function (dispatch) {
-    // await axios.put(`/store/update`, updated);
-    dispatch(updatecartitem(productId, qty));
+    dispatch(updatecartitem(updated));
   };
 };
 
 export const cleancart = (userId) => {
   const borrado = {
-    userId: userId,
+    userId,
   };
   return async function (dispatch) {
     await axios.post(`/store/clean`, borrado);
@@ -272,22 +352,157 @@ export const clearlink = () => {
   };
 };
 
-export const comprartodo = (userId) => {
+ 
+export const comprartodo = (
+  Cartitems,
+  userId,
+  {
+    Apellido,
+    Barrio,
+    Calle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+    tipoCalle,
+    numerocalle,
+  }
+) => {
   const final = {
-    userId: userId,
+    userId,
+    Cartitems,
+    Apellido,
+    Barrio,
+    Calle,
+    Ciudad,
+    Estado,
+    Nombre,
+    Pais,
+    Prefijo,
+    Telefono,
+    calle1,
+    calle2,
+    zipcode,
+    tipoCalle,
+    numerocalle,
+ 
   };
 
   return async function (dispatch) {
     const url = await axios.post(`/store/buyall`, final);
-    dispatch(comprartodolink(url.data));
+
+    dispatch(comprartodolink(url.data.init_point));
   };
 };
 
-export const Rectificar = () => {
+ 
+export const getuserpaymets = (userId) => {
+  const final = {
+    userId,
+  };
   return async function (dispatch) {
-    const url = await axios.get(`/store/payments`);
+    const pagos = await axios.post(`/store/payments`, final);
 
-    dispatch(info(url));
+    dispatch(info(pagos.data));
+  };
+};
+
+export const alldatapagos = (collection_id) => {
+  return async function (dispatch) {
+    const confimacion = await axios.get(
+ 
+      `https://api.mercadopago.com/v1/payments/${collection_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+        },
+      }
+    );
+
+ 
+    for (let e of confimacion.data.additional_info.items) {
+      const item = [];
+      const id = confimacion.data.id;
+      item.push(e, id);
+
+      dispatch(agregarcomprado(item));
+    }
+  };
+};
+
+// export const datadecompra = (preference_id) => {
+//   return async function (dispatch) {
+//     const response = await axios.get(
+//       `https://api.mercadopago.com/checkout/preferences/${preference_id}`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+//         },
+//       }
+//     );
+//     console.log(response);
+//   };
+// };
+
+export const getdataadmin = () => {
+  return async function (dispatch) {
+    const response = await axios.get(
+      `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
+ 
+      {
+        headers: {
+          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+        },
+      }
+    );
+ 
+
+    for (let e of response.data.results) {
+    }
+
+// MLA: Mercado Libre Argentina
+// MLB: Mercado Libre Brasil
+// MLC: Mercado Libre Chile
+// MLM: Mercado Libre México
+// MLU: Mercado Libre Uruguay
+// MCO: Mercado Libre Colombia
+// MPE: Mercado Libre Perú
+
+    for(let e of response.data.results){
+      
+    }
+
+    const Argentina = 0
+    const Brasil = 0
+    const Chile = 0
+    const México = 0
+    const Uruguay = 0
+    const Colombia = 0
+    const Perú = 0
+
+
+    const impuestocompra = response.data.results.reduce(
+      (ac, e) => ac + e.fee_details[0].amount,
+      0
+    );
+
+    const totalpagado = response.data.results.reduce(
+      (ac, e) => ac + e.transaction_details.total_paid_amount,
+      0
+    );
+
+    const ventasnetas = response.data.results.reduce(
+      (ac, e) => ac + e.transaction_details.net_received_amount,
+      0
+    );
+
+    // dispatch(todaslascompras(response.data.results));
+ 
   };
 };
 
@@ -299,8 +514,8 @@ export const alltopay = (total) => {
 
 export const removeritem = (productId, userId) => {
   const removeitem = {
-    userId: userId,
-    productId: productId,
+    userId,
+    productId,
   };
 
   return async function (dispatch) {
@@ -343,6 +558,14 @@ export const banerUserId = (id) => async (dispatch) => {
 export const restoreBanerUserId = (id) => async (dispatch) => {
   dispatch(restoreBanUser());
   await axios.delete(`/user/softDelete/${id}?restore=true`);
+  if (id) {
+    await axios
+      .get(`/user`)
+      .then((res) => dispatch(allUser(res.data)))
+      .catch((error) => {
+        throw new Error(error);
+      });
+  }
 };
 
 export const banerProductId = (id) => async (dispatch) => {
@@ -357,4 +580,22 @@ export const restoreBanerProductId = (id) => async (dispatch) => {
 
 export const editProductId = (data, id) => async () => {
   await axios.put(`/products/update?productId=${id}`, data);
+};
+
+export const banerProduct = () => async (dispatch) => {
+  await axios
+    .get("/products/banerProducts")
+    .then((res) => dispatch(getBanerProd(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const banerUser = () => async (dispatch) => {
+  await axios
+    .get("/user/banerUsers")
+    .then((res) => dispatch(getBanerUser(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };

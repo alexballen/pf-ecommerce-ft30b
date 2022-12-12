@@ -1,17 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
-
 const CartSlice = createSlice({
   name: "Cart",
   initialState: {
     Cartitems: [],
     Comprados: [],
+    Comprasgenerales: [],
     paymenturl: "",
     pagarcarrito: "",
-    total: 0 ,
-    info: {},
+    total: 0,
+    info: [],
   },
   reducers: {
     getusercart(state, action) {
@@ -19,19 +17,20 @@ const CartSlice = createSlice({
     },
 
     agregaracart(state, action) {
-      const filterdItem = [...state.Cartitems.filter(item => item.id === action.payload.id)]
+      const filterdItem = [
+        ...state.Cartitems.filter((item) => item.id === action.payload.id),
+      ];
       const allproducts = [
-          ...state.Cartitems.filter((item) => item.id !== action.payload.id)
-      ]
+        ...state.Cartitems.filter((item) => item.id !== action.payload.id),
+      ];
 
       if (filterdItem[0]) {
         filterdItem[0].quantity += action.payload.quantity;
-        const setProducts = [...allproducts, filterdItem[0]]
-        state.Cartitems = setProducts
+        const setProducts = [...allproducts, filterdItem[0]];
+        state.Cartitems = setProducts;
       } else {
-        state.Cartitems = [...state.Cartitems,  action.payload]
+        state.Cartitems = [...state.Cartitems, action.payload];
       }
-       
     },
     limpiarcart(state) {
       state.Cartitems = [];
@@ -43,34 +42,51 @@ const CartSlice = createSlice({
     },
     urlcarpayment(state, action) {
       state.paymenturl = action.payload;
-      
     },
-    totalapagar(state, action) {
-      state.total = action.payload;
+    totalapagar(state) {
+      state.total = state.Cartitems.reduce(
+        (ac, e) => ac + e.quantity * e.unitPrice,
+        0
+      );
     },
     comprartodolink(state, action) {
       state.pagarcarrito = action.payload;
     },
     clearlinks(state) {
-      state.paymenturl = ""
+      state.paymenturl = "";
       state.pagarcarrito = "";
     },
     info(state, action) {
       state.info = action.payload;
     },
     agregarcomprado(state, action) {
-      state.Comprados = [...state.Comprados, action.payload];
+      const existe = state.Comprados.find((e,i) => e.id === action.payload[0].id);
+
+      const noexiste = action.payload[0];
+      noexiste.compraid = action.payload[1];
+
+      if (!existe) {
+        state.Comprados = [...state.Comprados, noexiste];
+      }
     },
-    
-    updatecartitem(state, action) {
-      const id = action.productId
-      const qty = action.qty
-      
-      state.Cartitems = [
-        ...state.Cartitems.map((e) => e.id === id ? e.quantity = qty : e.quantity)
-      ]
-    }
-    
+    todaslascompras(state, action) {
+      state.Comprasgenerales = action.payload;
+    },
+    updatecartitem(state, { payload }) {
+      const id = payload.productId;
+      const qty = payload.qty;
+
+      // const altered = state.Cartitems.find((e)=> e.id === id)
+
+      // altered.quantity = qty
+      // const allproducts = state.Cartitems.filter((e)=> e.id !== id)
+
+      // const all = [...allproducts,altered]
+
+      state.Cartitems = state.Cartitems.filter((e) =>
+        e.id === id ? (e.quantity = qty) : e.quantity
+      );
+    },
   },
 });
 
@@ -82,7 +98,10 @@ export const {
   urlcarpayment,
   totalapagar,
   comprartodolink,
-  clearlinks,agregarcomprado,
-  info,updatecartitem
+  clearlinks,
+  agregarcomprado,
+  info,
+  todaslascompras,
+  updatecartitem,
 } = CartSlice.actions;
 export default CartSlice.reducer;
