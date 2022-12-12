@@ -56,7 +56,7 @@ const productSlice = createSlice({
     sortType: "", // tipo de ordenamiento
     page: 1,
     paymenturl: "", 
-    relatedProducts: []//url de compra por item
+    relatedProducts: [],//url de compra por item
     banerProd: [],
   },
   reducers: {
