@@ -1,54 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts, deleteProductId } from "../../redux/actions/index";
-import FilterProducts from "./FilterProducts";
+import { banerUser, deleteUserId } from "../../redux/actions";
+import FilterUsersBaner from "./FilterUsersBaner";
+import perfil from "../../images/perfil.png";
 import swal from "sweetalert";
 import { AiFillEdit } from "react-icons/ai";
 import { TfiTrash } from "react-icons/tfi";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
-const ProductTable = () => {
+const UsersTable = () => {
   const dispatch = useDispatch();
-  const { filteredProducts: products } = useSelector((state) => state.products);
+  const { getBanerUser } = useSelector((state) => state.getBanerUser);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(banerUser());
   }, [dispatch]);
 
   const handleDelete = (e) => {
     swal({
       title: "Esta seguro?",
-      text: "Una vez eliminado, ¡No podrá recuperar este Producto! ¡☠!",
+      text: "Una vez eliminado, ¡No podrá restaurar el usuario! ¡☠!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((result) => {
       if (result) {
-        dispatch(deleteProductId(e));
-        swal("¡🙈🙉🙊! ¡Tu Producto ha sido eliminado!", {
+        dispatch(deleteUserId(e));
+        swal("¡🙈🙉🙊! ¡El Usuario ha sido eliminado!", {
           icon: "success",
         });
       } else {
-        swal("¡😅! ¡Tu Producto está a salvo!");
+        swal("¡😅! ¡El Usuario está a salvo!");
       }
     });
   };
 
   const handleEdit = (e) => {
     swal({
-      title: "Deseas editar el producto?",
+      title: "Deseas editar este Usuario?",
       text: "Una vez editado, ¡No podras restaurar sus modificaciones! ¡🖐🖌!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((result) => {
       if (result) {
-        window.location.href = `/editproduct/${e}`;
-        /* swal(
-          "¡👍! ¡En el momento tenemos problemas para editar el producto, intenta mas tarde!"
-        ); */
+        //window.location.href = `/editproduct/${e}`;
+        swal(
+          "¡👍! ¡En el momento tenemos problemas para editar el usuario, intenta mas tarde!"
+        );
       } else {
-        swal("¡👍! ¡Tu Producto no sufrio cambios!");
+        swal("¡👍! ¡El Usuario no sufrio cambios!");
       }
     });
   };
@@ -60,11 +61,11 @@ const ProductTable = () => {
   return (
     <>
       <div className="mx-6 border-b sticky top-0">
-        <FilterProducts />
+        <FilterUsersBaner />
       </div>
       <div className="mx-6 bg-stone-300">
         <table className="w-full">
-          <thead className="bg-stone-400 border-b sticky top-24">
+          <thead className="bg-stone-400 border-b sticky top-12">
             <tr>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
                 <div className="tooltip" data-tip="Id">
@@ -72,19 +73,25 @@ const ProductTable = () => {
                 </div>
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Nombre
+                Foto
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Cantidad Disponible
+                Nombre Completo
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Categoria
+                Usuario
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Marca
+                Correo
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
-                Precio Unitario
+                N° Telefono
+              </th>
+              <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
+                Fecha de Registro
+              </th>
+              <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
+                Nombre de Usuario
               </th>
               <th className="outline outline-1 outline-base-100 px-4 py-2 text-base-100 hover:bg-stone-500">
                 <div className="tooltip" data-tip="Editar-Eliminar-Baneo">
@@ -93,9 +100,9 @@ const ProductTable = () => {
               </th>
             </tr>
           </thead>
-          {products &&
-            products.map((e, i) => (
-              <tbody>
+          {getBanerUser &&
+            getBanerUser.map((e, i) => (
+              <tbody key={i}>
                 <tr>
                   <td className="border border-white px-4 py-2">
                     <div className="flex justify-center">
@@ -108,18 +115,31 @@ const ProductTable = () => {
                       </button>
                     </div>
                   </td>
-                  <td className="border border-white px-4 py-2">{e.name}</td>
                   <td className="border border-white px-4 py-2">
-                    <div className="flex justify-center">{e.stock}</div>
+                    <div className="flex justify-center bg-red-600">
+                      <img
+                        src={e.photo.url ? perfil : e.photo.url}
+                        alt="Not found"
+                        width={45}
+                        height={25}
+                      />
+                    </div>
                   </td>
                   <td className="border border-white px-4 py-2">
-                    {e.categories.map((e) => `${e.name}, `)}
+                    {e.fullName}
                   </td>
                   <td className="border border-white px-4 py-2">
-                    {e.brand.name}
+                    {e.isAdmin === true ? "Administrador" : "Cliente"}
+                  </td>
+                  <td className="border border-white px-4 py-2">{e.email}</td>
+                  <td className="border border-white px-4 py-2">
+                    {e.phoneNumber}
                   </td>
                   <td className="border border-white px-4 py-2">
-                    <div className="flex justify-center">{e.unitPrice}</div>
+                    {e.unitedAt}
+                  </td>
+                  <td className="border border-white px-4 py-2">
+                    {e.username}
                   </td>
                   <td className="border border-white px-4 py-2">
                     <div className="flex flex-row">
@@ -144,4 +164,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default UsersTable;
