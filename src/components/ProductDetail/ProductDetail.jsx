@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RelatedProduct } from "./relatedProduct";
 import { useParams } from "react-router-dom";
-import { GetProductById, buyproduct, addtocart, getProducts } from "../../redux/actions";
+import { GetProductById, buyproduct, addtocart, getProducts, getRelatedProducts } from "../../redux/actions";
 import './ProductDetail.css'
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -16,42 +16,20 @@ const ProductDetail = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { Cartitems } = useSelector((state) => state.Cart)
-  const { product } = useSelector((state) => state.products)
+  const { product, relatedProducts } = useSelector((state) => state.products)
   const [qty, setqty] = React.useState()
   const { paymenturl } = useSelector((state) => state.products)
-  const { loggedUser } = useSelector((state) => state.user)
+  const { loggedUser, favorites } = useSelector((state) => state.user)
   const image = document.getElementById('productDetailImage')
   const [amoutstock, setbuy] = useState(1)
+  const [isLiked, setIsLiked] = React.useState([])
   const [cordinates, setCordinates] = useState({
     x: '',
     y: ''
   })
   const { products } = useSelector(state => state.products)
-  const taggedProducts = []
-  const tags = product.tags
-  const relatedProducts = products.filter(p => p.tags !== null && p.id !== product.id)
+ 
   
-  
-  
-  
-
-
-  function shuffle(array) {
-    
-    for (let i = 0; i < array.length; i++) {
-      let k = Math.floor(Math.random() * array.length)
-      let temp = array[i]
-      array[i] = array[k]
-      array[k] = temp
-    }
-  }
-    for (let i = 0; i < tags?.length; i++) {
-    for (let j = 0; j < relatedProducts.length; j++) {
-      if (relatedProducts[j].tags.includes(tags[i]) && !taggedProducts.includes(relatedProducts[j])) {
-        taggedProducts.push(relatedProducts[j])
-      }
-    }
-  }
 
  // const email = loggedUser.data?.email;
   const productid = product.id;
@@ -90,16 +68,18 @@ const ProductDetail = () => {
   }
 
   useEffect(() => {
-    
     dispatch(GetProductById(id));
+    
     if (products.length === 0) {
       dispatch(getProducts())
       
     }
     
-      shuffle(taggedProducts)
-    
-  }, [amoutstock, taggedProducts.length, id]);
+    if(product.tags !== null && !relatedProducts.length ) {
+      dispatch(getRelatedProducts(product))
+    }
+     
+  }, [amoutstock, id, userId]);
 
   return (
     <section onLoad={() => setqty(product)} className="body-font overflow-hidden   bg-base-500   ">
@@ -262,9 +242,9 @@ const ProductDetail = () => {
         </div>
       </div>
       {
-        taggedProducts?.slice(0,4).map(p => {
-          return (
-            <RelatedProduct product={p} />
+        relatedProducts.slice(0,4).map(p => {
+          return(
+            <RelatedProduct key={p.id} product={p}/>
           )
         })
       }

@@ -55,7 +55,8 @@ const productSlice = createSlice({
     brandFilter: "All",
     sortType: "", // tipo de ordenamiento
     page: 1,
-    paymenturl: "", //url de compra por item
+    paymenturl: "", 
+    relatedProducts: []//url de compra por item
   },
   reducers: {
     pagePaginated: (state, action) => {
@@ -129,6 +130,9 @@ const productSlice = createSlice({
       );
       state.brandFilter = action.payload;
     },
+    setRelatedProducts: (state, action) =>{
+      state.relatedProducts = action.payload
+    },
     sort: (state, action) => {
       state.filteredProducts = sortAndFilter(
         state.products,
@@ -173,5 +177,6 @@ export const {
   deleteProduct,
   baneoProduct,
   restoreBanProduct,
+  setRelatedProducts
 } = productSlice.actions;
 export default productSlice.reducer;
