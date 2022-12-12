@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts, deleteProductId } from "../../redux/actions/index";
-import FilterProducts from "./FilterProducts";
+import { banerProduct, deleteProductId } from "../../redux/actions/index";
+import FilterProductsBaner from "./FilterProductsBaner";
 import swal from "sweetalert";
 import { AiFillEdit } from "react-icons/ai";
 import { TfiTrash } from "react-icons/tfi";
@@ -9,10 +9,10 @@ import { FcApprove, FcDisapprove } from "react-icons/fc";
 
 const ProductTable = () => {
   const dispatch = useDispatch();
-  const { filteredProducts: products } = useSelector((state) => state.products);
+  const { getBanerProd } = useSelector((state) => state.getBanerProd);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(banerProduct());
   }, [dispatch]);
 
   const handleDelete = (e) => {
@@ -60,7 +60,7 @@ const ProductTable = () => {
   return (
     <>
       <div className="mx-6 border-b sticky top-0">
-        <FilterProducts />
+        <FilterProductsBaner />
       </div>
       <div className="mx-6 bg-stone-300">
         <table className="w-full">
@@ -93,8 +93,8 @@ const ProductTable = () => {
               </th>
             </tr>
           </thead>
-          {products &&
-            products.map((e, i) => (
+          {getBanerProd &&
+            getBanerProd.map((e, i) => (
               <tbody>
                 <tr>
                   <td className="border border-white px-4 py-2">

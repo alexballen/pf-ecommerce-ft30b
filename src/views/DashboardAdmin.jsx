@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Tab, TabList, Card, Title, Text, ColGrid, Block } from "@tremor/react";
+import { Tab, TabList, Card, Block } from "@tremor/react";
 import CreateProduct from "../components/dashboard/CreateProduct";
 import ProductTable from "../components/dashboard/ProductTable";
 import UsersTable from "../components/dashboard/UsersTable";
-import logo from "../images/HCoutureLogo.png";
 import CardG from "../components/dashboard/CardG";
 import ChartDonut from "../components/dashboard/ChartDonut";
+import UsersBanerTable from "../components/dashboard/UsersBanerTable";
+import ProductBanerTable from "../components/dashboard/ProductBanerTable";
 
 const DashboardAdmin = () => {
   const [view, setView] = useState(1);
@@ -23,7 +24,9 @@ const DashboardAdmin = () => {
           <Tab value={1} text="Metricas" />
           <Tab value={2} text="Productos" />
           <Tab value={3} text="Usuarios" />
-          <Tab value={4} text="Crear Producto" />
+          <Tab value={4} text="Productos Baneados" />
+          <Tab value={5} text="Usuarios Baneados" />
+          <Tab value={6} text="Crear Producto" />
         </TabList>
 
         {view === 1 ? (
@@ -50,6 +53,20 @@ const DashboardAdmin = () => {
             <UsersTable />
           </div>
         ) : null}
+        {view === 5 ? (
+          <div className="mt-6">
+            <ProductBanerTable />
+          </div>
+        ) : (
+          ""
+        )}
+        {view === 6 ? (
+          <div className="mt-6">
+            <UsersBanerTable />
+          </div>
+        ) : (
+          ""
+        )}
         {view === 4 ? (
           <Card marginTop="mt-6">
             <div className="h-full bg-stone-300 p-2">
