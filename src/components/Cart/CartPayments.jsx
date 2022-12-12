@@ -39,7 +39,8 @@ function CartPayments() {
   useEffect(() => {
     
     if(userId !== undefined && datapay){
-      console.log(userId)
+      
+      
       dispatch(addcomprado(userId,datapay))
     } 
 

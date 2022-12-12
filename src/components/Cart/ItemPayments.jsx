@@ -80,10 +80,10 @@ import { addcomprado } from "../../redux/actions";
           
 
             </p>
-  
-            
+        
+             <Link to={"/"}>
               <button   className="btn btn-accent">Ir a comprar</button>
-    
+              </Link>
           </div>
         </div>
       </div>}

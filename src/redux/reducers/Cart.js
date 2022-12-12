@@ -58,10 +58,6 @@ const CartSlice = createSlice({
     info(state, action) {
       state.Comprados = [...state.Comprados, action.payload]
     },
-    agregarcomprado(state, action) {
-      state.Comprados = [...state.Comprados, action.payload];
-    },
-    
     updatecartitem(state, {payload}) {
     
       const id = payload.productId

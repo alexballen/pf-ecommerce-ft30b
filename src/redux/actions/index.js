@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import {
   allProducts,
@@ -15,6 +16,7 @@ import {
   deleteProduct,
   baneoProduct,
   restoreBanProduct,
+  getBanerProd,
 } from "../reducers/getProductsSlice";
 
 import {
@@ -25,7 +27,6 @@ import {
   totalapagar,
   comprartodolink,
   clearlinks,
-  agregarcomprado,
   info,
   updatecartitem,
 } from "../reducers/Cart";
@@ -40,9 +41,10 @@ import {
   sortUser,
   baneoUser,
   restoreBanUser,
+  getBanerUser,
 } from "../reducers/userSlice";
- 
- const { REACT_APP_MPAGOTOKEN } = process.env 
+
+const { REACT_APP_MPAGOTOKEN } = process.env;
 export const getProducts = (userId) => async (dispatch) => {
   if (userId)
     axios
@@ -194,10 +196,6 @@ export const createNewProduct = (data) => async () => {
   });
 };
 
-// export const currentPagePaginated = (page) => async (dispatch) => {
-//   dispatch(pagePaginated(page));
-// };
-
 export function getCurrentUser(user) {
   // Obtener la info del user loggeado
 
@@ -214,23 +212,24 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-export const buyproduct = (quantity, id, userId) => {
+export const buyproduct = (quantity, id, userId, inputs) => {
   const getproduct = {
     quantity: quantity,
     userId: userId,
+    inputs: inputs,
   };
   return async function (dispatch) {
     const url = await axios.post(`/store/${id}`, getproduct);
-    
+
     dispatch(urlpayment(url.data.init_point));
   };
 };
 
 export const addtocart = (userId, productId, qty, product) => {
   const adddingtocart = {
-    userId: userId,
-    productId: productId,
-    qty: qty,
+    userId,
+    productId,
+    qty,
   };
   return async function (dispatch) {
     await axios.post(`/store/add`, adddingtocart);
@@ -238,30 +237,36 @@ export const addtocart = (userId, productId, qty, product) => {
   };
 };
 
-export const addcomprado = (userId, {preference_id
-  ,status,collection_id,collection_status,
-  payment_type,merchant_order_id}) => async (dispatch) => {
+export const addcomprado =
+  (
+    userId,
+    {
+      preference_id,
+      status,
+      collection_id,
+      collection_status,
+      payment_type,
+      merchant_order_id,
+    }
+  ) =>
+  async (dispatch) => {
     const compra = {
-      userId : userId,
-      preference_id:  preference_id,
-      status:  status,
-      collection_id: collection_id,
-      collection_status: collection_status,
-      payment_type:  payment_type,
-      merchant_order_id: merchant_order_id
-
-  }
-  await axios.post(`/store/paymentcomplete`, compra);
-  
-};
-
- 
+      userId,
+      preference_id,
+      status,
+      collection_id,
+      collection_status,
+      payment_type,
+      merchant_order_id,
+    };
+    await axios.post(`/store/paymentcomplete`, compra);
+  };
 
 export const updatecart = (userId, productId, qty) => {
   const updated = {
-    userId: userId,
-    productId: productId,
-    qty: qty,
+    userId,
+    productId,
+    qty,
   };
   return async function (dispatch) {
     dispatch(updatecartitem(updated));
@@ -270,7 +275,7 @@ export const updatecart = (userId, productId, qty) => {
 
 export const cleancart = (userId) => {
   const borrado = {
-    userId: userId,
+    userId,
   };
   return async function (dispatch) {
     await axios.post(`/store/clean`, borrado);
@@ -284,41 +289,49 @@ export const clearlink = () => {
   };
 };
 
-export const comprartodo = (Cartitems,userId) => {
+export const comprartodo = (Cartitems, userId, inputs) => {
   const final = {
-    userId : userId,
-    Cartitems: Cartitems,
+    userId,
+    Cartitems,
+    inputs,
   };
 
   return async function (dispatch) {
     const url = await axios.post(`/store/buyall`, final);
-      
+
     dispatch(comprartodolink(url.data.init_point));
   };
 };
 
-export const Rectificar = () => {
+export const alldatapagos = (collection_id) => {
   return async function (dispatch) {
-    const url = await axios.get(`/store/payments`);
+    const response = await axios.get(
+      `https://api.mercadopago.com/v1/payments/${collection_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+        },
+      }
+    );
 
-    dispatch(info(url));
+    console.log(response);
+    // dispatch(info(response));
   };
 };
- export const alldatapagos = (idpago) => {
-  return async function (dispatch) {
-    const response = await axios.get(`https://api.mercadopago.com/v1/payments/${idpago}`, {
-      headers: {
-          'Authorization': `Bearer ${REACT_APP_MPAGOTOKEN}`
-      }
 
-    
-  });
-  
-  // const envio = await axios.post(`/store/update`)
-  
-  dispatch(info(response));
-}
- }
+export const datadecompra = (preference_id) => {
+  return async function (dispatch) {
+    const response = await axios.get(
+      `https://api.mercadopago.com/checkout/preferences/${preference_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+        },
+      }
+    );
+    console.log(response);
+  };
+};
 
 export const alltopay = (total) => {
   return async function (dispatch) {
@@ -328,8 +341,8 @@ export const alltopay = (total) => {
 
 export const removeritem = (productId, userId) => {
   const removeitem = {
-    userId: userId,
-    productId: productId,
+    userId,
+    productId,
   };
 
   return async function (dispatch) {
@@ -372,6 +385,14 @@ export const banerUserId = (id) => async (dispatch) => {
 export const restoreBanerUserId = (id) => async (dispatch) => {
   dispatch(restoreBanUser());
   await axios.delete(`/user/softDelete/${id}?restore=true`);
+  if (id) {
+    await axios
+      .get(`/user`)
+      .then((res) => dispatch(allUser(res.data)))
+      .catch((error) => {
+        throw new Error(error);
+      });
+  }
 };
 
 export const banerProductId = (id) => async (dispatch) => {
@@ -386,4 +407,22 @@ export const restoreBanerProductId = (id) => async (dispatch) => {
 
 export const editProductId = (data, id) => async () => {
   await axios.put(`/products/update?productId=${id}`, data);
+};
+
+export const banerProduct = () => async (dispatch) => {
+  await axios
+    .get("/products/banerProducts")
+    .then((res) => dispatch(getBanerProd(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const banerUser = () => async (dispatch) => {
+  await axios
+    .get("/user/banerUsers")
+    .then((res) => dispatch(getBanerUser(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
