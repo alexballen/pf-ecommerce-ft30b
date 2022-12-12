@@ -38,13 +38,29 @@ const UserProfile = () => {
   }
   )
 
+  useEffect(()=>{
+    if(loggedUser && loggedUser.address){
+      setSelectedAddress(loggedUser.address[0])}
+
+  },[loggedUser])
   
   const dispatch = useDispatch()
 
-  const handleSubmit = ()=>{
+  const handleProfileSubmit = ()=>{
    
 
   }
+
+  const handleAddressSubmit = ()=>{
+   
+
+  }
+
+  const handlePreferenceSubmit = ()=>{
+   
+
+  }
+
   const addressChange =()=> {
     setSelectedAddress(loggedUser.address[0])
   }
@@ -93,7 +109,7 @@ const UserProfile = () => {
                 </div>
               </div>
               <div className="mt-5 md:col-span-2 md:mt-0">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleProfileSubmit}>
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -228,7 +244,7 @@ const UserProfile = () => {
 
 
               <div className="mt-5 md:col-span-2 md:mt-0">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleAddressSubmit}>
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -246,7 +262,7 @@ const UserProfile = () => {
                             autoComplete="country-name"
                             className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                           >
-                            {loggedUser.addresses.forEach(element => {
+                            {loggedUser?.addresses?.forEach(element => {
                               
                           
 
@@ -279,21 +295,7 @@ const UserProfile = () => {
                           </select>
                         </div>
 
-                        <div className="col-span-6 sm:col-span-3">
-                          <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
-                            Teléfono
-                          </label>
-                          <input
-                            placeholder={loggedUser.phoneNumber}
-                            type="number"
-                            value={userAddress.phone}
-                            onChange={handleChange}
-                            name="phone"
-                            id="phone"
-                            autoComplete="phone-number"
-                            className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none"
-                          />
-                        </div>
+                   
 
                         <div className="col-span-6">
                           <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
@@ -319,7 +321,7 @@ const UserProfile = () => {
                             placeholder={loggedUser.cityOfOrigin}
                             type="text"
                             value={userAddress.city}
-                            onChange={handleChange}
+                            onChange={handleCheckbox}
                             name="city"
                             id="city"
                             autoComplete="city"
@@ -335,7 +337,7 @@ const UserProfile = () => {
                             // placeholder={loggedUser.cityOfOrigin}
                             type="text"
                             value={userAddress.state}
-                            onChange={handleChange}
+                            onChange={handleCheckbox}
                             name="state"
                             id="state"
                             autoComplete="address-level1"
@@ -351,7 +353,7 @@ const UserProfile = () => {
                             // placeholder={loggedUser.cityOfOrigin}
                             type="text"
                             value={userAddress.postalCode}
-                            onChange={handleChange}
+                            onChange={handleCheckbox}
                             name="postalCode"
                             id="codigoPostal"
                             autoComplete="postal-code"
@@ -390,7 +392,7 @@ const UserProfile = () => {
                 </div>
               </div>
               <div className="mt-5 md:col-span-2 md:mt-0">
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handlePreferenceSubmit} >
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                       <fieldset>
