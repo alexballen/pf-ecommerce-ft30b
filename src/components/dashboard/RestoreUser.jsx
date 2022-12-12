@@ -7,7 +7,7 @@ const BanUser = () => {
   const dispatch = useDispatch();
   const [id, setId] = useState(null);
 
-  const handleBan = () => {
+  /* const handleBan = () => {
     swal({
       title: "Esta seguro?",
       text: "Una vez baneado, ¡El usuario no podra acceder a su cuenta! ¡☠!",
@@ -24,9 +24,9 @@ const BanUser = () => {
         swal("¡😅! ¡El Usuario seguira teniendo acceso a su cuenta!");
       }
     });
-  };
+  }; */
 
-  /*  const handleRestore = () => {
+  const handleRestore = () => {
     swal({
       title: "Esta seguro?",
       text: "Una vez restaurado, ¡El usuario podra acceder a su cuenta! ¡☠!",
@@ -43,7 +43,7 @@ const BanUser = () => {
         swal("¡😅! ¡El Usuario seguira bloqueado!");
       }
     });
-  }; */
+  };
 
   const handleChange = (e) => {
     setId(e.target.value);
@@ -58,12 +58,12 @@ const BanUser = () => {
         type="input"
         placeholder="Id de Usuario"
       />
-      <button onClick={handleBan} className="btn btn-xs">
+      {/* <button onClick={handleBan} className="btn btn-xs">
         Banear
-      </button>
-      {/* <button onClick={handleRestore} className="btn btn-xs ml-2">
-        Restaurar
       </button> */}
+      <button onClick={handleRestore} className="btn btn-xs ml-2">
+        Restaurar
+      </button>
     </div>
   );
 };

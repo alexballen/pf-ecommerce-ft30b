@@ -9,10 +9,12 @@ import { useParams } from "react-router-dom";
 import { GetProductById, buyproduct, addtocart, getProducts, getRelatedProducts } from "../../redux/actions";
 import './ProductDetail.css'
 import { useAuth0 } from "@auth0/auth0-react";
+import Comment from "../Comment/Comment";
 
-const ProductDetail = () => {
+const ProductDetail = () =>
+{
   const { isAuthenticated, loginWithPopup } = useAuth0()
-  
+
   const { id } = useParams()
   const dispatch = useDispatch()
   const { Cartitems } = useSelector((state) => state.Cart)
@@ -35,35 +37,40 @@ const ProductDetail = () => {
   const productid = product.id;
   const userId = loggedUser?.id;
 
-  function agregarcarrito() {
-    
+  function agregarcarrito()
+  {
+
     dispatch(addtocart(userId, productid, amoutstock, qty));
   }
- 
-  function getvalue(e) {
+
+  function getvalue(e)
+  {
     const value = parseInt(e.target.value);
     setbuy(value);
-    setqty({ ...product, quantity: amoutstock+1 })
-    
+    setqty({ ...product, quantity: amoutstock + 1 })
+
   }
-  
-  function mobileZoom(e) {
+
+  function mobileZoom(e)
+  {
     setCordinates({
       x: '50',
       y: '50'
     })
     image.style.objectPosition = 'center'
-    image.style.transform ='scale(1.3)'
-    image.style.top = `${cordinates.y - e.clientY/7}%`
-    image.style.left = window.innerWidth < 700 ? `${cordinates.x - e.clientX/6}%`: `${cordinates.x - e.clientX/12}%`
+    image.style.transform = 'scale(1.3)'
+    image.style.top = `${cordinates.y - e.clientY / 7}%`
+    image.style.left = window.innerWidth < 700 ? `${cordinates.x - e.clientX / 6}%` : `${cordinates.x - e.clientX / 12}%`
   }
 
-  function zoomOut(e) {
+  function zoomOut(e)
+  {
     image.style.top = '0px'
     image.style.left = '0px'
     image.style.transform = 'scale(1.0)'
   }
-  function Generarlink() {
+  function Generarlink()
+  {
     dispatch(buyproduct(amoutstock, id));
   }
 
@@ -72,7 +79,7 @@ const ProductDetail = () => {
     
     if (products.length === 0) {
       dispatch(getProducts())
-      
+
     }
     
     if(product.tags !== null && !relatedProducts.length ) {
@@ -83,17 +90,18 @@ const ProductDetail = () => {
 
   return (
     <section onLoad={() => setqty(product)} className="body-font overflow-hidden   bg-base-500   ">
-      <div className="sm:w-fill lg:w-4/5 flex  m-auto w-fit md:h-screen" style={{float:'left', alignItems:'center' }}>
+      <div className="sm:w-fill lg:w-4/5  flex-column  m-auto w-fit md:h-screen" style={{ float: 'left', alignItems: 'center' }}>
         <div className="w-full mx-auto flex flex-wrap px-5 py-10 justify-center">
           <div className="h-96 carousel carousel-vertical rounded-box">
             {product.photos
-              ? product.photos.map((e, i) => {
-                  return (
-                    <div onMouseMove={(e) => mobileZoom(e)} onPointerLeave={(e) => zoomOut(e)}  key={i} id='imageContainer' className="carousel-item overflow-hidden ">
-                      <img  id='productDetailImage' alt="imagetext" src={e.url} />
-                    </div>
-                  );
-                })
+              ? product.photos.map((e, i) =>
+              {
+                return (
+                  <div onMouseMove={(e) => mobileZoom(e)} onPointerLeave={(e) => zoomOut(e)} key={i} id='imageContainer' className="carousel-item overflow-hidden ">
+                    <img id='productDetailImage' alt="imagetext" src={e.url} />
+                  </div>
+                );
+              })
               : "no image found"}
           </div>
 
@@ -103,25 +111,36 @@ const ProductDetail = () => {
             </h2>
             <h3 className="text-sm  text-slate-700 title-font  tracking-widest mb-2">
               {product.categories
-                ? product.categories.map((e, i) => {
-                    return (
-                      <p
-                        key={i}
-                        className="badge  text-white bg-slate-400 border-0 ml-1 "
-                      >
-                        {e.name}
-                      </p>
-                    );
-                  })
+                ? product.categories.map((e, i) =>
+                {
+                  return (
+                    <p
+                      key={i}
+                      className="badge  text-white bg-slate-400 border-0 ml-1 "
+                    >
+                      {e.name}
+                    </p>
+                  );
+                })
                 : "no product gender found"}
             </h3>
             <h1 className="text-slate-700  text-3xl title-font font-medium mb-1">
               {product ? product.name : "no product name found"}
             </h1>
             <div className="flex mb-4 mt-2">
-              <span className="badge   text-white bg-slate-400 border-0  ">
-                {product ? product.rating : "no product rate"}⭐
-              </span>
+              {product.rating ?
+                <div>
+                  <span className="badge   text-white bg-slate-400 border-0  ">
+                    {product.rating}⭐
+                  </span >
+                  <span> ({product.reviewsNumber}) </span>
+                </div>
+                :
+
+                <span className="badge   text-white bg-slate-400 border-0  ">
+                  Sin reviews
+                </span>}
+
               <span className="title-font text-base font-bold text-slate-700  ml-4 ">
                 Stock: {product ? product.stock : "no stock found"}
               </span>
@@ -140,8 +159,8 @@ const ProductDetail = () => {
                     name="quantity"
                     min={1}
                     value={amoutstock}
-                    
-                    onChange={(e)=>getvalue(e)}
+
+                    onChange={(e) => getvalue(e)}
                     max={product.stock}
                     className="rounded border text-center title-font text-slate-700   appearance-none border-gray-400 py-2  text-base   "
                     type={"number"}
@@ -176,7 +195,7 @@ const ProductDetail = () => {
                   <label
                     onClick={Generarlink}
                     htmlFor="Pagartodo"
-                    className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-green-500 border-0 py-2 px-2 focus:outline-none rounded"
+                    className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
                   >
                     Comprar
                   </label>
@@ -185,7 +204,7 @@ const ProductDetail = () => {
                 <div>
                   <a
                     onClick={loginWithPopup}
-                    className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-green-500 border-0 py-2 px-2 focus:outline-none rounded"
+                    className="btn   ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 py-2 px-2 focus:outline-none rounded"
                   >
                     Comprar ahora
                   </a>
@@ -220,6 +239,7 @@ const ProductDetail = () => {
                   </div>
                 </h3>
 
+
                 <div className="modal-action">
                   <a
                     href={paymenturl}
@@ -240,6 +260,20 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
+        {product.reviews?.length ? <div>
+          <span className="title-font text-slate-700 font-medium text-xl ml-28 ">Comentarios:</span>
+          {product.reviews?.map((review, index) =>
+            <Comment
+
+              rating={review.rating}
+              description={review.description}
+              username={review.user.username}
+              key={index}
+
+            />
+          )}
+        </div> :
+          null}
       </div>
       {
         relatedProducts.slice(0,4).map(p => {

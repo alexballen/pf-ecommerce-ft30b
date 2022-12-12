@@ -57,6 +57,7 @@ const productSlice = createSlice({
     page: 1,
     paymenturl: "", 
     relatedProducts: []//url de compra por item
+    banerProd: [],
   },
   reducers: {
     pagePaginated: (state, action) => {
@@ -158,6 +159,9 @@ const productSlice = createSlice({
       const resPro = state.products.filter((e) => e.id);
       state.filteredProducts = resPro;
     },
+    getBanerProd(state, action) {
+      state.banerProd = action.payload;
+    },
   },
 });
 
@@ -177,6 +181,7 @@ export const {
   deleteProduct,
   baneoProduct,
   restoreBanProduct,
+  getBanerProd,
   setRelatedProducts
 } = productSlice.actions;
 export default productSlice.reducer;

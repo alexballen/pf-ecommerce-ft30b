@@ -7,9 +7,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import axios from "axios";
 import "@tremor/react/dist/esm/tremor.css";
 
-axios.defaults.baseURL = process.env.REACT_APP_LOCAL_BASE_URL 
-
-
+axios.defaults.baseURL = process.env.ENV === "prod" ? process.env.REACT_APP_BASE_URL : process.env.REACT_APP_LOCAL_BASE_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render( 
