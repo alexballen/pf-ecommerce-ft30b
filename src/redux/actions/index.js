@@ -19,6 +19,8 @@ import {
   getBanerProd,
   setRelatedProducts,
   deleteRestoreProduct,
+  searchByProductBaner,
+  sortProductBaner,
 } from "../reducers/getProductsSlice";
 
 import {
@@ -47,6 +49,8 @@ import {
   restoreBanUser,
   getBanUser,
   deleteRestoreUser,
+  searchByUserBaner,
+  sortUserBaner,
 } from "../reducers/userSlice";
 
 const { REACT_APP_MPAGOTOKEN } = process.env;
@@ -150,12 +154,28 @@ export const byOrderProducts = (data) => async (dispatch) => {
   dispatch(sort(data));
 };
 
+export const byOrderProductsBaner = (data) => async (dispatch) => {
+  dispatch(sortProductBaner(data));
+};
+
 export const byOrderUsers = (data) => async (dispatch) => {
   dispatch(sortUser(data));
 };
 
+export const byOrderUsersBaner = (data) => async (dispatch) => {
+  dispatch(sortUserBaner(data));
+};
+
 export const searchUsers = (input) => async (dispatch) => {
   dispatch(searchByUser(input));
+};
+
+export const searchUsersBaner = (input) => async (dispatch) => {
+  dispatch(searchByUserBaner(input));
+};
+
+export const searchProductsBaner = (input) => async (dispatch) => {
+  dispatch(searchByProductBaner(input));
 };
 
 export const byOrderPrice = (data) => async (dispatch) => {
