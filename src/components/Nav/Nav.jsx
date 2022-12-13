@@ -19,7 +19,7 @@ const Nav = () => {
  
 
   return (
-    <div style={{width:'100%'}}>
+    <div style={{width:'100%', height: 'fit-content', paddingBottom: '5px'}}>
       <div
         className="navbar flex justify-between bg-white"
         style={{ width: "100%" }}
@@ -51,21 +51,21 @@ const Nav = () => {
         </div>
 
         {isAuthenticated && (
-          <div className=" mr-8 mt-3">
-            <UserCart />
+          <div className=" pr-4 flex align-center pb-2">
+           
 
             {loggedUser && loggedUser.isAdmin && (
-              <div className=" flex-1">
+              <div className=" m-auto flex w-40 justify-center">
                 <Link to="/dashboard">
-                  <button className="btn btn-ghost normal-case text-black text-base mr-8">
+                  <button className="btn flex align-center btn-ghost normal-case text-black text-base">
                     Panel de Admin
                   </button>
                 </Link>
               </div>
             )}
-
+              <div className="m-auto flex justify-center align-center"> <UserCart /></div>
             {loggedUser ? (
-              <div className="dropdown dropdown-end   ">
+              <div className="dropdown dropdown-end">
                 <label
                   tabIndex={0}
                   className="  btn btn-ghost btn-circle  avatar"
@@ -82,9 +82,9 @@ const Nav = () => {
                       />
                     </div>
                   )}
-                  <span className="justify-between text-black">
+                  <div className="w-80 h-4 overflow-hidden"><span className="justify-between text-black ">
                     {user.name ? user.name : user.nickname}
-                  </span>
+                  </span></div>
                 </label>
                 {/* active mediante log in o inactivemediante log out */}
                 <ul className="menu    menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">

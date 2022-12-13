@@ -23,9 +23,18 @@
 
 
 @media (max-width: 1100px) {
+  #relatedProuctsContainer {
+    width: 25%;
+    height: 25em;
+    margin-bottom: 15%;
+    display: inline-flex;
+    margin-top: 12%;
+  }
+  
   .relatedProducts {
     width: 25%;
     height: 25em;
+    margin-bottom: 15%;
     display: inline-flex;
     margin-top: 12%;
   }
@@ -68,10 +77,52 @@
 }
 
 @media (min-width: 1101px) {
-  .relatedProducts {
+  #relatedProductsContainer {
     width: 20%;
-    overflow: hidden;
+    height: 45em;
     float: right;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+  
+  }
+  #relatedProductsContainer::-webkit-scrollbar {
+    -webkit-appearance: none;
+   
+    
+  
+  }
+  #relatedProductsContainer::-webkit-scrollbar:vertical{
+    width: 0;
+    position: absolute;
+  
+  }
+
+  #relatedProductsContainer:hover::-webkit-scrollbar:vertical {
+    width: 5px;
+  
+  }
+
+  #relatedProductsContainer::-webkit-scrollbar-button:increment, #relatedProductsContainer::-webkit-scrollbar:decrement {
+    display: none;
+  }
+  #relatedProductsContainer::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.473);
+    border-radius: 20px;
+    border: 1px solid #f1f2f3;
+
+  
+  }
+  #relatedProductsContainer::-webkit-scrollbar-track {
+    border-radius: 20px;
+    
+  }
+
+  
+  .relatedProducts {
+    overflow: hidden;
+   
     height: fit-content;
       -ms-box-orient: horizontal;
       display: -webkit-box;

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { getUserFavorites } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { footerHeight } from "../Nav/Footer";
 import Card from "../card/Card";
 
 const Favorites = () =>
@@ -17,7 +18,7 @@ const Favorites = () =>
 
     return (
 
-        <div className="bg-base-200 flex flex-wrap justify-evenly items-start content-around ">
+        <div className="bg-base-200 flex flex-wrap justify-evenly items-start content-around" style={{height: window.screen.availHeight}}>
             {favorites.map((e, i) =>
             {
                 return (

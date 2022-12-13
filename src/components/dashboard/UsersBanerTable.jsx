@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { banerUser, deleteUserId } from "../../redux/actions";
+import { getBanerUser, deleteUserId } from "../../redux/actions";
 import FilterUsersBaner from "./FilterUsersBaner";
 import perfil from "../../images/perfil.png";
 import swal from "sweetalert";
@@ -8,12 +8,12 @@ import { AiFillEdit } from "react-icons/ai";
 import { TfiTrash } from "react-icons/tfi";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
-const UsersTable = () => {
+const UsersBanerTable = () => {
   const dispatch = useDispatch();
-  const { getBanerUser } = useSelector((state) => state.getBanerUser);
+  const { banerUser } = useSelector((state) => state.banerUser);
 
   useEffect(() => {
-    dispatch(banerUser());
+    dispatch(getBanerUser());
   }, [dispatch]);
 
   const handleDelete = (e) => {
@@ -100,8 +100,8 @@ const UsersTable = () => {
               </th>
             </tr>
           </thead>
-          {getBanerUser &&
-            getBanerUser.map((e, i) => (
+          {banerUser &&
+            banerUser.map((e, i) => (
               <tbody key={i}>
                 <tr>
                   <td className="border border-white px-4 py-2">
@@ -164,4 +164,4 @@ const UsersTable = () => {
   );
 };
 
-export default UsersTable;
+export default UsersBanerTable;

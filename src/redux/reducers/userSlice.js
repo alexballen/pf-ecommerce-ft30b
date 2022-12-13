@@ -51,14 +51,20 @@ const userSlice = createSlice({
       const objAction = state.filterUser.filter((e) => e);
       state.users = objAction;
     },
-    getBanerUser(state, action) {
+    getBanUser(state, action) {
       state.banerUser = action.payload;
     },
+<<<<<<< HEAD
     createUserAddress(state, action) {
       state.userAddress = action.payload;
     },
     updateUser(state, action) {
       state.loggedUser = action.payload;
+=======
+    deleteRestoreUser(state, action) {
+      const delRes = state.banerUser.filter((e) => e.id !== action.payload);
+      state.banerUser = delRes;
+>>>>>>> 19c278a69de620f600d8eb64d2c4867299501566
     },
   },
 });
@@ -73,7 +79,12 @@ export const {
   sortUser,
   baneoUser,
   restoreBanUser,
+<<<<<<< HEAD
   getBanerUser,
   createUserAddress
+=======
+  getBanUser,
+  deleteRestoreUser,
+>>>>>>> 19c278a69de620f600d8eb64d2c4867299501566
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -3,15 +3,21 @@ import './footer.css'
 import {Link} from 'react-router-dom'
 
 
+
+
 class Footer extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            
+        }
     }
-
-
+   
+    
     render() {
         return (
+            <React.Fragment >
+                
             <div id='footerContainer'>
                 <div className="footer">
                     <div className="Container">
@@ -32,6 +38,7 @@ class Footer extends React.Component {
                     </div>
                 </div>
             </div>
+            </React.Fragment>
         )
     }
 }

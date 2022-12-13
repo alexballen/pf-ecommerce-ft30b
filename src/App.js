@@ -32,29 +32,54 @@ function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [open, setOpen] = React.useState(false);
+  
+  const [footerHeight, setfooterHeigth] = React.useState(0)
   const { loggedUser } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.products);
+  const getWindowSize = () => {
+    return window.innerWidth
+
+  }
+  const [width, setWidth] = React.useState(getWindowSize())
   //   useEffect(() => {
 
   //     if (isAuthenticated) {
   //         dispatch(getCurrentUser(getAccessTokenSilently, user));
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
+    
+  
+
+
+
 
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(getCurrentUser(user));
     }
 
+    function handleWindowreSize() {
+      setWidth(getWindowSize());
+      setfooterHeigth(document.getElementById('footerContainer')?.getClientRects()[0].height)
+  }
+
+  
+    window.addEventListener('resize', handleWindowreSize)
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())
     //     dispatch(getColors())
     //     dispatch(getBrands())
-  }, [isAuthenticated]);
+    console.log(footerHeight)
+    return () => {
+      window.removeEventListener('resize', handleWindowreSize);
+    };
+  }, [isAuthenticated, width]);
+
+  
 
   return (
-    <div style={{ width: "100%", overflow: "hidden", position: "relative" }}>
+    <div style={{ width: "100%", position: "relative", height: window.screen.height, overflowX: 'hidden', paddindBottom: footerHeight }}>
       <BrowserRouter>
       
         <Routes>
@@ -116,7 +141,9 @@ function App() {
             <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
           </Route>
         </Routes>
+        <div className="w-full h-fit relative bottom-0">
         <Footer />
+        </div>
       </BrowserRouter>
     </div>
   )
