@@ -50,7 +50,7 @@ const Home = () => {
         {/* <div>
           <BestProducts />
         </div> */}
-        <div className="flex justify-center mt-5 mb-5">
+        <div className="flex justify-center mt-5 mb-5 h-full w-full">
           <Paginated
             productsByPage={productsByPage}
             products={products.length}
@@ -60,7 +60,7 @@ const Home = () => {
         <div>
           <FilterContainer />
         </div>
-        <div className="bg-base-300 flex flex-wrap justify-evenly items-start content-around ">
+        <div className="bg-base-300 flex flex-wrap justify-evenly items-start content-around w-full h-fit">
           {productCurrent.length > 0
             ? productCurrent.map((e, i) => {
                 return (

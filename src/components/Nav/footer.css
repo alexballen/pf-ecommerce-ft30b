@@ -1,10 +1,15 @@
+
+
 #footerContainer {
     width: 100%;
     background-color: black;
     color: whitesmoke;
     height: fit-content;
+    position: fixed;
+    bottom: 0;
     max-height: 600px;
     overflow: hidden;
+   
 }
 
 .footerText {
