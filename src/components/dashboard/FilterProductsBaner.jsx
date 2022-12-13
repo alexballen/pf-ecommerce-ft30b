@@ -9,7 +9,6 @@ import {
   byBrand,
 } from "../../redux/actions/index";
 import Searchbar from "../Searchbar/Searchbar";
-import BanProduct from "./BanProduct";
 import RestoreProduct from "./RestoreProduct";
 
 const FilterProducts = () => {
