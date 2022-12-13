@@ -45,8 +45,10 @@ import {
   sortUser,
   baneoUser,
   restoreBanUser,
-  getBanUser,
   deleteRestoreUser,
+  getBanerUser,
+  createUserAddress,
+  updateUser
 } from "../reducers/userSlice";
 
 const { REACT_APP_MPAGOTOKEN } = process.env;
@@ -196,23 +198,23 @@ export const getRelatedProducts = (product) => async (dispatch) => {
     const relatedProducts = products.filter(
       (p) => p.tags !== null && p.id !== product.id
     );
-    for (let i = 0; i < relatedProducts.length; i++) {
+      for (let i = 0; i < relatedProducts.length; i++) {
       let k = Math.floor(Math.random() * relatedProducts.length);
       let temp = relatedProducts[i];
       relatedProducts[i] = relatedProducts[k];
       relatedProducts[k] = temp;
-    }
-
-    for (let i = 0; i < tags?.length; i++) {
-      for (let j = 0; j < relatedProducts.length; j++) {
+      }
+    
+        for (let i = 0; i < tags?.length; i++) {
+          for (let j = 0; j < relatedProducts.length; j++) {
         if (
           relatedProducts[j].tags.includes(tags[i]) &&
           !taggedProducts.includes(relatedProducts[j])
         ) {
           taggedProducts.push(relatedProducts[j]);
+            }
+          }
         }
-      }
-    }
     dispatch(setRelatedProducts(taggedProducts));
   } catch (error) {
     throw new Error(error);
@@ -248,7 +250,7 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-
+ 
 export const buyproduct = (
   quantity,
   id,
@@ -454,24 +456,24 @@ export const getdataadmin = () => {
   return async function (dispatch) {
     const response = await axios.get(
       `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
-
+ 
       {
         headers: {
           Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
         },
       }
     );
-
+ 
     for (let e of response.data.results) {
     }
 
-    // MLA: Mercado Libre Argentina
-    // MLB: Mercado Libre Brasil
-    // MLC: Mercado Libre Chile
-    // MLM: Mercado Libre México
-    // MLU: Mercado Libre Uruguay
-    // MCO: Mercado Libre Colombia
-    // MPE: Mercado Libre Perú
+// MLA: Mercado Libre Argentina
+// MLB: Mercado Libre Brasil
+// MLC: Mercado Libre Chile
+// MLM: Mercado Libre México
+// MLU: Mercado Libre Uruguay
+// MCO: Mercado Libre Colombia
+// MPE: Mercado Libre Perú
 
     for (let e of response.data.results) {
     }
@@ -594,6 +596,16 @@ export const getBanerUser = () => async (dispatch) => {
   await axios
     .get("/user/banerUsers")
     .then((res) => dispatch(getBanUser(res.data)))
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const updateUserData = (data) => async (dispatch) => {
+
+  await axios
+    .put("/user/address", data)
+    .then((res) => dispatch(updateUser(res.data)))
     .catch((error) => {
       throw new Error(error);
     });
