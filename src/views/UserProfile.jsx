@@ -64,10 +64,10 @@ const UserProfile = () => {
    }
 
 
-  return  <>
+  return (
      
-    
-      <div className="bg-base-300 ">
+    <div className="w-full h-fit sm:pb-48 md:pb-4">
+      <div className="bg-base-300 h-fit ">
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="mt-10 sm:mt-0 ">
             <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -431,7 +431,8 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
+  )
 }
 
 export default UserProfile;

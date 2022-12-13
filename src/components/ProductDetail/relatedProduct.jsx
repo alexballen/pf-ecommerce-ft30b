@@ -7,7 +7,7 @@ import { deleteFavorites, addFavorites } from "../../redux/actions"
 
 
 
-export function RelatedProduct({product}) {
+export function RelatedProduct({product, componentId}) {
     const {loggedUser} =useSelector(state => state.user)
    const [isLiked, setisLiked] = React.useState(false)
    const navigate = useNavigate()
@@ -25,14 +25,15 @@ export function RelatedProduct({product}) {
             setTimeout(() => {
                 
                 document.getElementById(`${product.name}Broken`).style.transition = 'all 1.5s linear'
-                document.getElementById(`${product.name}Broken`).style.fill = 'white'
+               
                 document.getElementById(`${product.name}Broken`).style.opacity = '0%'
             }, 1500)
             setTimeout(() => {
+                setisLiked(false)
                 document.getElementById(`${product.name}`).style.transition = 'all .5s linear'
                 document.getElementById(`${product.name}`).style.opacity = '100%'
-                document.getElementById(`${product.name}Broken`).classList.remove('broken')
-                setisLiked(false)
+                
+                
                 dispatch(deleteFavorites({userId: loggedUser.id, productId: product.id}))
             }, 2000)
         }
@@ -49,13 +50,13 @@ export function RelatedProduct({product}) {
                 setisLiked(true)
             }
         })
-    }, [isLiked, product])
+    }, [isLiked, loggedUser])
     
     return (
         <div className='relatedProducts'>
               <div id='muestra3'>
                   <div className='imageContainer'>
-                    <button onClick={() => navigate(`/Products/${product.id}`)}>
+                    <button onClick={()=> navigate(`/Products/${product.id}`)}>
                           <img
                           src={product?.photos[0].url}
                           alt='card'
