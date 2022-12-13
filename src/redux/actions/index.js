@@ -46,7 +46,7 @@ import {
   baneoUser,
   restoreBanUser,
   deleteRestoreUser,
-  getBanerUser,
+  getBanUser,
   createUserAddress,
   updateUser
 } from "../reducers/userSlice";
@@ -542,13 +542,6 @@ export const deleteUserId = (id) => async (dispatch) => {
   await axios.delete(`/user/delete/${id}`);
 };
 
-export const updateUser = (data, id) => {
-  return async function () {
-    const response = await axios.put(`/userData/${id}`, data);
-
-    return response;
-  };
-};
 export const banerUserId = (id) => async (dispatch) => {
   dispatch(baneoUser(id));
   await axios.delete(`/user/softDelete/${id}`);
@@ -605,7 +598,27 @@ export const updateUserData = (data) => async (dispatch) => {
 
   await axios
     .put("/user/address", data)
-    .then((res) => dispatch(updateUser(res.data)))
+    .then((res) => {
+    
+    dispatch(updateUser(res.data));
+    return res.data
+    }
+    )
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const createAddress = (data) => async (dispatch) => {
+
+  await axios
+    .put("/user/address", data)
+    .then((res) => {
+    
+    dispatch(createUserAddress(res.data));
+    return res.data
+    }
+    )
     .catch((error) => {
       throw new Error(error);
     });
