@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { byOrderUsers } from "../../redux/actions/index";
 import SearchUser from "./SearchUser";
-import BanUser from "./BanUser";
 import RestoreUser from "./RestoreUser";
 
 const FilterUsers = () => {
   const dispatch = useDispatch();
-
-  //useEffect(() => {}, []);
 
   const handleByOrder = (e) => {
     e.preventDefault();
