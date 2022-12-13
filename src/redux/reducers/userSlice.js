@@ -9,6 +9,7 @@ const userSlice = createSlice({
     users: [],
     filterUser: [],
     banerUser: [],
+    userAddress:[],
   },
   reducers: {
     loggedUser: (state, action) => {
@@ -53,6 +54,12 @@ const userSlice = createSlice({
     getBanerUser(state, action) {
       state.banerUser = action.payload;
     },
+    createUserAddress(state, action) {
+      state.userAddress = action.payload;
+    },
+    updateUser(state, action) {
+      state.loggedUser = action.payload;
+    },
   },
 });
 
@@ -67,5 +74,6 @@ export const {
   baneoUser,
   restoreBanUser,
   getBanerUser,
+  createUserAddress
 } = userSlice.actions;
 export default userSlice.reducer;

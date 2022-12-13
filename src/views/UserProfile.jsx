@@ -2,11 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../redux/actions";
+import { updateUser, getCountry } from "../redux/actions";
 
 const UserProfile = () => {
 
-  const { loggedUser } = useSelector(state => state.user);
+  const { loggedUser,  countries  } = useSelector(state => state.user);
+
   const [userData, setUserData] = useState(
     {
     firstName:loggedUser.firstName ? loggedUser.firstName: "",
@@ -17,7 +18,7 @@ const UserProfile = () => {
   }
   )
   const [selectedAddress, setSelectedAddress] = useState()
-
+  const [selectedCountry , setSelectedCountry] = useState()
   const [userAddress, setUserAddress] = useState(
     {
     // userId
@@ -30,19 +31,24 @@ const UserProfile = () => {
     houseNumber:selectedAddress?.houseNumber ? selectedAddress.houseNumber: "",
   }
   )
-  const [userPreference, setUserPreference] = useState(
-    {
-    newProducts:loggedUser?.preference?.newProducts ? loggedUser.preference.newProducts: false,
-    offers:loggedUser?.preference?.offers ? loggedUser.preference.offers: false,
-    favorites:loggedUser?.preference?.favorites ? loggedUser.preference.favorites: false
-  }
-  )
+  // const [userPreference, setUserPreference] = useState(
+  //   {
+  //   newProducts:loggedUser?.preference?.newProducts ? loggedUser.preference.newProducts: false,
+  //   offers:loggedUser?.preference?.offers ? loggedUser.preference.offers: false,
+  //   favorites:loggedUser?.preference?.favorites ? loggedUser.preference.favorites: false
+  // }
+  // )
 
   useEffect(()=>{
-    if(loggedUser && loggedUser.address){
+    if(loggedUser && loggedUser.address && loggedUser.address.length){
       setSelectedAddress(loggedUser.address[0])}
 
   },[loggedUser])
+
+  useEffect(()=>{
+  dispatch(getCountry())
+    console.log(countries)
+  },[])
   
   const dispatch = useDispatch()
 
@@ -56,13 +62,24 @@ const UserProfile = () => {
 
   }
 
-  const handlePreferenceSubmit = ()=>{
-   
+  const handleSelectCountry = (e)=>{
+    console.log(e.target.value)
+    setSelectedCountry(countries.filter(country =>{
+      return country.name === e.target.value
 
+    }))
+    setUserAddress({...userAddress, country:e.target.value})
   }
 
+  // const handlePreferenceSubmit = ()=>{
+  // }
+
+
+  console.log(selectedCountry)
+
+
   const addressChange =()=> {
-    setSelectedAddress(loggedUser.address[0])
+    setSelectedAddress()
   }
   const uploadImage = async (e) => {
     const files = e.target.files;
@@ -84,15 +101,20 @@ const UserProfile = () => {
 
 };
 
-  const handleChange = (e)=>{
+  const handleDataChange = (e)=>{
    e.preventDefault()
    setUserData({...userData , [e.target.name]: e.target.value })
   }
 
-  const handleCheckbox = (e)=>{
+  const handleAddressChange = (e)=>{
     e.preventDefault()
-    setUserPreference({...userPreference , [e.target.name]: e.target.value === true ? false : true})
+    setUserAddress({...userAddress , [e.target.name]: e.target.value })
    }
+
+  // const handleCheckbox = (e)=>{
+  //   e.preventDefault()
+  //   setUserPreference({...userPreference , [e.target.name]: e.target.value === true ? false : true})
+  //  }
 
 
   return  <>
@@ -120,7 +142,7 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.firstName}
                             value={userData.firstName}
-                            onChange={handleChange}
+                            onChange={handleDataChange}
                             type="text"
                             name="firstName"
                             id="firstName"
@@ -136,7 +158,7 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.lastName}
                             value={userData.lastName}
-                            onChange={handleChange}
+                            onChange={handleDataChange}
                             type="text"
                             name="lastName"
                             id="lastName"
@@ -147,34 +169,35 @@ const UserProfile = () => {
 
                         <div className="col-span-6 sm:col-span-3">
                           <label className="block text-sm font-medium text-gray-700">Foto</label>
-                          <div className="mt-1 flex items-center">
-                            <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                          <div className="mt-1 flex flex-col justify-between items-center">
+                            <span className="inline-block h-20 w-20 overflow-hidden rounded-full bg-gray-100 mr-5">
                        
-                              <img src={loggedUser?.photo?.url} alt="profilepicture" />
+                              <img 
+                          
+                              src={typeof userData.photo === "string" ? userData.photo : userData.photo.url  }
+                              className="h-20 w-20 overflow-hidden object-cover"
+                              alt="Usuario"
+                              
+                              />
                               
                             </span>
+                          
+    
+
                             <input
                               // className={style.seleccionarArchivo}
                               type="file"
                               name="file"
+                              title={null}
                               onChange={uploadImage}
-                              draggable
-                              style={{borderRadius: '50%', width: '7em', height:'7em', marginLeft:'38%', position: 'absolute', opacity:'0%'}}
+                              className="ml-10 mt-5
+                               file:py-2 file:px-3 file:w-15
+                              file:rounded-md file:border file:border-gray-300
+                              file:text-sm file:font-medium file:shadow-sm
+                              file:bg-white file:text-gray-700
+                              hover:file:bg-gray-50"
                             />
-                          
-                            <img
-                              // className={style.seleccionarArchivo}
-                              src={userData.photo.url}
-                              style={{ width: "7em", height:'7em', borderRadius: "50%", marginLeft:'45%', objectFit: 'cover' }}
-                              alt="Usuario"
-                            />
-
-                            <button
-                              type="button"
-                              className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                              Cambiar
-                            </button>
+                           
                           </div>
                         </div>
 
@@ -185,7 +208,7 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.username}
                             value={userData.username}
-                            onChange={handleChange}
+                            onChange={handleDataChange}
                             type="text"
                             name="username"
                             id="username"
@@ -202,7 +225,7 @@ const UserProfile = () => {
                             placeholder={loggedUser.phoneNumber}
                             type="number"
                             value={userData.phone}
-                            onChange={handleChange}
+                            onChange={handleDataChange}
                             name="phone"
                             id="phone"
                             autoComplete="phone-number"
@@ -249,85 +272,126 @@ const UserProfile = () => {
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
 
-                        <div className="col-span-6 sm:col-span-3">
+                        {loggedUser.address && loggedUser.address.length && <div className="col-span-6 sm:col-span-3">
                           <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                             Select Address
                           </label>
                           <select
-                            value={userAddress.country}
-                            onChange={addressChange}
+                            value={0}
+                            onChange={e => selectedAddress(loggedUser.address[e.target.value]) }
                             type="text"
                             name="country"
                             id="country"
                             autoComplete="country-name"
-                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm"
                           >
-                            {loggedUser?.addresses?.forEach(element => {
-                              
-                          
+                            {loggedUser.addresses.forEach((element, index) => {
 
-                              <option>{element.country}</option>
+                              <option key={element.id} value={index}>{index}</option>
                              
 
                             })}
 
                           </select>
-                        </div>
+                        </div>}
                         
 
-                        <div className="col-span-6 sm:col-span-3">
+                        {countries && <div className="col-span-6 sm:col-span-3">
                           <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                             Pais
                           </label>
                           <select
                             value={userAddress.country}
-                            onChange={handleChange}
+                            onChange={handleSelectCountry}
                             type="text"
                             name="country"
                             id="country"
                             autoComplete="country-name"
-                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm "
                           >
-                            <option>United States</option>
-                            <option>Canada</option>
-                            <option>Mexico</option>
+                            <option value={""}>Seleccione un país</option>
+                            {countries.map(country  =>{
+                              return( 
+                              <option key={country.id} >{country.name}</option>
+)
+                            } )
+                            
+                            
+                            }
+                            
+                          </select>
+                        </div>}
+
+                        {selectedCountry && selectedCountry.length && <div className="col-span-6 sm:col-span-3">
+                          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                            Ciudad
+                          </label>
+                          <select
+                            placeholder={loggedUser.cityOfOrigin}
+                            type="text"
+                            onChange={handleAddressChange}
+                            name="city"
+                            id="city"
+                            autoComplete="city"
+                            className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          >
+                            <option >Seleccione una ciudad</option>
+                            {selectedCountry[0].cities.map( city  =>{
+                              return( 
+                              <option id={city.id} value={city.name}>{city.name}</option>
+)
+                            })}
 
                           </select>
-                        </div>
-
+                        </div>}
                    
 
-                        <div className="col-span-6">
-                          <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                        <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                          <label htmlFor="street" className="block text-sm font-medium text-gray-700">
                             Calle
                           </label>
                           <input
                             placeholder={loggedUser.address}
                             type="text"
                             value={userAddress.address}
-                            onChange={handleChange}
-                            name="address"
-                            id="address"
-                            autoComplete="street-address"
+                            onChange={handleAddressChange}
+                            name="street"
+                            id="street"
+                            autoComplete="street"
+                            className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          />
+                        </div>
+                        <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                          <label htmlFor="region" className="block text-sm font-medium text-gray-700">
+                            Urbanismo
+                          </label>
+                          <input
+                            // placeholder={loggedUser.cityOfOrigin}
+                            type="text"
+                            value={userAddress.neighborhood}
+                            onChange={handleAddressChange}
+                            name="neighborhood"
+                            id="neighborhood"
+                            autoComplete="address-level1"
+                            className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          />
+                        </div>
+                        <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                          <label htmlFor="houseNumber" className="block text-sm font-medium text-gray-700">
+                            Residencia
+                          </label>
+                          <input
+                            // placeholder={loggedUser.cityOfOrigin}
+                            type="text"
+                            value={userAddress.houseNumber}
+                            onChange={handleAddressChange}
+                            name="houseNumber"
+                            id="houseNumber"
+                            autoComplete="address-level1"
                             className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
 
-                        <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                            Ciudad
-                          </label>
-                          <input
-                            placeholder={loggedUser.cityOfOrigin}
-                            type="text"
-                            value={userAddress.city}
-                            onChange={handleCheckbox}
-                            name="city"
-                            id="city"
-                            autoComplete="city"
-                            className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          />
-                        </div>
 
                         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                           <label htmlFor="region" className="block text-sm font-medium text-gray-700">
@@ -337,7 +401,7 @@ const UserProfile = () => {
                             // placeholder={loggedUser.cityOfOrigin}
                             type="text"
                             value={userAddress.state}
-                            onChange={handleCheckbox}
+                            onChange={handleAddressChange}
                             name="state"
                             id="state"
                             autoComplete="address-level1"
@@ -346,17 +410,17 @@ const UserProfile = () => {
                         </div>
 
                         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
+                          <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
                             ZIP / Código Postal
                           </label>
                           <input
                             // placeholder={loggedUser.cityOfOrigin}
                             type="text"
-                            value={userAddress.postalCode}
-                            onChange={handleCheckbox}
-                            name="postalCode"
+                            value={userAddress.zipCode}
+                            onChange={handleAddressChange}
+                            name="zipCode"
                             id="codigoPostal"
-                            autoComplete="postal-code"
+                            autoComplete="zipCode"
                             className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
@@ -377,7 +441,7 @@ const UserProfile = () => {
           </div>
         
 
-          <div className="hidden sm:block" aria-hidden="true">
+          {/* <div className="hidden sm:block" aria-hidden="true">
             <div className="py-5">
               <div className="border-t border-gray-200" />
             </div>
@@ -404,7 +468,7 @@ const UserProfile = () => {
                                 name="favorites"
                                 // checked={userPreference.favorites === true ? true : false}
                                 value={userPreference.favorites}
-                                onChange={handleChange}
+                                onChange={handleDataChange}
                                 type="checkbox"
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                               />
@@ -421,7 +485,7 @@ const UserProfile = () => {
                               <input
                                 // checked={userPreference.newProducts === true ? true : false}
                                 value={userPreference.newProducts}
-                                onChange={handleChange}
+                                onChange={handleDataChange}
                                 id="newProducts"
                                 name="newProducts"
                                 type="checkbox"
@@ -440,7 +504,7 @@ const UserProfile = () => {
                               <input
                                 // checked={userPreference.offers === true ? true : false}
                                 value={userPreference.offers}
-                                onChange={handleChange}
+                                onChange={handleDataChange}
                                 id="offers"
                                 name="offers"
                                 type="checkbox"
@@ -470,7 +534,7 @@ const UserProfile = () => {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

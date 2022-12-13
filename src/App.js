@@ -26,7 +26,7 @@ import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
 import Historial from "./components/Cart/Historial";
 import EditProduct from "./components/dashboard/EditProduct";
-import OffersPromos from "./components/offers&promos/offers&promos";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ function App() {
   return (
     <div style={{ width: "100%", overflow: "hidden", position: "relative" }}>
       <BrowserRouter>
-        <OffersPromos />
+      
         <Routes>
           <Route element={<BlockedUserRoutes />}>
             <Route path="/" element={<Nav />}>
