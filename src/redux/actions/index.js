@@ -14,10 +14,11 @@ import {
   pagePaginated,
   urlpayment,
   deleteProduct,
-  baneoProduct,
+  deleteBaneoProduct,
   restoreBanProduct,
   getBanerProd,
-  setRelatedProducts
+  setRelatedProducts,
+  deleteRestoreProduct,
 } from "../reducers/getProductsSlice";
 
 import {
@@ -44,7 +45,8 @@ import {
   sortUser,
   baneoUser,
   restoreBanUser,
-  getBanerUser,
+  getBanUser,
+  deleteRestoreUser,
 } from "../reducers/userSlice";
 
 const { REACT_APP_MPAGOTOKEN } = process.env;
@@ -184,33 +186,38 @@ export const createNewUser = (data) => async () => {
     throw new Error(error);
   });
 };
-export const getRelatedProducts = (product) => async(dispatch) => {
-  const {tags} = product
-  console.log(product)
-  const taggedProducts = []
+export const getRelatedProducts = (product) => async (dispatch) => {
+  const { tags } = product;
+  console.log(product);
+  const taggedProducts = [];
   try {
-    let productsraw = await axios.get('/products')
-    const products = productsraw.data
-    const relatedProducts = products.filter(p => p.tags !== null && p.id !== product.id)
-      for (let i = 0; i < relatedProducts.length; i++) {
-        let k = Math.floor(Math.random() * relatedProducts.length)
-        let temp = relatedProducts[i]
-        relatedProducts[i] = relatedProducts[k]
-        relatedProducts[k] = temp
-      }
-    
-        for (let i = 0; i < tags?.length; i++) {
-          for (let j = 0; j < relatedProducts.length; j++) {
-            if (relatedProducts[j].tags.includes(tags[i]) && !taggedProducts.includes(relatedProducts[j])) {
-              taggedProducts.push(relatedProducts[j])
-            }
-          }
+    let productsraw = await axios.get("/products");
+    const products = productsraw.data;
+    const relatedProducts = products.filter(
+      (p) => p.tags !== null && p.id !== product.id
+    );
+    for (let i = 0; i < relatedProducts.length; i++) {
+      let k = Math.floor(Math.random() * relatedProducts.length);
+      let temp = relatedProducts[i];
+      relatedProducts[i] = relatedProducts[k];
+      relatedProducts[k] = temp;
+    }
+
+    for (let i = 0; i < tags?.length; i++) {
+      for (let j = 0; j < relatedProducts.length; j++) {
+        if (
+          relatedProducts[j].tags.includes(tags[i]) &&
+          !taggedProducts.includes(relatedProducts[j])
+        ) {
+          taggedProducts.push(relatedProducts[j]);
         }
-        dispatch(setRelatedProducts(taggedProducts))
+      }
+    }
+    dispatch(setRelatedProducts(taggedProducts));
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 export const currentPagePaginated = (page) => async (dispatch) => {
   dispatch(pagePaginated(page));
 };
@@ -241,7 +248,7 @@ export function getCurrentUser(user) {
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
- 
+
 export const buyproduct = (
   quantity,
   id,
@@ -278,7 +285,6 @@ export const buyproduct = (
     calle1,
     calle2,
     zipcode,
- 
   };
   console.log(getproduct);
   return async function (dispatch) {
@@ -352,7 +358,6 @@ export const clearlink = () => {
   };
 };
 
- 
 export const comprartodo = (
   Cartitems,
   userId,
@@ -390,7 +395,6 @@ export const comprartodo = (
     zipcode,
     tipoCalle,
     numerocalle,
- 
   };
 
   return async function (dispatch) {
@@ -400,7 +404,6 @@ export const comprartodo = (
   };
 };
 
- 
 export const getuserpaymets = (userId) => {
   const final = {
     userId,
@@ -415,7 +418,6 @@ export const getuserpaymets = (userId) => {
 export const alldatapagos = (collection_id) => {
   return async function (dispatch) {
     const confimacion = await axios.get(
- 
       `https://api.mercadopago.com/v1/payments/${collection_id}`,
       {
         headers: {
@@ -424,7 +426,6 @@ export const alldatapagos = (collection_id) => {
       }
     );
 
- 
     for (let e of confimacion.data.additional_info.items) {
       const item = [];
       const id = confimacion.data.id;
@@ -453,38 +454,35 @@ export const getdataadmin = () => {
   return async function (dispatch) {
     const response = await axios.get(
       `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
- 
+
       {
         headers: {
           Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
         },
       }
     );
- 
 
     for (let e of response.data.results) {
     }
 
-// MLA: Mercado Libre Argentina
-// MLB: Mercado Libre Brasil
-// MLC: Mercado Libre Chile
-// MLM: Mercado Libre México
-// MLU: Mercado Libre Uruguay
-// MCO: Mercado Libre Colombia
-// MPE: Mercado Libre Perú
+    // MLA: Mercado Libre Argentina
+    // MLB: Mercado Libre Brasil
+    // MLC: Mercado Libre Chile
+    // MLM: Mercado Libre México
+    // MLU: Mercado Libre Uruguay
+    // MCO: Mercado Libre Colombia
+    // MPE: Mercado Libre Perú
 
-    for(let e of response.data.results){
-      
+    for (let e of response.data.results) {
     }
 
-    const Argentina = 0
-    const Brasil = 0
-    const Chile = 0
-    const México = 0
-    const Uruguay = 0
-    const Colombia = 0
-    const Perú = 0
-
+    const Argentina = 0;
+    const Brasil = 0;
+    const Chile = 0;
+    const México = 0;
+    const Uruguay = 0;
+    const Colombia = 0;
+    const Perú = 0;
 
     const impuestocompra = response.data.results.reduce(
       (ac, e) => ac + e.fee_details[0].amount,
@@ -502,7 +500,6 @@ export const getdataadmin = () => {
     );
 
     // dispatch(todaslascompras(response.data.results));
- 
   };
 };
 
@@ -556,6 +553,7 @@ export const banerUserId = (id) => async (dispatch) => {
 };
 
 export const restoreBanerUserId = (id) => async (dispatch) => {
+  dispatch(deleteRestoreUser(id));
   dispatch(restoreBanUser());
   await axios.delete(`/user/softDelete/${id}?restore=true`);
   if (id) {
@@ -569,11 +567,12 @@ export const restoreBanerUserId = (id) => async (dispatch) => {
 };
 
 export const banerProductId = (id) => async (dispatch) => {
-  dispatch(baneoProduct(id));
+  dispatch(deleteBaneoProduct(id));
   await axios.delete(`/products/softDelete/${id}`);
 };
 
 export const restoreBanerProductId = (id) => async (dispatch) => {
+  dispatch(deleteRestoreProduct(id));
   dispatch(restoreBanProduct());
   await axios.delete(`/products/softDelete/${id}?restore=true`);
 };
@@ -582,19 +581,19 @@ export const editProductId = (data, id) => async () => {
   await axios.put(`/products/update?productId=${id}`, data);
 };
 
-export const banerProduct = () => async (dispatch) => {
+export const getBanerProduct = () => async (dispatch) => {
   await axios
-    .get("/products/banerProducts")
+    .get("/products/banProducts")
     .then((res) => dispatch(getBanerProd(res.data)))
     .catch((error) => {
       throw new Error(error);
     });
 };
 
-export const banerUser = () => async (dispatch) => {
+export const getBanerUser = () => async (dispatch) => {
   await axios
     .get("/user/banerUsers")
-    .then((res) => dispatch(getBanerUser(res.data)))
+    .then((res) => dispatch(getBanUser(res.data)))
     .catch((error) => {
       throw new Error(error);
     });

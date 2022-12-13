@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { banerProduct, deleteProductId } from "../../redux/actions/index";
+import { getBanerProduct, deleteProductId } from "../../redux/actions/index";
 import FilterProductsBaner from "./FilterProductsBaner";
 import swal from "sweetalert";
 import { AiFillEdit } from "react-icons/ai";
 import { TfiTrash } from "react-icons/tfi";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 
-const ProductTable = () => {
+const ProductBanerTable = () => {
   const dispatch = useDispatch();
-  const { getBanerProd } = useSelector((state) => state.getBanerProd);
+  const { banerProd } = useSelector((state) => state.banerProd);
+  console.log(banerProd);
 
   useEffect(() => {
-    dispatch(banerProduct());
+    dispatch(getBanerProduct());
   }, [dispatch]);
 
   const handleDelete = (e) => {
@@ -93,9 +94,9 @@ const ProductTable = () => {
               </th>
             </tr>
           </thead>
-          {getBanerProd &&
-            getBanerProd.map((e, i) => (
-              <tbody>
+          {banerProd &&
+            banerProd.map((e, i) => (
+              <tbody key={i}>
                 <tr>
                   <td className="border border-white px-4 py-2">
                     <div className="flex justify-center">
@@ -144,4 +145,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default ProductBanerTable;
