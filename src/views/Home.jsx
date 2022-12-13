@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import
-  {
-    getProducts,
-    Clearproduct,
-    currentPagePaginated,
-    byCategory
-  } from "../redux/actions";
+import {
+  getProducts,
+  Clearproduct,
+  currentPagePaginated,
+  byCategory,
+} from "../redux/actions";
 import Card from "../components/card/Card";
 import FilterContainer from "../components/filter/FilterContainer";
 import Paginated from "../components/paginated/Paginated";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { filteredProducts:products } = useSelector((state) => state.products);
+  const { filteredProducts: products } = useSelector((state) => state.products);
   const { page } = useSelector((state) => state.page);
-  const totalpages = Math.ceil(products.length/8)
-  const { loggedUser } = useSelector(state => state.user);
-  const {isAuthenticated} = useAuth0()
+  const totalpages = Math.ceil(products.length / 8);
+  const { loggedUser } = useSelector((state) => state.user);
+  const { isAuthenticated } = useAuth0();
   const [currentPage, setCurrentPage] = useState(page);
   const [productsByPage, setProductsByPage] = useState(8);
 
@@ -37,20 +36,18 @@ const Home = () => {
   useEffect(() => {
     dispatch(Clearproduct());
     if (currentPage > totalpages) {
-      setCurrentPage(1)
+      setCurrentPage(1);
     }
-    if (isAuthenticated)
-      dispatch(getProducts(loggedUser.id));
-    else
-      dispatch(getProducts());
+    if (isAuthenticated) dispatch(getProducts(loggedUser.id));
+    else dispatch(getProducts());
   }, [isAuthenticated, totalpages]);
   return (
     <>
-      <div>
+      <div className="mb-12">
         {/* <div>
           <BestProducts />
         </div> */}
-        <div className="flex justify-center mt-5 mb-5 h-full w-full">
+        <div className="flex justify-center mt-2 mb-2">
           <Paginated
             productsByPage={productsByPage}
             products={products.length}
@@ -60,7 +57,7 @@ const Home = () => {
         <div>
           <FilterContainer />
         </div>
-        <div className="bg-base-300 flex flex-wrap justify-evenly items-start content-around w-full h-fit">
+        <div className="bg-base-300 flex flex-wrap justify-evenly items-start content-around">
           {productCurrent.length > 0
             ? productCurrent.map((e, i) => {
                 return (
