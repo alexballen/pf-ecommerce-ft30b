@@ -7,7 +7,7 @@ const UserCart = () => {
 
   return (
     <div className="dropdown dropdown-end  ">
-      <label tabIndex={0} className="btn  btn-ghost btn-circle mr-10">
+      <label tabIndex={0} className="btn  btn-ghost btn-circle w-30">
         <div className="indicator ">
           {Cartitems.length ? (
             <svg

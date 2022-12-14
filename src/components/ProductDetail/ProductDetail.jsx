@@ -76,7 +76,11 @@ const ProductDetail = () =>
 
   useEffect(() =>
   {
-    dispatch(GetProductById(id));
+    dispatch(getRelatedProducts(product))
+    if (productid !== id)
+    {
+      dispatch(GetProductById(id));
+    }
 
     if (products.length === 0)
     {
@@ -84,15 +88,14 @@ const ProductDetail = () =>
 
     }
 
-    if (product.tags !== null && !relatedProducts.length)
-    {
-      dispatch(getRelatedProducts(product))
-    }
 
-  }, [amoutstock, id, userId]);
+
+
+
+  }, [amoutstock, id, userId, productid]);
 
   return (
-    <section onLoad={() => setqty(product)} className="body-font overflow-hidden   bg-base-500   ">
+    <section onLoad={() => setqty(product)} className="body-font overflow-hidden bg-base-500 lg:h-screen sm:h-fit">
       <div className="sm:w-fill lg:w-4/5  flex-column  m-auto w-fit md:h-screen" style={{ float: 'left', alignItems: 'center' }}>
         <div className="w-full mx-auto flex flex-wrap px-5 py-10 justify-center">
           <div className="h-96 carousel carousel-vertical rounded-box">
@@ -292,15 +295,18 @@ const ProductDetail = () =>
           </div> :
           null}
       </div>
-      {
-        relatedProducts.slice(0, 4).map(p =>
+      <div id='relatedProductsContainer'>
+
         {
-          return (
-            <RelatedProduct key={p.id} product={p} />
-          )
-        })
-      }
-    </section >
+          relatedProducts.slice(0, products.length / 2).map(p =>
+          {
+            return (
+              <RelatedProduct key={p.id} product={p} componentId={id} />
+            )
+          })
+        }
+      </div>
+    </section>
   );
 };
 

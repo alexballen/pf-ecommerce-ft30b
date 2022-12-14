@@ -1,41 +1,26 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { byOrderUsers } from "../../redux/actions/index";
-import SearchUser from "./SearchUser";
-import BanUser from "./BanUser";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { byOrderUsersBaner } from "../../redux/actions/index";
+import SearchUserBaner from "./SearchUserBaner";
 import RestoreUser from "./RestoreUser";
 
 const FilterUsers = () => {
   const dispatch = useDispatch();
 
-  //useEffect(() => {}, []);
-
   const handleByOrder = (e) => {
     e.preventDefault();
-    dispatch(byOrderUsers(e.target.value));
+    dispatch(byOrderUsersBaner(e.target.value));
   };
 
   return (
     <>
       <div className="flex flex-row justify-around content-evenly items-center bg-white mb-3">
         <div>
-          <SearchUser />
+          <SearchUserBaner />
         </div>
         <div>
           <RestoreUser />
         </div>
-        {/*  <div>
-          <select
-            className="select min-w-0 btn-ghost"
-            onChange={(e) => handleByOrderPrice(e)}
-          >
-            <option disabled selected>
-              Usuario
-            </option>
-            <option value="MaxPrice">Cliente</option>
-            <option value="MinPrice">Admin</option>
-          </select>
-        </div> */}
         <div>
           <select
             className="select min-w-0 btn-ghost"

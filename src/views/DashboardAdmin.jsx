@@ -31,7 +31,7 @@ const DashboardAdmin = () => {
 
         {view === 1 ? (
           <>
-            <div className="bg-stone-300 p-2 mt-6">
+            <div className="bg-stone-300 p-2 mt-6 mb-14">
               <CardG />
               <Block>
                 <ChartDonut />
@@ -42,34 +42,34 @@ const DashboardAdmin = () => {
           ""
         )}
         {view === 2 ? (
-          <div className="mt-6">
+          <div className="mt-6 mb-14">
             <ProductTable />
           </div>
         ) : (
           ""
         )}
         {view === 3 ? (
-          <div className="mt-6">
+          <div className="mt-6 mb-14">
             <UsersTable />
           </div>
         ) : null}
-        {view === 5 ? (
-          <div className="mt-6">
+        {view === 4 ? (
+          <div className="mt-6 mb-14">
             <ProductBanerTable />
           </div>
         ) : (
           ""
         )}
-        {view === 6 ? (
-          <div className="mt-6">
+        {view === 5 ? (
+          <div className="mt-6 mb-14">
             <UsersBanerTable />
           </div>
         ) : (
           ""
         )}
-        {view === 4 ? (
+        {view === 6 ? (
           <Card marginTop="mt-6">
-            <div className="h-full bg-stone-300 p-2">
+            <div className="h-full bg-stone-300 p-2 mb-14">
               <CreateProduct />
             </div>
           </Card>
