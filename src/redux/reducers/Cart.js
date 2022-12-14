@@ -60,13 +60,13 @@ const CartSlice = createSlice({
       state.info = action.payload;
     },
     agregarcomprado(state, action) {
-      const existe = state.Comprados.find((e,i) => e.id === action.payload[0].id);
-
-      const noexiste = action.payload[0];
-      noexiste.compraid = action.payload[1];
+      const existe = state.Comprados.find(
+        (e) =>
+          e.idcompra === action.payload.idcompra && e.id === action.payload.id
+      );
 
       if (!existe) {
-        state.Comprados = [...state.Comprados, noexiste];
+        state.Comprados = [...state.Comprados, action.payload];
       }
     },
     todaslascompras(state, action) {
@@ -75,13 +75,6 @@ const CartSlice = createSlice({
     updatecartitem(state, { payload }) {
       const id = payload.productId;
       const qty = payload.qty;
-
-      // const altered = state.Cartitems.find((e)=> e.id === id)
-
-      // altered.quantity = qty
-      // const allproducts = state.Cartitems.filter((e)=> e.id !== id)
-
-      // const all = [...allproducts,altered]
 
       state.Cartitems = state.Cartitems.filter((e) =>
         e.id === id ? (e.quantity = qty) : e.quantity

@@ -16,10 +16,13 @@ const Nav = () => {
   // if(loggedUser.phoneNumber ===null || loggedUser.cityOfOrigin ===null){
   //   navigate("/completeSignUp")
   // }
- 
 
   return (
-    <div style={{width:'100%', height: 'fit-content', paddingBottom: '5px'}}>
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
       <div
         className="navbar flex justify-between bg-white"
         style={{ width: "100%" }}
@@ -42,7 +45,7 @@ const Nav = () => {
         <div className="w-full justify-end mr-5 mt-2">
           {!isAuthenticated && (
             <span
-              className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
+              className="btn btn-ghost normal-case text-base text-white  bg-stone-400 hover:bg-stone-500"
               onClick={loginWithPopup}
             >
               Iniciar Sesión
@@ -51,19 +54,19 @@ const Nav = () => {
         </div>
 
         {isAuthenticated && (
-          <div className=" pr-4 flex align-center pb-2">
-           
-
+          <div className="flex-1 mr-5">
             {loggedUser && loggedUser.isAdmin && (
-              <div className=" m-auto flex w-40 justify-center">
+              <div className="flex-1 mr-5">
                 <Link to="/dashboard">
-                  <button className="btn flex align-center btn-ghost normal-case text-black text-base">
+                  <button className="btn btn-ghost normal-case text-black text-base mr-8 w-full">
                     Panel de Admin
                   </button>
                 </Link>
               </div>
             )}
-              <div className="m-auto flex justify-center align-center"> <UserCart /></div>
+            <div className="mr-10">
+              <UserCart />
+            </div>
             {loggedUser ? (
               <div className="dropdown dropdown-end">
                 <label
@@ -82,9 +85,9 @@ const Nav = () => {
                       />
                     </div>
                   )}
-                  <div className="w-80 h-4 overflow-hidden"><span className="justify-between text-black ">
+                  <span className="justify-between text-black ">
                     {user.name ? user.name : user.nickname}
-                  </span></div>
+                  </span>
                 </label>
                 {/* active mediante log in o inactivemediante log out */}
                 <ul className="menu    menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">

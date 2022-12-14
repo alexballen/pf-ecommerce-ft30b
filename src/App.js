@@ -7,9 +7,9 @@ import { getCurrentUser } from "./redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
-import ProtectedRoutes from "./ProtectedRoutes"
-import BlockedUserRoutes from "./BlockedUserRoutes"
-import AdminRoutes from "./AdminRoutes"
+import ProtectedRoutes from "./ProtectedRoutes";
+import BlockedUserRoutes from "./BlockedUserRoutes";
+import AdminRoutes from "./AdminRoutes";
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
 import { TermsAndConditions, PrivacyPolicy } from "./views/legal";
 import UserProfile from "./views/UserProfile";
@@ -32,26 +32,20 @@ function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [open, setOpen] = React.useState(false);
-  
-  const [footerHeight, setfooterHeigth] = React.useState(0)
+
+  const [footerHeight, setfooterHeigth] = React.useState(0);
   const { loggedUser } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.products);
   const getWindowSize = () => {
-    return window.innerWidth
-
-  }
-  const [width, setWidth] = React.useState(getWindowSize())
+    return window.innerWidth;
+  };
+  const [width, setWidth] = React.useState(getWindowSize());
   //   useEffect(() => {
 
   //     if (isAuthenticated) {
   //         dispatch(getCurrentUser(getAccessTokenSilently, user));
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
-    
-  
-
-
-
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -60,26 +54,31 @@ function App() {
 
     function handleWindowreSize() {
       setWidth(getWindowSize());
-      setfooterHeigth(document.getElementById('footerContainer')?.getClientRects()[0].height)
-  }
+      setfooterHeigth(
+        document.getElementById("footerContainer")?.getClientRects()[0].height
+      );
+    }
 
-  
-    window.addEventListener('resize', handleWindowreSize)
+    window.addEventListener("resize", handleWindowreSize);
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())
     //     dispatch(getColors())
     //     dispatch(getBrands())
-    console.log(footerHeight)
+    console.log(footerHeight);
     return () => {
-      window.removeEventListener('resize', handleWindowreSize);
+      window.removeEventListener("resize", handleWindowreSize);
     };
   }, [isAuthenticated, width]);
 
-  
-
   return (
-    <div style={{ width: "100%", position: "relative", height: window.screen.height, overflowX: 'hidden', paddindBottom: footerHeight }}>
+    <div
+      style={{
+        width: "100%",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
       <BrowserRouter>
       
         <Routes>
@@ -142,11 +141,11 @@ function App() {
           </Route>
         </Routes>
         <div className="w-full h-fit relative bottom-0">
-        <Footer />
+          <Footer />
         </div>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default App;
