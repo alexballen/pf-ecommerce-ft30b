@@ -9,6 +9,7 @@ const userSlice = createSlice({
     users: [],
     filterUser: [],
     banerUser: [],
+    userAddress:[],
     filterbanerUser: [],
   },
   reducers: {
@@ -68,6 +69,24 @@ const userSlice = createSlice({
       );
       state.banerUser = filtBanUser;
     },
+    createUserAddress(state, action) {
+      state.userAddress = action.payload;
+    },
+    deleteUserAddress(state, action) {
+      state.userAddress = action.payload;
+    },
+    updateUser(state, action) {
+      state.loggedUser = action.payload;
+    },
+    createUserAddress(state, action) {
+      state.userAddress = action.payload;
+    },
+    deleteUserAddress(state, action) {
+      state.userAddress = action.payload;
+    },
+    updateUser(state, action) {
+      state.loggedUser = action.payload;
+    },
     deleteRestoreUser(state, action) {
       const delRes = state.banerUser.filter((e) => e.id !== action.payload);
       state.banerUser = delRes;
@@ -85,6 +104,10 @@ export const {
   sortUser,
   baneoUser,
   restoreBanUser,
+  getBanerUser,
+  updateUser,
+  createUserAddress,
+  deleteUserAddress,
   getBanUser,
   deleteRestoreUser,
   searchByUserBaner,
