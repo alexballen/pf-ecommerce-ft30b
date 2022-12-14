@@ -16,25 +16,30 @@ import {
 import "./ProductDetail.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import Comment from "../Comment/Comment";
+import AddComment from "../Comment/AddComment";
 
 const ProductDetail = () => {
   const { isAuthenticated, loginWithPopup } = useAuth0();
 
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { Cartitems } = useSelector((state) => state.Cart);
-  const { product, relatedProducts } = useSelector((state) => state.products);
-  const [qty, setqty] = React.useState();
-  const { paymenturl } = useSelector((state) => state.products);
-  const { loggedUser, favorites } = useSelector((state) => state.user);
-  const image = document.getElementById("productDetailImage");
-  const [amoutstock, setbuy] = useState(1);
-  const [isLiked, setIsLiked] = React.useState([]);
+
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const { Comprados } = useSelector((state) => state.Cart)
+  const { product, relatedProducts } = useSelector((state) => state.products)
+  const [qty, setqty] = React.useState()
+  const { paymenturl } = useSelector((state) => state.products)
+  const { loggedUser, favorites } = useSelector((state) => state.user)
+  const image = document.getElementById('productDetailImage')
+  const [amoutstock, setbuy] = useState(1)
+  const [isLiked, setIsLiked] = React.useState([])
   const [cordinates, setCordinates] = useState({
-    x: "",
-    y: "",
-  });
-  const { products } = useSelector((state) => state.products);
+    x: '',
+    y: ''
+  })
+  const { products } = useSelector(state => state.products)
+
+
+
 
   // const email = loggedUser.data?.email;
   const productid = product.id;
@@ -73,15 +78,24 @@ const ProductDetail = () => {
     dispatch(buyproduct(amoutstock, id));
   }
 
-  useEffect(() => {
-    dispatch(getRelatedProducts(product));
-    if (productid !== id) {
+ 
+  useEffect(() =>
+  {
+    dispatch(getRelatedProducts(product))
+    if (productid !== id)
+    {
       dispatch(GetProductById(id));
     }
+
+    if (products.length === 0)
+    {
+      dispatch(getProducts())
+ 
 
     if (products.length === 0) {
       dispatch(getProducts());
     }
+
   }, [amoutstock, id, userId, productid]);
 
   return (
@@ -181,7 +195,22 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className=" flex  ">
-              <div className="flex-1 "></div>
+              <div className="flex-1 ">
+                {Comprados?.some(productoComprado => productoComprado.id === product.id) ?
+                  <div>
+                    {product.reviews?.some(review => review.user.id === loggedUser?.id) ?
+                      null
+                      :
+                      <a
+                        href="#addReview"
+                        className="btn ml-2 w-40 text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 focus:outline-none rounded"
+                      >
+                        Agregar comentario
+                      </a>
+                    }
+                  </div>
+                  : null}
+              </div>
               <div className="flex-1 "></div>
               {isAuthenticated ? (
                 <button
@@ -221,7 +250,17 @@ const ProductDetail = () => {
               )} */}
             </div>
 
+
             {/* <input type="checkbox" id="Pagartodo" className="modal-toggle " />
+
+            <AddComment
+              modalId="addReview"
+              productId={product?.id}
+              userId={loggedUser?.id}
+            />
+
+  
+
             <div className="modal ">
               <div className="modal-box   ">
                 <h3 className="font-bold  text-lg">
@@ -268,26 +307,34 @@ const ProductDetail = () => {
             </div> */}
           </div>
         </div>
-        {product.reviews?.length ? (
+ 
+        {product.reviews?.length ?
           <div>
-            <span className="title-font text-slate-700 font-medium text-xl ml-28 ">
-              Comentarios:
-            </span>
-            {product.reviews?.map((review, index) => (
+            <span className="title-font text-slate-700 font-medium text-xl ml-28 ">Comentarios:</span>
+            {product.reviews?.map((review, index) =>
               <Comment
+                productId={product.id}
                 rating={review.rating}
                 description={review.description}
                 username={review.user.username}
+                userId={review.user.id}
                 key={index}
               />
-            ))}
-          </div>
-        ) : null}
+            )}
+          </div> :
+          null}
       </div>
-      <div id="relatedProductsContainer">
-        {relatedProducts.slice(0, products.length / 2).map((p) => {
-          return <RelatedProduct key={p.id} product={p} componentId={id} />;
-        })}
+      <div id='relatedProductsContainer'>
+
+        {
+          relatedProducts.slice(0, products.length / 2).map(p =>
+          {
+            return (
+              <RelatedProduct key={p.id} product={p} componentId={id} />
+            )
+          })
+        }
+ 
       </div>
     </section>
   );
