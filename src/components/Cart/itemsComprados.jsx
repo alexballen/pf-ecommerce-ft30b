@@ -63,7 +63,7 @@ function Itemscomprados({ name, image, compraid, indice ,cantidad}) {
         </td>
 
         <td>
-          <div className="  items-center   content-center align-middle space-x-3">
+          <div className="  items-center flex justify-center  content-center align-middle space-x-3">
             <td className="text-center ">
               <p className="text-center">{cantidad}</p>
             </td>
