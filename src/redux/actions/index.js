@@ -57,7 +57,7 @@ import
   getBanUser,
   createUserAddress,
   deleteUserAddress,
-  updateUser
+  updateUser,
   searchByUserBaner,
   sortUserBaner,
 } from "../reducers/userSlice";
@@ -319,6 +319,11 @@ export function getCurrentUser(user)
     };
 
     let json = await axios.post(`/user/login/`, user);
+
+    if(json.data.created){
+      window.location.replace(`${window.location.href}user/${json.data.data.id}`)
+    }
+
     dispatch(loggedUser(json.data?.data));
     dispatch(getusercart(json.data?.data.cart.products));
   };
@@ -1037,15 +1042,6 @@ export const deleteUserId = (id) => async (dispatch) =>
   await axios.delete(`/user/delete/${id}`);
 };
 
-export const updateUser = (data, id) =>
-{
-  return async function ()
-  {
-    const response = await axios.put(`/userData/${id}`, data);
-
-    return response;
-  };
-};
 export const banerUserId = (id) => async (dispatch) =>
 {
   dispatch(baneoUser(id));
@@ -1139,16 +1135,18 @@ export const createAddress = (data) => async (dispatch) => {
     });
 };
 
-export const deleteAddress = (data) => async (dispatch) => {
+export const deleteAddress = (addressId) => async (dispatch) => {
+  console.log("ADDRESS ID IN ACTIONS:" , addressId)
 
   await axios
-    .delete(`/user/address`, {addressId:data})
+    .delete(`/user/address/${addressId}`)
     .then((res) => {
     
     dispatch(deleteUserAddress(res.data));
     }
     )
     .catch((error) => {
+      console.log(error)
       throw new Error(error);
     });
 };

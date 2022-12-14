@@ -65,7 +65,7 @@ function App() {
     //     dispatch(getCategories())
     //     dispatch(getColors())
     //     dispatch(getBrands())
-    console.log(footerHeight);
+ 
     return () => {
       window.removeEventListener("resize", handleWindowreSize);
     };

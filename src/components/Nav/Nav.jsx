@@ -86,7 +86,7 @@ const Nav = () => {
                     </div>
                   )}
                   <span className="justify-between text-black ">
-                    {user.name ? user.name : user.nickname}
+                    {loggedUser.username}
                   </span>
                 </label>
                 {/* active mediante log in o inactivemediante log out */}

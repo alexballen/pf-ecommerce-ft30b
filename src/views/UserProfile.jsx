@@ -10,11 +10,11 @@ const UserProfile = () => {
 
   const [userData, setUserData] = useState(
     {
-    firstName:loggedUser.firstName ? loggedUser.firstName: "",
-    lastName:loggedUser.lastName ? loggedUser.lastName: "",
-    username:loggedUser.username,
-    photo: loggedUser.photo?.url ? loggedUser.photo.url: "",
-    phoneNumber:loggedUser.phoneNumber ? loggedUser.phoneNumber: "",
+    firstName:"",
+    lastName:"",
+    username:"",
+    photo: "",
+    phoneNumber:"",
   }
   )
   const [allAddresses, setAllAddresses] = useState(loggedUser?.addresses)
@@ -42,7 +42,13 @@ const UserProfile = () => {
   useEffect(()=>{
     if(loggedUser && loggedUser.addresses && loggedUser.addresses.length){
       setAllAddresses(loggedUser.addresses)}
-
+      setUserData({
+        firstName:loggedUser.firstName,
+        lastName:loggedUser.lastName,
+        username:loggedUser.username,
+        photo:loggedUser.photo?.url,
+        phoneNumber:loggedUser.phoneNumber,
+      })
   },[loggedUser])
 
   useEffect(()=>{
@@ -74,7 +80,7 @@ const UserProfile = () => {
   // const handlePreferenceSubmit = ()=>{
   // }
 
-  const deleteAddress = (id)=>{ 
+  const deleteA = (id)=>{ 
    
     dispatch(deleteAddress(id))
     setAllAddresses(allAddresses.filter(el =>el.id!==id))
@@ -172,7 +178,7 @@ const UserProfile = () => {
                        
                               <img 
                           
-                              src={typeof userData.photo === "string" ? userData.photo : userData.photo.url  }
+                              src={userData.photo}
                               className="h-20 w-20 overflow-hidden object-cover"
                               alt="Usuario"
                               
@@ -446,7 +452,7 @@ const UserProfile = () => {
                         </label>
                       </div> 
                       <div className="col-span-6 sm:col-span-3"> 
-                        <button className="w-5 h-5 float-right hover:translate-y-1 hover:cursor-pointer" onClick={() => deleteAddress(element.id)}>  
+                        <button className="w-5 h-5 float-right hover:translate-y-1 hover:cursor-pointer" onClick={() => deleteA(element.id)}>  
                           <img src="/assets/icons/bin.png" alt="Location icon"  />
                         </button>
                       </div>
