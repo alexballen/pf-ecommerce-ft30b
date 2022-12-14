@@ -15,7 +15,7 @@ function Itemscomprados({ name, image, compraid, indice ,cantidad}) {
 
   return (
     <tbody>
-      <tr>
+      <tr className="border-4  ">
         <label
           htmlFor="idcompra"
           className="btn text-center bg-black m-5 mt-10"
