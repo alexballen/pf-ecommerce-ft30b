@@ -23,11 +23,11 @@ function Historial() {
   }
 
   useEffect(() => {
-    dispatch(getdataadmin());
+ 
     if (userId) {
       dispatch(getuserpaymets(userId));
     }
-  }, []);
+  }, [userId]);
 
   return (
     <>
