@@ -8,7 +8,7 @@ import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-function Itemscomprados({ name, image, compraid, indice }) {
+function Itemscomprados({ name, image, compraid, indice ,cantidad}) {
   const { Comprados } = useSelector((state) => state.Cart);
 
   useEffect(() => {}, [Comprados]);
@@ -58,6 +58,14 @@ function Itemscomprados({ name, image, compraid, indice }) {
           <div className="  items-center   content-center align-middle space-x-3">
             <td className="text-center ">
               <p className="text-center">{name}</p>
+            </td>
+          </div>
+        </td>
+
+        <td>
+          <div className="  items-center   content-center align-middle space-x-3">
+            <td className="text-center ">
+              <p className="text-center">{cantidad}</p>
             </td>
           </div>
         </td>

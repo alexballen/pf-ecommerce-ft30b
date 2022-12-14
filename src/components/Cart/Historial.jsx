@@ -17,17 +17,17 @@ function Historial() {
   const userId = loggedUser?.id;
   const { Comprados } = useSelector((state) => state.Cart);
   const { info } = useSelector((state) => state.Cart);
-  const { Comprasgenerales } = useSelector((state) => state.Cart);
 
   for (let e of info) {
     dispatch(alldatapagos(e.collectionid));
   }
 
   useEffect(() => {
+    dispatch(getdataadmin());
     if (userId) {
       dispatch(getuserpaymets(userId));
     }
-  }, [userId]);
+  }, []);
 
   return (
     <>
@@ -41,17 +41,18 @@ function Historial() {
               <th className="bg-stone-800  w-10  text-center text-white rounded-none ">
                 Producto
               </th>
-              <th className="bg-stone-800 text-white">Precio</th>
+              <th className="bg-stone-800 text-white"> </th>
+
               <th className="bg-stone-800 text-white "> </th>
-              <th className="bg-stone-800 text-white ">Cantidad </th>
             </tr>
           </thead>
           {Comprados.length
             ? Comprados.map((e, i) => {
                 return (
                   <Itemscomprados
+                    cantidad={e.quantity}
                     indice={i}
-                    compraid={e.compraid}
+                    compraid={e.idcompra}
                     key={i}
                     name={e.title}
                     id={e.id}
@@ -68,9 +69,9 @@ function Historial() {
               <th className="bg-stone-800 text-center text-white rounded-none ">
                 Producto
               </th>
-              <th className="bg-stone-800 text-white ">Precio</th>
               <th className="bg-stone-800 text-white "> </th>
-              <th className="bg-stone-800 text-white ">Cantidad </th>
+
+              <th className="bg-stone-800 text-white "> </th>
             </tr>
           </tfoot>
         </table>
