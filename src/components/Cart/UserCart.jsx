@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const UserCart = () => {
+const UserCart = () =>
+{
   const { Cartitems } = useSelector((state) => state.Cart);
 
   return (
@@ -56,7 +57,8 @@ const UserCart = () => {
           <span className="font-bold text-lg">
             <div className="h-96 carousel carousel-vertical   text-center align-center rounded-box">
               {Cartitems.length ? (
-                Cartitems.map((e, i) => {
+                Cartitems.map((e, i) =>
+                {
                   return (
                     <ul key={i} className="    align-center">
                       <li className="   align-center">
@@ -101,11 +103,11 @@ const UserCart = () => {
 
           <div className="card-body ">
             <Link className="content-center" to={"/Cart"}>
-              <button className="btn btn-primary   btn-block">
+              <button className="btn ml-2 w-30  text-white text-base  bg-stone-400 hover:bg-stone-500 border-0 focus:outline-none rounded">
                 Ver Carrito
               </button>
             </Link>
-       
+
           </div>
         </div>
       </div>

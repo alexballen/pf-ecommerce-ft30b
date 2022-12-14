@@ -53,7 +53,7 @@ const EditComment = ({
                         />
                     </div>
                     <div class="modal-action">
-                        <button type="submit" class="btn bg-stone-400 hover:bg-stone-500 border-none">Actualizar comentario</button>
+                        <button type="submit" class="btn px-4 py-2 capitalize bg-stone-400 hover:bg-stone-500 border-none">Actualizar comentario</button>
                     </div>
                 </form>
             </div>
