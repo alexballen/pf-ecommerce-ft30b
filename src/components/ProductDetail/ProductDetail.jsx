@@ -10,6 +10,7 @@ import { GetProductById, buyproduct, addtocart, getProducts, getRelatedProducts 
 import './ProductDetail.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import Comment from "../Comment/Comment";
+import AddComment from "../Comment/AddComment";
 
 const ProductDetail = () =>
 {
@@ -233,33 +234,9 @@ const ProductDetail = () =>
               )}
             </div>
 
-            <div class="modal cursor-pointer" id="addReview">
-              <div class="modal-box">
-                <form>
-                  <a href="#" className="btn bg-white border-none hover:bg-white text-stone-500 btn-sm btn-circle absolute right-2 top-2">✕</a>
-                  <h3 class="font-bold text-lg">Déjanos tu reseña</h3>
-                  <div className="mt-4">
-                    <p>Rating:</p>
-                    <div className="rating mt-2">
-                      <input type="radio" name="rating-2" value="1" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-2" value="2" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-2" value="3" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-2" value="4" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-2" value="5" className="mask mask-star-2 bg-orange-400" />
-                    </div>
-                  </div>
-
-                  <div className="mt-4">
-                    <p>Comentario:</p>
-                    <textarea className="mt-2 textarea w-96 border-stone-500" placeholder="Escribe tu comentario aquí"></textarea>
-                  </div>
-                  <div class="modal-action">
-                    <a href="#" class="btn bg-stone-400 hover:bg-stone-500 border-none">Listo</a>
-                  </div>
-
-                </form>
-              </div>
-            </div>
+            <AddComment
+              modalId="addReview"
+            />
 
             <input type="checkbox" id="Pagartodo" className="modal-toggle " />
             <div className="modal ">
