@@ -16,10 +16,13 @@ const Nav = () => {
   // if(loggedUser.phoneNumber ===null || loggedUser.cityOfOrigin ===null){
   //   navigate("/completeSignUp")
   // }
- 
 
   return (
-    <div style={{width:'100%'}}>
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
       <div
         className="navbar flex justify-between bg-white"
         style={{ width: "100%" }}
@@ -42,7 +45,7 @@ const Nav = () => {
         <div className="w-full justify-end mr-5 mt-2">
           {!isAuthenticated && (
             <span
-              className="btn btn-ghost normal-case text-base   text-white  bg-stone-400 hover:bg-stone-500"
+              className="btn btn-ghost normal-case text-base text-white  bg-stone-400 hover:bg-stone-500"
               onClick={loginWithPopup}
             >
               Iniciar Sesión
@@ -51,21 +54,21 @@ const Nav = () => {
         </div>
 
         {isAuthenticated && (
-          <div className=" mr-8 mt-3">
-            <UserCart />
-
+          <div className="flex-1 mr-5">
             {loggedUser && loggedUser.isAdmin && (
-              <div className=" flex-1">
+              <div className="flex-1 mr-5">
                 <Link to="/dashboard">
-                  <button className="btn btn-ghost normal-case text-black text-base mr-8">
+                  <button className="btn btn-ghost normal-case text-black text-base mr-8 w-full">
                     Panel de Admin
                   </button>
                 </Link>
               </div>
             )}
-
+            <div className="mr-10">
+              <UserCart />
+            </div>
             {loggedUser ? (
-              <div className="dropdown dropdown-end   ">
+              <div className="dropdown dropdown-end">
                 <label
                   tabIndex={0}
                   className="  btn btn-ghost btn-circle  avatar"
@@ -82,7 +85,7 @@ const Nav = () => {
                       />
                     </div>
                   )}
-                  <span className="justify-between text-black">
+                  <span className="justify-between text-black ">
                     {user.name ? user.name : user.nickname}
                   </span>
                 </label>

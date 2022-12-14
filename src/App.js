@@ -7,9 +7,9 @@ import { getCurrentUser } from "./redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 import CreateProduct from "./components/dashboard/CreateProduct";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
-import ProtectedRoutes from "./ProtectedRoutes"
-import BlockedUserRoutes from "./BlockedUserRoutes"
-import AdminRoutes from "./AdminRoutes"
+import ProtectedRoutes from "./ProtectedRoutes";
+import BlockedUserRoutes from "./BlockedUserRoutes";
+import AdminRoutes from "./AdminRoutes";
 import { AboutUsPage, Desarrollador } from "./views/aboutUs";
 import { TermsAndConditions, PrivacyPolicy } from "./views/legal";
 import UserProfile from "./views/UserProfile";
@@ -32,8 +32,14 @@ function App() {
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [open, setOpen] = React.useState(false);
+
+  const [footerHeight, setfooterHeigth] = React.useState(0);
   const { loggedUser } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.products);
+  const getWindowSize = () => {
+    return window.innerWidth;
+  };
+  const [width, setWidth] = React.useState(getWindowSize());
   //   useEffect(() => {
 
   //     if (isAuthenticated) {
@@ -46,15 +52,33 @@ function App() {
       dispatch(getCurrentUser(user));
     }
 
+    function handleWindowreSize() {
+      setWidth(getWindowSize());
+      setfooterHeigth(
+        document.getElementById("footerContainer")?.getClientRects()[0].height
+      );
+    }
+
+    window.addEventListener("resize", handleWindowreSize);
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())
     //     dispatch(getColors())
     //     dispatch(getBrands())
-  }, [isAuthenticated]);
+    console.log(footerHeight);
+    return () => {
+      window.removeEventListener("resize", handleWindowreSize);
+    };
+  }, [isAuthenticated, width]);
 
   return (
-    <div style={{ width: "100%", overflow: "hidden", position: "relative" }}>
+    <div
+      style={{
+        width: "100%",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
       <BrowserRouter>
         <OffersPromos />
         <Routes>
@@ -116,10 +140,12 @@ function App() {
             <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
           </Route>
         </Routes>
-        <Footer />
+        <div className="w-full h-fit relative bottom-0">
+          <Footer />
+        </div>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default App;

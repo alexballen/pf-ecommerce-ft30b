@@ -14,10 +14,13 @@ import {
   pagePaginated,
   urlpayment,
   deleteProduct,
-  baneoProduct,
+  deleteBaneoProduct,
   restoreBanProduct,
   getBanerProd,
   setRelatedProducts,
+ 
+  deleteRestoreProduct,
+ 
 } from "../reducers/getProductsSlice";
 
 import {
@@ -44,7 +47,8 @@ import {
   sortUser,
   baneoUser,
   restoreBanUser,
-  getBanerUser,
+  getBanUser,
+  deleteRestoreUser,
 } from "../reducers/userSlice";
 
 const { REACT_APP_MPAGOTOKEN } = process.env;
@@ -747,6 +751,7 @@ export const getdataadmin = () => {
       }
     }
 
+ 
     var ciudades = [
       { Bogota: Bogota },
       { Lima: Lima },
@@ -851,6 +856,7 @@ export const getdataadmin = () => {
       { Paraguay: Paraguay },
       { Venezuela: Venezuela },
     ];
+ 
     const impuestocompra = response.data.results.reduce(
       (ac, e) => ac + e.fee_details[0].amount,
       0
@@ -865,6 +871,7 @@ export const getdataadmin = () => {
       (ac, e) => ac + e.transaction_details.net_received_amount,
       0
     );
+ 
     const Economia = [
       { impuestocompra: impuestocompra },
       { totalpagado: totalpagado },
@@ -873,6 +880,7 @@ export const getdataadmin = () => {
     const infofinal = [usuarios, ciudades, Paises, Economia];
     console.log(infofinal);
     // dispatch(todaslascompras(infofinal));
+ 
   };
 };
 
@@ -926,6 +934,7 @@ export const banerUserId = (id) => async (dispatch) => {
 };
 
 export const restoreBanerUserId = (id) => async (dispatch) => {
+  dispatch(deleteRestoreUser(id));
   dispatch(restoreBanUser());
   await axios.delete(`/user/softDelete/${id}?restore=true`);
   if (id) {
@@ -939,11 +948,12 @@ export const restoreBanerUserId = (id) => async (dispatch) => {
 };
 
 export const banerProductId = (id) => async (dispatch) => {
-  dispatch(baneoProduct(id));
+  dispatch(deleteBaneoProduct(id));
   await axios.delete(`/products/softDelete/${id}`);
 };
 
 export const restoreBanerProductId = (id) => async (dispatch) => {
+  dispatch(deleteRestoreProduct(id));
   dispatch(restoreBanProduct());
   await axios.delete(`/products/softDelete/${id}?restore=true`);
 };
@@ -952,19 +962,19 @@ export const editProductId = (data, id) => async () => {
   await axios.put(`/products/update?productId=${id}`, data);
 };
 
-export const banerProduct = () => async (dispatch) => {
+export const getBanerProduct = () => async (dispatch) => {
   await axios
-    .get("/products/banerProducts")
+    .get("/products/banProducts")
     .then((res) => dispatch(getBanerProd(res.data)))
     .catch((error) => {
       throw new Error(error);
     });
 };
 
-export const banerUser = () => async (dispatch) => {
+export const getBanerUser = () => async (dispatch) => {
   await axios
     .get("/user/banerUsers")
-    .then((res) => dispatch(getBanerUser(res.data)))
+    .then((res) => dispatch(getBanUser(res.data)))
     .catch((error) => {
       throw new Error(error);
     });

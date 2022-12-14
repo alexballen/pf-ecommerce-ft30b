@@ -136,8 +136,8 @@ const CreateProduct = () => {
     setError(validationsForms(newProduct));
     setNewProduct({
       name: "",
-      stock: undefined,
-      unitPrice: undefined,
+      stock: "",
+      unitPrice: "",
       productBrand: "",
       image: "",
       categories: [],
@@ -151,7 +151,6 @@ const CreateProduct = () => {
       ...newProduct,
       [e.target.name]: e.target.value,
     });
-   
   };
 
   const handleBlur = (e) => {
