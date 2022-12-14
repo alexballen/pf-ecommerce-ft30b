@@ -41,9 +41,8 @@ function Historial() {
               <th className="bg-stone-800  w-10  text-center text-white rounded-none ">
                 Producto
               </th>
-              <th className="bg-stone-800 text-white"> </th>
-
-              <th className="bg-stone-800 text-white "> </th>
+               <th className="bg-stone-800 text-white  "> </th>
+              <th className="bg-stone-800 text-white ">Cantidad </th>
             </tr>
           </thead>
           {Comprados.length
@@ -69,9 +68,8 @@ function Historial() {
               <th className="bg-stone-800 text-center text-white rounded-none ">
                 Producto
               </th>
-              <th className="bg-stone-800 text-white "> </th>
-
-              <th className="bg-stone-800 text-white "> </th>
+                 <th className="bg-stone-800 text-white  "> </th>
+              <th className="bg-stone-800 text-white ">Cantidad </th>
             </tr>
           </tfoot>
         </table>
