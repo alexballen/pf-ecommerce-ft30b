@@ -201,15 +201,23 @@ function Cart() {
           <table className="table w-full   ">
             <thead>
               <tr className="text-center ">
-                <th className="bg-stone-800  w-10  text-center text-white rounded-none ">
+                <th className="bg-stone-800   border-4 border-stone-800  border-l-stone-800        w-10  text-center text-white rounded-none ">
                   Producto
                 </th>
-                <th className="bg-stone-800 text-white">Precio</th>
-                <th className="bg-stone-800 text-white "> </th>
-                <th className="bg-stone-800 text-white ">Cantidad </th>
-                <th className="bg-stone-800 text-white ">Total</th>
-                <th className="bg-stone-800 text-white ">Disponibles</th>
-                <th className="bg-stone-800 text-white text-center rounded-none">
+                <th className="bg-stone-800 text-white border-4 border-stone-800   ">
+                  Precio
+                </th>
+                <th className="bg-stone-800 text-white border-4 border-stone-800  "></th>
+                <th className="bg-stone-800 text-white border-4 border-stone-800   ">
+                  Cantidad
+                </th>
+                <th className="bg-stone-800 text-white border-4 border-stone-800  ">
+                  Total
+                </th>
+                <th className="bg-stone-800 text-white border-4 border-stone-800  ">
+                  Disponibles
+                </th>
+                <th className="bg-stone-800 text-white border-4 border-stone-800 border-r-stone-800  w-10    text-center  rounded-none">
                   Comprar
                 </th>
               </tr>
@@ -231,16 +239,24 @@ function Cart() {
               : ""}
             <tfoot>
               <tr className="text-center ">
-                <th className="bg-stone-800 text-center text-white rounded-none ">
+                <th className="bg-stone-800    border-4 border-stone-800  border-l-stone-800   w-10  text-center text-white rounded-none ">
                   Producto
                 </th>
-                <th className="bg-stone-800 text-white ">Precio</th>
-                <th className="bg-stone-800 text-white "> </th>
-                <th className="bg-stone-800 text-white ">Cantidad </th>
-                <th className="bg-stone-800 text-white ">Total</th>
-                <th className="bg-stone-800 text-white  ">Disponibles</th>
-                <th className=" bg-sky-600 text-white  rounded-none  text-center">
-                  Total a pagar ${total}
+                <th className="bg-stone-800 text-white  border-4 border-stone-800">
+                  Precio
+                </th>
+                <th className="bg-stone-800 text-white  border-4 border-stone-800"></th>
+                <th className="bg-stone-800 text-white  border-4 border-stone-800">
+                  Cantidad
+                </th>
+                <th className="bg-sky-600 text-white   border-4 border-sky-800">
+                  ${total}
+                </th>
+                <th className="bg-stone-800 text-white  border-4 border-stone-800">
+                  Disponibles
+                </th>
+                <th className="bg-stone-800  border-r-8 border-4 border-stone-800 border-l-stone-800    w-10    text-center text-white rounded-none">
+                  Comprar
                 </th>
               </tr>
             </tfoot>
