@@ -236,6 +236,8 @@ const ProductDetail = () =>
 
             <AddComment
               modalId="addReview"
+              productId={product?.id}
+              userId={loggedUser?.id}
             />
 
             <input type="checkbox" id="Pagartodo" className="modal-toggle " />
