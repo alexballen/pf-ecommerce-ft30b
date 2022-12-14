@@ -46,6 +46,11 @@ function App() {
   //         dispatch(getCurrentUser(getAccessTokenSilently, user));
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
+    
+  
+
+
+
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -54,12 +59,11 @@ function App() {
 
     function handleWindowreSize() {
       setWidth(getWindowSize());
-      setfooterHeigth(
-        document.getElementById("footerContainer")?.getClientRects()[0].height
-      );
-    }
+      setfooterHeigth(document.getElementById('footerContainer')?.getClientRects()[0].height)
+  }
 
-    window.addEventListener("resize", handleWindowreSize);
+  
+    window.addEventListener('resize', handleWindowreSize)
     //     dispatch(getCart())
     //     dispatch(getProducts())
     //     dispatch(getCategories())

@@ -54,19 +54,19 @@ const Nav = () => {
         </div>
 
         {isAuthenticated && (
-          <div className="flex-1 mr-5">
+          <div className=" pr-4 flex align-center pb-2">
+           
+
             {loggedUser && loggedUser.isAdmin && (
-              <div className="flex-1 mr-5">
+              <div className=" m-auto flex w-40 justify-center">
                 <Link to="/dashboard">
-                  <button className="btn btn-ghost normal-case text-black text-base mr-8 w-full">
+                  <button className="btn flex align-center btn-ghost normal-case text-black text-base">
                     Panel de Admin
                   </button>
                 </Link>
               </div>
             )}
-            <div className="mr-10">
-              <UserCart />
-            </div>
+              <div className="m-auto flex justify-center align-center"> <UserCart /></div>
             {loggedUser ? (
               <div className="dropdown dropdown-end">
                 <label
@@ -85,9 +85,9 @@ const Nav = () => {
                       />
                     </div>
                   )}
-                  <span className="justify-between text-black ">
+                  <div className="w-80 h-4 overflow-hidden"><span className="justify-between text-black ">
                     {user.name ? user.name : user.nickname}
-                  </span>
+                  </span></div>
                 </label>
                 {/* active mediante log in o inactivemediante log out */}
                 <ul className="menu    menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">

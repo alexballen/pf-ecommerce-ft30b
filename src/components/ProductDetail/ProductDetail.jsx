@@ -75,24 +75,21 @@ const ProductDetail = () =>
     dispatch(buyproduct(amoutstock, id));
   }
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     dispatch(getRelatedProducts(product))
-    if (productid !== id)
-    {
+    if(productid !== id) {
       dispatch(GetProductById(id));
     }
-
-    if (products.length === 0)
-    {
+    
+    if (products.length === 0) {
       dispatch(getProducts())
 
     }
-
-
-
-
-
+    
+    
+     
+    
+     
   }, [amoutstock, id, userId, productid]);
 
   return (
@@ -306,14 +303,13 @@ const ProductDetail = () =>
       </div>
       <div id='relatedProductsContainer'>
 
-        {
-          relatedProducts.slice(0, products.length / 2).map(p =>
-          {
-            return (
-              <RelatedProduct key={p.id} product={p} componentId={id} />
-            )
-          })
-        }
+      {
+        relatedProducts.slice(0, products.length/2).map(p => {
+          return(
+            <RelatedProduct key={p.id} product={p} componentId={id}/>
+          )
+        })
+      }
       </div>
     </section>
   );
