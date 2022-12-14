@@ -9,6 +9,7 @@ const userSlice = createSlice({
     users: [],
     filterUser: [],
     banerUser: [],
+    filterbanerUser: [],
   },
   reducers: {
     loggedUser: (state, action) => {
@@ -42,6 +43,13 @@ const userSlice = createSlice({
           : state.users.sort((a, b) => (a.email > b.email ? -1 : 1));
       state.users = [...orderFullname];
     },
+    sortUserBaner: (state, action) => {
+      const orderFullname =
+        action.payload === "Asc"
+          ? state.banerUser.sort((a, b) => (a.email > b.email ? 1 : -1))
+          : state.banerUser.sort((a, b) => (a.email > b.email ? -1 : 1));
+      state.banerUser = [...orderFullname];
+    },
     baneoUser(state, action) {
       const banUser = state.filterUser.filter((e) => e.id !== action.payload);
       state.users = banUser;
@@ -52,6 +60,13 @@ const userSlice = createSlice({
     },
     getBanUser(state, action) {
       state.banerUser = action.payload;
+      state.filterbanerUser = action.payload;
+    },
+    searchByUserBaner(state, action) {
+      let filtBanUser = state.filterbanerUser.filter((usb) =>
+        usb.username.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      state.banerUser = filtBanUser;
     },
     deleteRestoreUser(state, action) {
       const delRes = state.banerUser.filter((e) => e.id !== action.payload);
@@ -72,5 +87,7 @@ export const {
   restoreBanUser,
   getBanUser,
   deleteRestoreUser,
+  searchByUserBaner,
+  sortUserBaner,
 } = userSlice.actions;
 export default userSlice.reducer;

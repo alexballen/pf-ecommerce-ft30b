@@ -23,18 +23,6 @@ const FilterUsers = () => {
         <div>
           <BanUser />
         </div>
-        {/*  <div>
-          <select
-            className="select min-w-0 btn-ghost"
-            onChange={(e) => handleByOrderPrice(e)}
-          >
-            <option disabled selected>
-              Usuario
-            </option>
-            <option value="MaxPrice">Cliente</option>
-            <option value="MinPrice">Admin</option>
-          </select>
-        </div> */}
         <div>
           <select
             className="select min-w-0 btn-ghost"

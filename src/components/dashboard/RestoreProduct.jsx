@@ -32,7 +32,7 @@ const BanProduct = () => {
 
   return (
     <div className="flex flex-row justify-center mb-3">
-      <h1>Restaurar Producto</h1>
+      <h1 className="w-full">Restaurar Producto</h1>
       <input
         id="restore"
         className="mx-2 input input-bordered input-xs w-full max-w-xs"

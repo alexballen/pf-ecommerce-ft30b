@@ -58,6 +58,7 @@ const productSlice = createSlice({
     paymenturl: "",
     relatedProducts: [], //url de compra por item
     banerProd: [],
+    filterBanProd: [],
   },
   reducers: {
     pagePaginated: (state, action) => {
@@ -161,10 +162,24 @@ const productSlice = createSlice({
     },
     getBanerProd(state, action) {
       state.banerProd = action.payload;
+      state.filterBanProd = action.payload;
+    },
+    searchByProductBaner(state, action) {
+      let filtBanProd = state.filterBanProd.filter((p) =>
+        p.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      state.banerProd = filtBanProd;
     },
     deleteRestoreProduct(state, action) {
       const delRes = state.banerProd.filter((e) => e.id !== action.payload);
       state.banerProd = delRes;
+    },
+    sortProductBaner: (state, action) => {
+      const orderName =
+        action.payload === "Asc"
+          ? state.banerProd.sort((a, b) => (a.name > b.name ? 1 : -1))
+          : state.banerProd.sort((a, b) => (a.name > b.name ? -1 : 1));
+      state.banerProd = [...orderName];
     },
   },
 });
@@ -188,5 +203,7 @@ export const {
   getBanerProd,
   setRelatedProducts,
   deleteRestoreProduct,
+  searchByProductBaner,
+  sortProductBaner,
 } = productSlice.actions;
 export default productSlice.reducer;
