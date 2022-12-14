@@ -29,7 +29,7 @@ function Itemscomprados({ name, image, compraid, indice ,cantidad}) {
             <h3 className="font-bold text-lg ">{compraid}</h3>
             <div className="modal-action">
               <label htmlFor="idcompra" className="btn">
-                Yay!
+              Cerrar
               </label>
             </div>
           </div>
