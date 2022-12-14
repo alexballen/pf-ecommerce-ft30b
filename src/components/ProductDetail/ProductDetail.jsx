@@ -293,11 +293,12 @@ const ProductDetail = () =>
             <span className="title-font text-slate-700 font-medium text-xl ml-28 ">Comentarios:</span>
             {product.reviews?.map((review, index) =>
               <Comment
+                productId={product.id}
                 rating={review.rating}
                 description={review.description}
                 username={review.user.username}
+                userId={review.user.id}
                 key={index}
-
               />
             )}
           </div> :

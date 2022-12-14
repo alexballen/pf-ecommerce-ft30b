@@ -1119,3 +1119,17 @@ export const addReview = (productId, data) => async (dispatch) =>
       throw new Error(error);
     });
 }
+
+export const updateReview = (productId, data) => async (dispatch) =>
+{
+  await axios({
+    method: "PUT",
+    url: `/products/${productId}/review`,
+    data: data
+  })
+    .then(() => dispatch(GetProductById(productId)))
+    .catch((error) =>
+    {
+      throw new Error(error);
+    });
+}
