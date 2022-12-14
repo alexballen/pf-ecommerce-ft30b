@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import {
+import
+{
   allProducts,
   allProductsForUser,
   allCategories,
@@ -18,7 +19,7 @@ import {
   restoreBanProduct,
   getBanerProd,
   setRelatedProducts,
- 
+
   deleteRestoreProduct,
 
   searchByProductBaner,
@@ -26,7 +27,8 @@ import {
 
 } from "../reducers/getProductsSlice";
 
-import {
+import
+{
   getusercart,
   agregaracart,
   limpiarcart,
@@ -40,7 +42,8 @@ import {
   agregarcomprado,
 } from "../reducers/Cart";
 
-import {
+import
+{
   getFavorites,
   loggedUser,
   getCountries,
@@ -60,82 +63,98 @@ import {
 } from "../reducers/userSlice";
 
 const { REACT_APP_MPAGOTOKEN } = process.env;
-export const getProducts = (userId) => async (dispatch) => {
+export const getProducts = (userId) => async (dispatch) =>
+{
   if (userId)
     axios
       .get(`/products?userId=${userId}`)
       .then((res) => dispatch(allProductsForUser(res.data)))
-      .catch((error) => {
+      .catch((error) =>
+      {
         throw new Error(error);
       });
   else
     axios
       .get(`/products`)
       .then((res) => dispatch(allProducts(res.data)))
-      .catch((error) => {
+      .catch((error) =>
+      {
         throw new Error(error);
       });
 };
 
-export const getCategories = () => async (dispatch) => {
+export const getCategories = () => async (dispatch) =>
+{
   axios
     .get(`/products/categories`)
     .then((res) => dispatch(allCategories(res.data)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const getBrand = () => async (dispatch) => {
+export const getBrand = () => async (dispatch) =>
+{
   axios
     .get(`/products/brands`)
     .then((res) => dispatch(allBrands(res.data)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const getCountry = () => async (dispatch) => {
+export const getCountry = () => async (dispatch) =>
+{
   axios
     .get(`/country`)
     .then((res) => dispatch(getCountries(res.data)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const completeSignUp = (userId, data) => async (dispatch) => {
+export const completeSignUp = (userId, data) => async (dispatch) =>
+{
   await axios({
     method: "PATCH",
     url: `/user/${userId}`,
     data: data,
-  }).catch((error) => {
+  }).catch((error) =>
+  {
     throw new Error(error);
   });
 };
 
-export const getUserFavorites = (userId) => async (dispatch) => {
+export const getUserFavorites = (userId) => async (dispatch) =>
+{
   axios
     .get(`/user/favorites/${userId}`)
     .then((res) => dispatch(getFavorites(res.data.products)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const addFavorites = (data) => async (dispatch) => {
+export const addFavorites = (data) => async (dispatch) =>
+{
   await axios({
     method: "POST",
     url: `/user/favorites/`,
     data: data,
   })
     .then(() => dispatch(getProducts(data.userId)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const deleteFavorites = (data) => async (dispatch) => {
+export const deleteFavorites = (data) => async (dispatch) =>
+{
   await axios({
     method: "DELETE",
     url: `/user/removeFromFavorites`,
@@ -143,125 +162,155 @@ export const deleteFavorites = (data) => async (dispatch) => {
   })
     .then(() => dispatch(getProducts(data.userId)))
     .then(() => dispatch(getUserFavorites(data.userId)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const byCategory = (data) => async (dispatch) => {
+export const byCategory = (data) => async (dispatch) =>
+{
   dispatch(filterByCategory(data));
 };
 
-export const byBrand = (data) => async (dispatch) => {
+export const byBrand = (data) => async (dispatch) =>
+{
   dispatch(filterByBrand(data));
 };
 
-export const byOrderProducts = (data) => async (dispatch) => {
+export const byOrderProducts = (data) => async (dispatch) =>
+{
   dispatch(sort(data));
 };
 
-export const byOrderProductsBaner = (data) => async (dispatch) => {
+export const byOrderProductsBaner = (data) => async (dispatch) =>
+{
   dispatch(sortProductBaner(data));
 };
 
-export const byOrderUsers = (data) => async (dispatch) => {
+export const byOrderUsers = (data) => async (dispatch) =>
+{
   dispatch(sortUser(data));
 };
 
-export const byOrderUsersBaner = (data) => async (dispatch) => {
+export const byOrderUsersBaner = (data) => async (dispatch) =>
+{
   dispatch(sortUserBaner(data));
 };
 
-export const searchUsers = (input) => async (dispatch) => {
+export const searchUsers = (input) => async (dispatch) =>
+{
   dispatch(searchByUser(input));
 };
 
-export const searchUsersBaner = (input) => async (dispatch) => {
+export const searchUsersBaner = (input) => async (dispatch) =>
+{
   dispatch(searchByUserBaner(input));
 };
 
-export const searchProductsBaner = (input) => async (dispatch) => {
+export const searchProductsBaner = (input) => async (dispatch) =>
+{
   dispatch(searchByProductBaner(input));
 };
 
-export const byOrderPrice = (data) => async (dispatch) => {
+export const byOrderPrice = (data) => async (dispatch) =>
+{
   dispatch(sort(data));
 };
 
-export const search = (input) => async (dispatch) => {
+export const search = (input) => async (dispatch) =>
+{
   dispatch(searchByName(input));
 };
 
-export const GetProductById = (id) => {
-  return async function (dispatch) {
+export const GetProductById = (id) =>
+{
+  return async function (dispatch)
+  {
     const data = await axios.get(`/products/${id}`);
     dispatch(GetProduct(data.data));
   };
 };
-export const Clearproduct = () => {
-  return async function (dispatch) {
+export const Clearproduct = () =>
+{
+  return async function (dispatch)
+  {
     dispatch(clearproduct());
   };
 };
-export const createNewUser = (data) => async () => {
+export const createNewUser = (data) => async () =>
+{
   await axios({
     method: "POST",
     url: `/user/register`,
     data: data,
-  }).catch((error) => {
+  }).catch((error) =>
+  {
     throw new Error(error);
   });
 };
-export const getRelatedProducts = (product) => async (dispatch) => {
+export const getRelatedProducts = (product) => async (dispatch) =>
+{
   const { tags } = product;
   console.log(product);
   const taggedProducts = [];
-  try {
+  try
+  {
     let productsraw = await axios.get("/products");
     const products = productsraw.data;
     const relatedProducts = products.filter(
       (p) => p.tags !== null && p.id !== product.id
     );
-      for (let i = 0; i < relatedProducts.length; i++) {
+    for (let i = 0; i < relatedProducts.length; i++)
+    {
       let k = Math.floor(Math.random() * relatedProducts.length);
       let temp = relatedProducts[i];
       relatedProducts[i] = relatedProducts[k];
       relatedProducts[k] = temp;
-      }
-    
-        for (let i = 0; i < tags?.length; i++) {
-          for (let j = 0; j < relatedProducts.length; j++) {
+    }
+
+    for (let i = 0; i < tags?.length; i++)
+    {
+      for (let j = 0; j < relatedProducts.length; j++)
+      {
         if (
           relatedProducts[j].tags.includes(tags[i]) &&
           !taggedProducts.includes(relatedProducts[j])
-        ) {
+        )
+        {
           taggedProducts.push(relatedProducts[j]);
             }
           }
         }
     dispatch(setRelatedProducts(taggedProducts));
-  } catch (error) {
+  } catch (error)
+  {
     throw new Error(error);
   }
 };
-export const currentPagePaginated = (page) => async (dispatch) => {
+export const currentPagePaginated = (page) => async (dispatch) =>
+{
   dispatch(pagePaginated(page));
 };
 
-export const createNewProduct = (data) => async () => {
+export const createNewProduct = (data) => async () =>
+{
   await axios({
     method: "POST",
     url: `/products`,
     data: data,
-  }).catch((error) => {
+  }).catch((error) =>
+  {
     throw new Error(error);
   });
 };
 
-export function getCurrentUser(user) {
+export function getCurrentUser(user)
+{
   // Obtener la info del user loggeado
 
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     const config = {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
@@ -294,7 +343,8 @@ export const buyproduct = (
     zipcode,
     numerocalle,
   }
-) => {
+) =>
+{
   const getproduct = {
     quantity,
     userId,
@@ -313,20 +363,23 @@ export const buyproduct = (
     zipcode,
   };
   console.log(getproduct);
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     const url = await axios.post(`/store/${id}`, getproduct);
 
     dispatch(urlpayment(url.data.init_point));
   };
 };
 
-export const addtocart = (userId, productId, qty, product) => {
+export const addtocart = (userId, productId, qty, product) =>
+{
   const adddingtocart = {
     userId,
     productId,
     qty,
   };
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     await axios.post(`/store/add`, adddingtocart);
     dispatch(agregaracart(product));
   };
@@ -344,42 +397,49 @@ export const addcomprado =
       merchant_order_id,
     }
   ) =>
-  async (dispatch) => {
-    const compra = {
-      userId,
-      preference_id,
-      status,
-      collection_id,
-      collection_status,
-      payment_type,
-      merchant_order_id,
+    async (dispatch) =>
+    {
+      const compra = {
+        userId,
+        preference_id,
+        status,
+        collection_id,
+        collection_status,
+        payment_type,
+        merchant_order_id,
+      };
+      await axios.post(`/store/paymentcomplete`, compra);
     };
-    await axios.post(`/store/paymentcomplete`, compra);
-  };
 
-export const updatecart = (userId, productId, qty) => {
+export const updatecart = (userId, productId, qty) =>
+{
   const updated = {
     userId,
     productId,
     qty,
   };
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     dispatch(updatecartitem(updated));
   };
 };
 
-export const cleancart = (userId) => {
+export const cleancart = (userId) =>
+{
   const borrado = {
     userId,
   };
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     await axios.post(`/store/clean`, borrado);
     dispatch(limpiarcart());
   };
 };
 
-export const clearlink = () => {
-  return async function (dispatch) {
+export const clearlink = () =>
+{
+  return async function (dispatch)
+  {
     dispatch(clearlinks());
   };
 };
@@ -403,7 +463,8 @@ export const comprartodo = (
     tipoCalle,
     numerocalle,
   }
-) => {
+) =>
+{
   const final = {
     userId,
     Cartitems,
@@ -423,26 +484,31 @@ export const comprartodo = (
     numerocalle,
   };
 
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     const url = await axios.post(`/store/buyall`, final);
 
     dispatch(comprartodolink(url.data.init_point));
   };
 };
 
-export const getuserpaymets = (userId) => {
+export const getuserpaymets = (userId) =>
+{
   const final = {
     userId,
   };
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     const pagos = await axios.post(`/store/payments`, final);
 
     dispatch(info(pagos.data));
   };
 };
 
-export const alldatapagos = (collection_id) => {
-  return async function (dispatch) {
+export const alldatapagos = (collection_id) =>
+{
+  return async function (dispatch)
+  {
     const confimacion = await axios.get(
       `https://api.mercadopago.com/v1/payments/${collection_id}`,
       {
@@ -452,7 +518,8 @@ export const alldatapagos = (collection_id) => {
       }
     );
 
-    for (let e of confimacion.data.additional_info.items) {
+    for (let e of confimacion.data.additional_info.items)
+    {
       const items = {
         idcompra: confimacion.data.id,
         title: e.title,
@@ -480,8 +547,10 @@ export const alldatapagos = (collection_id) => {
 //   };
 // };
 
-export const getdataadmin = () => {
-  return async function (dispatch) {
+export const getdataadmin = () =>
+{
+  return async function (dispatch)
+  {
     const response = await axios.get(
       `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
  
@@ -539,14 +608,18 @@ export const getdataadmin = () => {
     var Cochabamba = 0;
     const usuarios = [];
 
-    if (response.data.results) {
-      if (response.data.results !== undefined) {
-        for (let e of response.data.results) {
+    if (response.data.results)
+    {
+      if (response.data.results !== undefined)
+      {
+        for (let e of response.data.results)
+        {
           if (
             e.additional_info.shipments !== undefined &&
             e.additional_info.shipments.receiver_address !== undefined &&
             e.additional_info.shipments.receiver_address.city_name !== undefined
-          ) {
+          )
+          {
             if (
               e.additional_info.shipments.receiver_address.city_name ===
               "Bogota"
@@ -775,7 +848,7 @@ export const getdataadmin = () => {
       }
     }
 
- 
+
     var ciudades = [
       { Bogota: Bogota },
       { Lima: Lima },
@@ -835,35 +908,46 @@ export const getdataadmin = () => {
     var Paraguay = 0;
     var Venezuela = 0;
 
-    for (let e of response.data.results) {
-      if (e.currency_id === "COP") {
+    for (let e of response.data.results)
+    {
+      if (e.currency_id === "COP")
+      {
         Colombia += 1;
       }
-      if (e.currency_id === "ARS") {
+      if (e.currency_id === "ARS")
+      {
         Argentina += 1;
       }
-      if (e.currency_id === "BRL") {
+      if (e.currency_id === "BRL")
+      {
         Brasil += 1;
       }
-      if (e.currency_id === "CLP") {
+      if (e.currency_id === "CLP")
+      {
         Chile += 1;
       }
-      if (e.currency_id === "MXN") {
+      if (e.currency_id === "MXN")
+      {
         México += 1;
       }
-      if (e.currency_id === "UYU") {
+      if (e.currency_id === "UYU")
+      {
         Uruguay += 1;
       }
-      if (e.currency_id === "PEN") {
+      if (e.currency_id === "PEN")
+      {
         Perú += 1;
       }
-      if (e.currency_id === "BOB") {
+      if (e.currency_id === "BOB")
+      {
         Bolivia += 1;
       }
-      if (e.currency_id === "PYG") {
+      if (e.currency_id === "PYG")
+      {
         Paraguay += 1;
       }
-      if (e.currency_id === "VES") {
+      if (e.currency_id === "VES")
+      {
         Venezuela += 1;
       }
     }
@@ -880,7 +964,7 @@ export const getdataadmin = () => {
       { Paraguay: Paraguay },
       { Venezuela: Venezuela },
     ];
- 
+
     const impuestocompra = response.data.results.reduce(
       (ac, e) => ac + e.fee_details[0].amount,
       0
@@ -895,7 +979,7 @@ export const getdataadmin = () => {
       (ac, e) => ac + e.transaction_details.net_received_amount,
       0
     );
- 
+
     const Economia = [
       { impuestocompra: impuestocompra },
       { totalpagado: totalpagado },
@@ -904,95 +988,123 @@ export const getdataadmin = () => {
     const infofinal = [usuarios, ciudades, Paises, Economia];
     console.log(infofinal);
     // dispatch(todaslascompras(infofinal));
- 
+
   };
 };
 
-export const alltopay = (total) => {
-  return async function (dispatch) {
+export const alltopay = (total) =>
+{
+  return async function (dispatch)
+  {
     dispatch(totalapagar(total));
   };
 };
 
-export const removeritem = (productId, userId) => {
+export const removeritem = (productId, userId) =>
+{
   const removeitem = {
     userId,
     productId,
   };
 
-  return async function (dispatch) {
+  return async function (dispatch)
+  {
     await axios.post(`/store/remove`, removeitem);
     dispatch(quitaritem(productId));
   };
 };
 
-export const deleteProductId = (id) => async (dispatch) => {
+export const deleteProductId = (id) => async (dispatch) =>
+{
   await dispatch(deleteProduct(id));
   await axios.delete(`/products/${id}`);
 };
 
-export const getUser = () => async (dispatch) => {
+export const getUser = () => async (dispatch) =>
+{
   axios
     .get(`/user`)
     .then((res) => dispatch(allUser(res.data)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const deleteUserId = (id) => async (dispatch) => {
+export const deleteUserId = (id) => async (dispatch) =>
+{
   await dispatch(deleteUser(id));
   await axios.delete(`/user/delete/${id}`);
 };
 
-export const banerUserId = (id) => async (dispatch) => {
+export const updateUser = (data, id) =>
+{
+  return async function ()
+  {
+    const response = await axios.put(`/userData/${id}`, data);
+
+    return response;
+  };
+};
+export const banerUserId = (id) => async (dispatch) =>
+{
   dispatch(baneoUser(id));
   await axios.delete(`/user/softDelete/${id}`);
 };
 
-export const restoreBanerUserId = (id) => async (dispatch) => {
+export const restoreBanerUserId = (id) => async (dispatch) =>
+{
   dispatch(deleteRestoreUser(id));
   dispatch(restoreBanUser());
   await axios.delete(`/user/softDelete/${id}?restore=true`);
-  if (id) {
+  if (id)
+  {
     await axios
       .get(`/user`)
       .then((res) => dispatch(allUser(res.data)))
-      .catch((error) => {
+      .catch((error) =>
+      {
         throw new Error(error);
       });
   }
 };
 
-export const banerProductId = (id) => async (dispatch) => {
+export const banerProductId = (id) => async (dispatch) =>
+{
   dispatch(deleteBaneoProduct(id));
   await axios.delete(`/products/softDelete/${id}`);
 };
 
-export const restoreBanerProductId = (id) => async (dispatch) => {
+export const restoreBanerProductId = (id) => async (dispatch) =>
+{
   dispatch(deleteRestoreProduct(id));
   dispatch(restoreBanProduct());
   await axios.delete(`/products/softDelete/${id}?restore=true`);
 };
 
-export const editProductId = (data, id) => async () => {
+export const editProductId = (data, id) => async () =>
+{
   await axios.put(`/products/update?productId=${id}`, data);
 };
 
-export const getBanerProduct = () => async (dispatch) => {
+export const getBanerProduct = () => async (dispatch) =>
+{
   await axios
     .get("/products/banProducts")
     .then((res) => dispatch(getBanerProd(res.data)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
 
-export const getBanerUser = () => async (dispatch) => {
+export const getBanerUser = () => async (dispatch) =>
+{
   await axios
     .get("/user/banerUsers")
     .then((res) => dispatch(getBanUser(res.data)))
-    .catch((error) => {
+    .catch((error) =>
+    {
       throw new Error(error);
     });
 };
@@ -1040,3 +1152,30 @@ export const deleteAddress = (data) => async (dispatch) => {
       throw new Error(error);
     });
 };
+export const addReview = (productId, data) => async (dispatch) =>
+{
+  await axios({
+    method: "POST",
+    url: `/products/${productId}/review`,
+    data: data
+  })
+    .then(() => dispatch(GetProductById(productId)))
+    .catch((error) =>
+    {
+      throw new Error(error);
+    });
+}
+
+export const updateReview = (productId, data) => async (dispatch) =>
+{
+  await axios({
+    method: "PUT",
+    url: `/products/${productId}/review`,
+    data: data
+  })
+    .then(() => dispatch(GetProductById(productId)))
+    .catch((error) =>
+    {
+      throw new Error(error);
+    });
+}
