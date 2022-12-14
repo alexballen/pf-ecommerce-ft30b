@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser, getCountry, createAddress } from "../redux/actions";
+import { updateUserData, getCountry, createAddress, deleteAddress } from "../redux/actions";
 
 const UserProfile = () => {
 
@@ -14,21 +14,21 @@ const UserProfile = () => {
     lastName:loggedUser.lastName ? loggedUser.lastName: "",
     username:loggedUser.username,
     photo: loggedUser.photo?.url ? loggedUser.photo.url: "",
-    phone:loggedUser.phoneNumber ? loggedUser.phoneNumber: "",
+    phoneNumber:loggedUser.phoneNumber ? loggedUser.phoneNumber: "",
   }
   )
-  const [selectedAddress, setSelectedAddress] = useState()
+  const [allAddresses, setAllAddresses] = useState(loggedUser?.addresses)
   const [selectedCountry , setSelectedCountry] = useState()
   const [userAddress, setUserAddress] = useState(
     {
     // userId
-    country:selectedAddress?.country ? selectedAddress.country: "",
-    city:selectedAddress?.cityOfOrigin ? selectedAddress.cityOfOrigin: "",
-    state:selectedAddress?.state ? selectedAddress.state: "",
-    zipCode:selectedAddress?.zipCode ? selectedAddress.zipCode: "",
-    neighborhood:selectedAddress?.neighborhood ? selectedAddress.neighborhood: "",
-    street:selectedAddress?.street ? selectedAddress.street: "",
-    houseNumber:selectedAddress?.houseNumber ? selectedAddress.houseNumber: "",
+    country:"",
+    city:"",
+    state:"",
+    zipCode:"",
+    neighborhood:"",
+    street:"",
+    houseNumber:"",
   }
   )
   // const [userPreference, setUserPreference] = useState(
@@ -40,8 +40,8 @@ const UserProfile = () => {
   // )
 
   useEffect(()=>{
-    if(loggedUser && loggedUser.address && loggedUser.address.length){
-      setSelectedAddress(loggedUser.address[0])}
+    if(loggedUser && loggedUser.addresses && loggedUser.addresses.length){
+      setAllAddresses(loggedUser.addresses)}
 
   },[loggedUser])
 
@@ -52,18 +52,18 @@ const UserProfile = () => {
   
   const dispatch = useDispatch()
 
-  const handleProfileSubmit = ()=>{
-   
-
+  const handleProfileSubmit = ()=>{   
+    dispatch(updateUserData(userData, loggedUser.id))
   }
 
-  const handleAddressSubmit = ()=>{
-   
-
+  const handleAddressSubmit = (e)=>{
+    e.preventDefault()
+    setAllAddresses([...allAddresses, userAddress])
+    dispatch(createAddress({...userAddress, userId: loggedUser.id}))
   }
 
   const handleSelectCountry = (e)=>{
-    console.log(e.target.value)
+  
     setSelectedCountry(countries.filter(country =>{
       return country.name === e.target.value
 
@@ -74,20 +74,18 @@ const UserProfile = () => {
   // const handlePreferenceSubmit = ()=>{
   // }
 
-
-  console.log(selectedCountry)
-
-
-  const addressChange =()=> {
-    setSelectedAddress()
+  const deleteAddress = (id)=>{ 
+   
+    dispatch(deleteAddress(id))
+    setAllAddresses(allAddresses.filter(el =>el.id!==id))
   }
+
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
     data.append("upload_preset", "proyecto-final-animals");
-    // setImageChosen(true);
-    // setLoading(true);
+
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/tawaynaskp/image/upload",
@@ -115,7 +113,7 @@ const UserProfile = () => {
   //   e.preventDefault()
   //   setUserPreference({...userPreference , [e.target.name]: e.target.value === true ? false : true})
   //  }
-
+   console.log("ALL ADDRESSES: ", allAddresses)
 
   return (
      
@@ -224,10 +222,10 @@ const UserProfile = () => {
                           <input
                             placeholder={loggedUser.phoneNumber}
                             type="number"
-                            value={userData.phone}
+                            value={userData.phoneNumber}
                             onChange={handleDataChange}
-                            name="phone"
-                            id="phone"
+                            name="phoneNumber"
+                            id="phoneNumber"
                             autoComplete="phone-number"
                             className="outline-none mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none"
                           />
@@ -238,6 +236,7 @@ const UserProfile = () => {
                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                       <button
                         type="submit"
+              
                         className="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       >
                         Save
@@ -260,7 +259,7 @@ const UserProfile = () => {
             <div className="md:grid md:grid-cols-3 md:gap-6">
               <div className="md:col-span-1">
                 <div className="px-4 sm:px-0">
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Dirección</h3>
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">Cree una dirección</h3>
                   <p className="mt-1 text-sm text-gray-600">Agregue direcciones donde donde podrá recibir sus compras.</p>
                 </div>
               </div>
@@ -271,29 +270,6 @@ const UserProfile = () => {
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
-
-                        {loggedUser.address && loggedUser.address.length && <div className="col-span-6 sm:col-span-3">
-                          <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                            Select Address
-                          </label>
-                          <select
-                            value={0}
-                            onChange={e => selectedAddress(loggedUser.address[e.target.value]) }
-                            type="text"
-                            name="country"
-                            id="country"
-                            autoComplete="country-name"
-                            className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm"
-                          >
-                            {loggedUser.addresses.forEach((element, index) => {
-
-                              <option key={element.id} value={index}>{index}</option>
-                             
-
-                            })}
-
-                          </select>
-                        </div>}
                         
 
                         {countries && <div className="col-span-6 sm:col-span-3">
@@ -322,7 +298,7 @@ const UserProfile = () => {
                           </select>
                         </div>}
 
-                        {selectedCountry && selectedCountry.length && <div className="col-span-6 sm:col-span-3">
+                        {selectedCountry && selectedCountry.length ? <div className="col-span-6 sm:col-span-3">
                           <label htmlFor="city" className="block text-sm font-medium text-gray-700">
                             Ciudad
                           </label>
@@ -343,7 +319,7 @@ const UserProfile = () => {
                             })}
 
                           </select>
-                        </div>}
+                        </div>: null}
                    
 
                         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -378,7 +354,7 @@ const UserProfile = () => {
                         </div>
                         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                           <label htmlFor="houseNumber" className="block text-sm font-medium text-gray-700">
-                            Residencia
+                            Nro. de Casa/Apartamento
                           </label>
                           <input
                             // placeholder={loggedUser.cityOfOrigin}
@@ -441,103 +417,80 @@ const UserProfile = () => {
           </div>
         
 
-          {/* <div className="hidden sm:block" aria-hidden="true">
+          <div className="hidden sm:block" aria-hidden="true">
             <div className="py-5">
               <div className="border-t border-gray-200" />
             </div>
           </div>
 
-          <div className="mt-10 sm:mt-0">
+          <div className="mt-10 sm:mt-0 mb-40">
             <div className="md:grid md:grid-cols-3 md:gap-6">
               <div className="md:col-span-1">
                 <div className="px-4 sm:px-0">
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Notificaciones</h3>
-                  <p className="mt-1 text-sm text-gray-600">Decide que tipo de comunicaciones deseas recibir de nosotros.</p>
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">Sus Direcciones</h3>
+
                 </div>
               </div>
-              <div className="mt-5 md:col-span-2 md:mt-0">
-                <form onSubmit={handlePreferenceSubmit} >
-                  <div className="overflow-hidden shadow sm:rounded-md">
-                    <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                      <fieldset>
-                        <div className="mt-4 space-y-4">
-                          <div className="flex items-start">
-                            <div className="flex h-5 items-center">
-                              <input
-                                id="favorites"
-                                name="favorites"
-                                // checked={userPreference.favorites === true ? true : false}
-                                value={userPreference.favorites}
-                                onChange={handleDataChange}
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                            </div>
-                            <div className="ml-3 text-sm">
-                              <label htmlFor="favorites" className="font-medium text-gray-700">
-                                Favoritos
-                              </label>
-                              <p className="text-gray-500">Te notificaremos si alguno de tus productos favoritos esta disponible.</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start">
-                            <div className="flex h-5 items-center">
-                              <input
-                                // checked={userPreference.newProducts === true ? true : false}
-                                value={userPreference.newProducts}
-                                onChange={handleDataChange}
-                                id="newProducts"
-                                name="newProducts"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                            </div>
-                            <div className="ml-3 text-sm">
-                              <label htmlFor="newProducts" className="font-medium text-gray-700">
-                                Nuevos Productos
-                              </label>
-                              <p className="text-gray-500">Te notificaremos cuando hayan nuevos productos disponibles.</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start">
-                            <div className="flex h-5 items-center">
-                              <input
-                                // checked={userPreference.offers === true ? true : false}
-                                value={userPreference.offers}
-                                onChange={handleDataChange}
-                                id="offers"
-                                name="offers"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                            </div>
-                            <div className="ml-3 text-sm">
-                              <label htmlFor="offers" className="font-medium text-gray-700">
-                                Ofertas
-                              </label>
-                              <p className="text-gray-500">Te notificaremos cuando hayan descuentos y ofertas para ti.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </fieldset>
-                      
-                    </div>
-                    <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                      <button
-                        type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        Save
-                      </button>
+
+              {allAddresses && allAddresses.length ? allAddresses.map((element) => {
+
+                return(
+                <div key={element.id} className="overflow-hidden shadow sm:rounded-md">
+                  <div className="bg-white px-4 py-5 sm:p-6">
+             
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-3 flex">
+                        <img src="/assets/icons/map.png" alt="Location icon" className="w-5 h-5"/>
+                        <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                          {element.country}
+                        </label>
+                      </div> 
+                      <div className="col-span-6 sm:col-span-3"> 
+                        <button className="w-5 h-5 float-right hover:translate-y-1 hover:cursor-pointer" onClick={() => deleteAddress(element.id)}>  
+                          <img src="/assets/icons/bin.png" alt="Location icon"  />
+                        </button>
+                      </div>
+{/* 
+                      <div className="col-span-6 sm:col-span-3">
+                        <p  >{element.state}</p>
+                      </div> */}
+
+                      <div className="col-span-6 sm:col-span-3">
+                        <p  >{element.city}</p>
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <p  >{element.street}</p>
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <p  >{element.neighborhood}</p>
+                      </div>
+                      <div className="col-span-6 sm:col-span-3">
+                        <p  >{element.houseNumber}</p>
+                      </div>
                     </div>
                   </div>
-                </form>
-              </div>
-            </div>
-          </div> */}
+                </div>)
+                        })
+
+                :
+
+                <div className="overflow-hidden shadow sm:rounded-md">
+                  <div className="bg-white px-4 py-5 sm:p-6">
+                      
+                    <p>No hay Direcciones</p>
+                  
+                  </div>
+                </div>
+                              
+                              
+                            
+              } 
+          
+          </div>    
         </div>
-      </div>
+      </div>    
     </div>
+  </div>
   )
 }
 

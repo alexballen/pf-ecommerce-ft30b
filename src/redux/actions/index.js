@@ -48,6 +48,7 @@ import {
   deleteRestoreUser,
   getBanUser,
   createUserAddress,
+  deleteUserAddress,
   updateUser
 } from "../reducers/userSlice";
 
@@ -594,14 +595,15 @@ export const getBanerUser = () => async (dispatch) => {
     });
 };
 
-export const updateUserData = (data) => async (dispatch) => {
+export const updateUserData = (data,id) => async (dispatch) => {
 
   await axios
-    .put("/user/address", data)
-    .then((res) => {
+    .put(`user/userData/${id}`, data)
+    .then((res) => 
+    {
     
     dispatch(updateUser(res.data));
-    return res.data
+
     }
     )
     .catch((error) => {
@@ -612,11 +614,24 @@ export const updateUserData = (data) => async (dispatch) => {
 export const createAddress = (data) => async (dispatch) => {
 
   await axios
-    .put("/user/address", data)
+    .post(`/user/address`, data)
     .then((res) => {
     
     dispatch(createUserAddress(res.data));
-    return res.data
+    }
+    )
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const deleteAddress = (data) => async (dispatch) => {
+
+  await axios
+    .delete(`/user/address`, {addressId:data})
+    .then((res) => {
+    
+    dispatch(deleteUserAddress(res.data));
     }
     )
     .catch((error) => {

@@ -57,6 +57,9 @@ const userSlice = createSlice({
     createUserAddress(state, action) {
       state.userAddress = action.payload;
     },
+    deleteUserAddress(state, action) {
+      state.userAddress = action.payload;
+    },
     updateUser(state, action) {
       state.loggedUser = action.payload;
     },
@@ -80,6 +83,7 @@ export const {
   getBanerUser,
   updateUser,
   createUserAddress,
+  deleteUserAddress,
   getBanUser,
   deleteRestoreUser,
 } = userSlice.actions;
