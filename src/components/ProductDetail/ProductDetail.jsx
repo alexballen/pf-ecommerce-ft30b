@@ -90,7 +90,7 @@ const ProductDetail = () => {
     if (products.length === 0)
     {
       dispatch(getProducts())
- 
+    }
 
     if (products.length === 0) {
       dispatch(getProducts());

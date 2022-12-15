@@ -845,9 +845,9 @@ export const getdataadmin = () =>
               "Cochabamba"
             )
               Cochabamba += 1;
-            usuarios.push({
-              [e.additional_info.payer.first_name]: [e.additional_info.items],
-            });
+            usuarios.push(
+             { Usuario: e.additional_info.payer.first_name, items:  e.additional_info.items },
+          );
           }
         }
       }
@@ -855,51 +855,51 @@ export const getdataadmin = () =>
 
 
     var ciudades = [
-      { Bogota: Bogota },
-      { Lima: Lima },
-      { Arequipa: Arequipa },
-      { Manta: Manta },
-      { Santo_Domingo: Santo_Domingo },
-      { Cuenca: Cuenca },
-      { Guayaquil: Guayaquil },
-      { Quito: Quito },
-      { Merida: Merida },
-      { Queretaro: Queretaro },
-      { Monterrey: Monterrey },
-      { Guadalajara: Guadalajara },
-      { CDMX: CDMX },
-      { Tucuman: Tucuman },
-      { Santa_Fe: Santa_Fe },
-      { Mendoza: Mendoza },
-      { Cordoba: Cordoba },
-      { Buenos_Aires: Buenos_Aires },
-      { Cajamarca: Cajamarca },
-      { Huancayo: Huancayo },
-      { Trujillo: Trujillo },
-      { Cali: Cali },
-      { Barranquilla: Barranquilla },
-      { Medellin: Medellin },
-      { Cartagena: Cartagena },
-      { Montevideo: Montevideo },
-      { Canelones: Canelones },
-      { Maldonado: Maldonado },
-      { Salto: Salto },
-      { Rivera: Rivera },
-      { Caracas: Caracas },
-      { Maracaibo: Maracaibo },
-      { Maracay: Maracay },
-      { Valencia: Valencia },
-      { Guayana: Guayana },
-      { Asuncion: Asuncion },
-      { Encarnacion: Encarnacion },
-      { Ciudad_del_Este: Ciudad_del_Este },
-      { San_Cosme: San_Cosme },
-      { San_Bernardino: San_Bernardino },
-      { La_Paz: La_Paz },
-      { Sucre: Sucre },
-      { Santa_Cruz: Santa_Cruz },
-      { Potosi: Potosi },
-      { Cochabamba: Cochabamba },
+      { Ciudad: "Bogota", Cantidad :Bogota },
+      { Ciudad: "Lima",  Cantidad: Lima },
+      { Ciudad: "Arequipa",  Cantidad: Arequipa },
+      { Ciudad: "Manta",  Cantidad:Manta },
+      { Ciudad: "Santo Domingo",  Cantidad: Santo_Domingo },
+      { Ciudad: "Cuenca",  Cantidad: Cuenca },
+      { Ciudad: "Guayaquil",  Cantidad: Guayaquil },
+      { Ciudad: "Quito",  Cantidad   :Quito },
+      { Ciudad: "Merida",  Cantidad: Merida },
+      { Ciudad: "Queretaro",  Cantidad: Queretaro },
+      { Ciudad: "Monterrey",  Cantidad: Monterrey },
+      {Ciudad:  "Guadalajara",  Cantidad: Guadalajara },
+      { Ciudad: "CDMX",  Cantidad: CDMX },
+      { Ciudad: "Tucuman",  Cantidad: Tucuman },
+      {Ciudad:  "Santa_Fe",  Cantidad: Santa_Fe },
+      {Ciudad:  "Mendoza",  Cantidad: Mendoza },
+      { Ciudad:"Cordoba",  Cantidad: Cordoba },
+      { Ciudad:"Buenos Aires",  Cantidad: Buenos_Aires },
+      { Ciudad:"Cajamarca",  Cantidad: Cajamarca },
+      { Ciudad:"Huancayo",  Cantidad: Huancayo },
+      { Ciudad:"Trujillo",  Cantidad: Trujillo },
+      { Ciudad:"Cali",  Cantidad: Cali },
+      { Ciudad:"Barranquilla",  Cantidad: Barranquilla },
+      { Ciudad:"Medellin",  Cantidad: Medellin },
+      { Ciudad:"Cartagena",  Cantidad: Cartagena },
+      { Ciudad:"Montevideo",  Cantidad: Montevideo },
+      { Ciudad: "Canelones",  Cantidad: Canelones },
+      { Ciudad: "Maldonado",  Cantidad: Maldonado },
+      { Ciudad: "Salto",  Cantidad: Salto },
+      { Ciudad: "Rivera",  Cantidad: Rivera },
+      { Ciudad: "Caracas",  Cantidad: Caracas },
+      { Ciudad: "Maracaibo",  Cantidad: Maracaibo },
+      { iudad:  "Maracay",  Cantidad: Maracay },
+      { Ciudad: "Valencia",  Cantidad: Valencia },
+      { Ciudad: "Guayana",  Cantidad: Guayana },
+      { Ciudad: "Asuncion",  Cantidad: Asuncion },
+      {Ciudad:  "Encarnacion",  Cantidad: Encarnacion },
+      {Ciudad:  "Ciudad del Este",  Cantidad: Ciudad_del_Este },
+      {Ciudad:  "San Cosme",  Cantidad: San_Cosme },
+      {Ciudad:  "San Bernardino",  Cantidad: San_Bernardino },
+      {Ciudad:  "La Paz",  Cantidad: La_Paz },
+      {Ciudad:  "Sucre",  Cantidad: Sucre },
+      {Ciudad:  "Santa Cruz",  Cantidad: Santa_Cruz },
+      {Ciudad:  "Potosi",  Cantidad: Potosi },
+      {Ciudad:  "Cochabamba",  Cantidad: Cochabamba },
     ];
 
     var Argentina = 0;
@@ -957,19 +957,19 @@ export const getdataadmin = () =>
       }
     }
 
-    var Paises = [
-      { Colombia: Colombia },
-      { Argentina: Argentina },
-      { Brasil: Brasil },
-      { México: México },
-      { Uruguay: Uruguay },
-      { Chile: Chile },
-      { Perú: Perú },
-      { Bolivia: Bolivia },
-      { Paraguay: Paraguay },
-      { Venezuela: Venezuela },
+    var listapaises = [
+      { Pais: "Colombia" , Cantidad: Colombia },
+      { Pais: "Argentina" , Cantidad: Argentina },
+      { Pais: "Brasil" , Cantidad: Brasil},
+      { Pais: "México ", Cantidad: México},
+      { Pais: "Uruguay" , Cantidad: Uruguay},
+      { Pais: "Chile" , Cantidad: Chile},
+      { Pais: "Perú ", Cantidad: Perú},
+      { Pais: "Bolivia" , Cantidad: Bolivia},
+      { Pais: "Paraguay", Cantidad: Paraguay },
+      { Pais: "Venezuela", Cantidad: Venezuela},
     ];
-
+ 
     const impuestocompra = response.data.results.reduce(
       (ac, e) => ac + e.fee_details[0].amount,
       0
@@ -986,13 +986,13 @@ export const getdataadmin = () =>
     );
 
     const Economia = [
-      { impuestocompra: impuestocompra },
+      { impuestocompra: impuestocompra  },
       { totalpagado: totalpagado },
       { ventasnetas: ventasnetas },
     ];
-    const infofinal = [usuarios, ciudades, Paises, Economia];
-    console.log(infofinal);
-    // dispatch(todaslascompras(infofinal));
+    
+     
+      const final = [ciudades,listapaises,ciudades,Economia]
 
   };
 };
