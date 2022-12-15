@@ -38,8 +38,16 @@ const Home = () => {
     if (currentPage > totalpages) {
       setCurrentPage(1);
     }
-    if (isAuthenticated) dispatch(getProducts(loggedUser.id));
-    else dispatch(getProducts());
+    if (isAuthenticated) {
+      dispatch(getProducts(loggedUser.id))
+    }
+    else if(products.length === 0) {
+      dispatch(getProducts())
+      
+    } else if(products.length !== 0) {
+      document.getElementById('footerContainer').style.opacity = '100%'
+    }
+    
   }, [isAuthenticated, totalpages]);
   return (
     <>

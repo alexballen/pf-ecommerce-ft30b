@@ -83,6 +83,7 @@ function App()
         width: "100%",
         overflow: "hidden",
         position: "relative",
+        paddingBottom: '2%'
       }}
     >
       <BrowserRouter>
