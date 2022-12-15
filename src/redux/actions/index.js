@@ -217,7 +217,7 @@ export const getRelatedProducts = (product) => async (dispatch) => {
     let productsraw = await axios.get("/products");
     const products = productsraw.data;
     const relatedProducts = products.filter(
-      (p) => p.tags !== null && p.id !== product.id
+      (p) => p.id !== product.id
     );
     for (let i = 0; i < relatedProducts.length; i++) {
       let k = Math.floor(Math.random() * relatedProducts.length);
@@ -225,17 +225,21 @@ export const getRelatedProducts = (product) => async (dispatch) => {
       relatedProducts[i] = relatedProducts[k];
       relatedProducts[k] = temp;
     }
-
-    for (let i = 0; i < tags?.length; i++) {
-      for (let j = 0; j < relatedProducts.length; j++) {
-        if (
-          relatedProducts[j].tags.includes(tags[i]) &&
-          !taggedProducts.includes(relatedProducts[j])
-        ) {
-          taggedProducts.push(relatedProducts[j]);
+    if(product.tags === null || product.tags === undefined) {
+        taggedProducts.concat(relatedProducts)
+    } else {
+      for (let i = 0; i < tags?.length; i++) {
+        for (let j = 0; j < relatedProducts.length; j++) {
+          if (
+            relatedProducts[j].tags.includes(tags[i]) &&
+            !taggedProducts.includes(relatedProducts[j])
+          ) {
+            taggedProducts.push(relatedProducts[j]);
+          }
         }
       }
     }
+    
     dispatch(setRelatedProducts(taggedProducts));
   } catch (error) {
     throw new Error(error);

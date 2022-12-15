@@ -79,8 +79,7 @@ const ProductDetail = () => {
   }
 
  
-  useEffect(() =>
-  {
+  useEffect(() =>{
     dispatch(getRelatedProducts(product))
     if (productid !== id)
     {
@@ -101,10 +100,10 @@ const ProductDetail = () => {
   return (
     <section
       onLoad={() => setqty(product)}
-      className="body-font overflow-hidden bg-base-500 lg:h-screen sm:h-fit"
+      className="body-font overflow-hidden bg-base-500 h-screen"
     >
       <div
-        className="sm:w-fill lg:w-4/5  flex-column  m-auto w-fit md:h-screen"
+        className="w-4/5  flex-column  m-auto "
         style={{ float: "left", alignItems: "center" }}
       >
         <div className="w-full mx-auto flex flex-wrap px-5 py-10 justify-center">
@@ -327,7 +326,7 @@ const ProductDetail = () => {
       <div id='relatedProductsContainer'>
 
         {
-          relatedProducts.slice(0, products.length / 2).map(p =>
+          relatedProducts.slice(0, 4).map(p =>
           {
             return (
               <RelatedProduct key={p.id} product={p} componentId={id} />

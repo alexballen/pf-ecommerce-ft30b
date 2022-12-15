@@ -197,7 +197,7 @@ function Cart() {
   return (
     <>
       {Cartitems.length ? (
-        <div className="overflow-x-auto w-full    mt-10 font-bold">
+        <div className="overflow-x-auto w-full h-fitmt-10 font-bold">
           <table className="table w-full   ">
             <thead>
               <tr className="text-center ">
@@ -287,7 +287,7 @@ function Cart() {
       )}
 
       {Cartitems.length && (
-        <>
+        <div style={{paddingBottom: '5%'}}>
           <div className=" bg-sky-600  flex  text-white   ">
             <label
               htmlFor="Pagartodo"
@@ -304,12 +304,12 @@ function Cart() {
               Limpiar Carrito
             </button>
           </div>
-        </>
+        </div>
       )}
 
       <input type="checkbox" id="Pagartodo" className="modal-toggle " />
-      <div className="modal  ">
-        <div className="modal-box    ">
+      <div className="modal h-fit ">
+        <div className="modal-box">
           <h3 className="font-bold text-lg">
             <div className="alert   shadow-lg">
               <div>

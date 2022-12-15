@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Paginated = ({ productsByPage, products, paginated }) => {
   const numPages = [];
@@ -14,13 +15,13 @@ const Paginated = ({ productsByPage, products, paginated }) => {
           {numPages &&
             numPages.map((num) => (
               <li key={num} className="btn btn-sm px-1">
-                <a
+                <Link
                   className="w-7 p-0 hover:bg-teal-400 active:bg-teal-700 focus:outline-none focus:ring focus:ring-teal-400 text-xl "
-                  href="/home/#"
+                  to="/home/#"
                   onClick={() => paginated(num)}
                 >
                   {num}
-                </a>
+                </Link>
               </li>
             ))}
         </ul>
