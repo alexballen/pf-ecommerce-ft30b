@@ -898,10 +898,15 @@ export const getdataadmin = () => {
       0
     );
 
- 
-    const final = [ciudades, listapaises, ciudades, impuestocompra,totalpagado,ventasnetas];
-     dispatch(todaslascompras(final));
-    
+    const final = [
+      ciudades,
+      listapaises,
+      usuarios,
+      impuestocompra,
+      totalpagado,
+      ventasnetas,
+    ];
+    dispatch(todaslascompras(final));
   };
 };
 

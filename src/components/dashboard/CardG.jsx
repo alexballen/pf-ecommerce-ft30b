@@ -9,27 +9,26 @@ import {
   Text,
 } from "@tremor/react";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getdataadmin } from "../../redux/actions/index";
 
 const CardG = () => {
   const dispatch = useDispatch();
-
-  const ventaBruta = 129194;
+  const { Comprasgenerales } = useSelector((state) => state.Comprasgenerales);
 
   useEffect(() => {
     dispatch(getdataadmin());
   }, [dispatch]);
 
-  const ventaBrutas = 129194;
+  const ventaBruta = Comprasgenerales[4];
   const metaMensual = 1000000;
-  const ptajeCumplimiento = (ventaBrutas * 100) / metaMensual;
+  const ptajeCumplimiento = (ventaBruta * 100) / metaMensual;
   const ptajeACumplir = 100 - ptajeCumplimiento;
   /* 19% impuesto
   10% gastos
   30% ganancianeta
   total 59% */
-  const gananciaNeta = (ventaBrutas * 59) / 100;
+  const gananciaNeta = (ventaBruta * 59) / 100;
   const objGananciaMm = (metaMensual * 59) / 100;
   const ptajeCumplimientoNeto = (gananciaNeta * 100) / objGananciaMm;
   const ptajeACumplirNeto = 100 - ptajeCumplimientoNeto;
@@ -37,18 +36,18 @@ const CardG = () => {
   const data = [
     {
       title: "Venta bruta",
-      metric: `$ ${ventaBruta}`,
-      progress: `${ptajeCumplimiento}`,
+      metric: `$ ${Math.trunc(ventaBruta)}`,
+      progress: `${Math.trunc(ptajeCumplimiento)}`,
       target: `$${metaMensual} M/m`,
-      delta: `${ptajeACumplir} %/c`,
+      delta: `${Math.trunc(ptajeACumplir)} %/c`,
       deltaType: "aumentoModerado",
     },
     {
       title: "Ganancia Neta",
-      metric: `${gananciaNeta}`,
-      progress: `${ptajeCumplimientoNeto}`,
+      metric: `$ ${Math.trunc(gananciaNeta)}`,
+      progress: `${Math.trunc(ptajeCumplimientoNeto)}`,
       target: `${objGananciaMm} O/gnm`,
-      delta: `${ptajeACumplirNeto}%/c`,
+      delta: `${Math.trunc(ptajeACumplirNeto)}%/c`,
       deltaType: "increase",
     },
     {
