@@ -13,11 +13,11 @@ const ChartDonut = () => {
 
   return (
     <Card marginTop="mt-6">
-      <Title>Ventas por Ciudad</Title>
+      <Title>Ventas por Pais</Title>
       <DonutChart
-        data={Comprasgenerales[0]}
+        data={Comprasgenerales[1]}
         category="Cantidad"
-        dataKey="Ciudad"
+        dataKey="Pais"
         marginTop="mt-6"
         colors={[
           "red",

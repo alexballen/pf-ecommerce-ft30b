@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getCurrentUser } from "../../redux/actions/index";
 import { useSelector, useDispatch } from "react-redux";
 //import logo from "../../images/HCoutureLogo.png";
+import Chatbot from "../chat/Chatbot";
 
 import UserCart from "../Cart/UserCart";
 
@@ -55,6 +56,10 @@ const Nav = () => {
 
         {isAuthenticated && (
           <div className="flex-1 mr-5">
+            <div className="mr-6">
+              {/* <button className="btn w-full">Chatbot</button> */}
+              <Chatbot />
+            </div>
             {loggedUser && loggedUser.isAdmin && (
               <div className="flex-1 mr-5">
                 <Link to="/dashboard">
