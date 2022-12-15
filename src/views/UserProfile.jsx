@@ -18,7 +18,7 @@ const UserProfile = () => {
   }
   )
   const [allAddresses, setAllAddresses] = useState(loggedUser?.addresses)
-  const [selectedCountry , setSelectedCountry] = useState()
+  const [selectedCountry , setSelectedCountry] = useState([])
   const [userAddress, setUserAddress] = useState(
     {
     // userId
@@ -64,8 +64,20 @@ const UserProfile = () => {
 
   const handleAddressSubmit = (e)=>{
     e.preventDefault()
-    setAllAddresses([...allAddresses, userAddress])
     dispatch(createAddress({...userAddress, userId: loggedUser.id}))
+    setAllAddresses([...allAddresses, userAddress])
+    setUserAddress({
+      
+        // userId
+        country:"",
+        city:"",
+        state:"",
+        zipCode:"",
+        neighborhood:"",
+        street:"",
+        houseNumber:"",
+      
+    })
   }
 
   const handleSelectCountry = (e)=>{

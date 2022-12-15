@@ -902,7 +902,7 @@ export const getdataadmin = () => {
     ];
  
  
-    dispatch(todaslascompras(infofinal));
+    // dispatch(todaslascompras(infofinal));
  
     
      
@@ -950,13 +950,6 @@ export const deleteUserId = (id) => async (dispatch) => {
 };
 
 
-export const updateUser = (data, id) => {
-  return async function() {
-    const response = await axios.put(`/userData/${id}`, data);
-
-    return response;
-  };
-};
 
 
 export const banerUserId = (id) => async (dispatch) =>
