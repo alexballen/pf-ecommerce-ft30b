@@ -26,7 +26,7 @@ import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
 import Historial from "./components/Cart/Historial";
 import EditProduct from "./components/dashboard/EditProduct";
-import OffersPromos from "./components/offers&promos/offers&promos";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ function App() {
     //     dispatch(getCategories())
     //     dispatch(getColors())
     //     dispatch(getBrands())
-    console.log(footerHeight);
+ 
     return () => {
       window.removeEventListener("resize", handleWindowreSize);
     };
@@ -80,7 +80,7 @@ function App() {
       }}
     >
       <BrowserRouter>
-        <OffersPromos />
+      
         <Routes>
           <Route element={<BlockedUserRoutes />}>
             <Route path="/" element={<Nav />}>

@@ -210,7 +210,7 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity }) {
 
   return (
     <tbody>
-      <tr>
+      <tr className="border-4 border-black ">
         <Link to={`/products/${id}`}>
           <td>
             <div className="  items-center   content-center align-middle space-x-3">

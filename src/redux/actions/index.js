@@ -47,8 +47,11 @@ import {
   sortUser,
   baneoUser,
   restoreBanUser,
-  getBanUser,
   deleteRestoreUser,
+  getBanUser,
+  createUserAddress,
+  deleteUserAddress,
+  updateUser,
   searchByUserBaner,
   sortUserBaner,
 } from "../reducers/userSlice";
@@ -230,9 +233,9 @@ export const getRelatedProducts = (product) => async (dispatch) => {
           !taggedProducts.includes(relatedProducts[j])
         ) {
           taggedProducts.push(relatedProducts[j]);
+            }
+          }
         }
-      }
-    }
     dispatch(setRelatedProducts(taggedProducts));
   } catch (error) {
     throw new Error(error);
@@ -264,11 +267,16 @@ export function getCurrentUser(user) {
     };
 
     let json = await axios.post(`/user/login/`, user);
+
+    if(json.data.created){
+      window.location.replace(`${window.location.href}user/${json.data.data.id}`)
+    }
+
     dispatch(loggedUser(json.data?.data));
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
-
+ 
 export const buyproduct = (
   quantity,
   id,
@@ -476,14 +484,14 @@ export const getdataadmin = () => {
   return async function(dispatch) {
     const response = await axios.get(
       `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
-
+ 
       {
         headers: {
           Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
         },
       }
     );
-
+ 
     var Lima = 0;
     var Arequipa = 0;
     var Bogota = 0;
@@ -935,6 +943,7 @@ export const deleteUserId = (id) => async (dispatch) => {
   await axios.delete(`/user/delete/${id}`);
 };
 
+
 export const updateUser = (data, id) => {
   return async function() {
     const response = await axios.put(`/userData/${id}`, data);
@@ -942,7 +951,11 @@ export const updateUser = (data, id) => {
     return response;
   };
 };
-export const banerUserId = (id) => async (dispatch) => {
+
+
+export const banerUserId = (id) => async (dispatch) =>
+{
+
   dispatch(baneoUser(id));
   await axios.delete(`/user/softDelete/${id}`);
 };
@@ -994,7 +1007,54 @@ export const getBanerUser = () => async (dispatch) => {
     });
 };
 
-export const addReview = (productId, data) => async (dispatch) => {
+export const updateUserData = (data,id) => async (dispatch) => {
+
+  await axios
+    .put(`user/userData/${id}`, data)
+    .then((res) => 
+    {
+    
+    dispatch(updateUser(res.data));
+
+    }
+    )
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const createAddress = (data) => async (dispatch) => {
+
+  await axios
+    .post(`/user/address`, data)
+    .then((res) => {
+    
+    dispatch(createUserAddress(res.data));
+    }
+    )
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export const deleteAddress = (addressId) => async (dispatch) => {
+  console.log("ADDRESS ID IN ACTIONS:" , addressId)
+
+  await axios
+    .delete(`/user/address/${addressId}`)
+    .then((res) => {
+    
+    dispatch(deleteUserAddress(res.data));
+    }
+    )
+    .catch((error) => {
+      console.log(error)
+      throw new Error(error);
+    });
+};
+
+export const addReview = (productId, data) => async (dispatch) =>
+{
   await axios({
     method: "POST",
     url: `/products/${productId}/review`,

@@ -23,7 +23,6 @@ function Historial() {
   }
 
   useEffect(() => {
- 
     if (userId) {
       dispatch(getuserpaymets(userId));
     }
@@ -35,14 +34,16 @@ function Historial() {
         <table className="table w-full   ">
           <thead>
             <tr className="text-center ">
-              <th className="bg-stone-800  w-10  text-center text-white rounded-none ">
+              <th className="bg-stone-800    border-4 border-stone-800  border-l-stone-800 w-10  text-center text-white rounded-none">
                 id compra
               </th>
-              <th className="bg-stone-800  w-10  text-center text-white rounded-none ">
+              <th className="bg-stone-800    border-4 border-stone-800   w-10  text-center text-white rounded-none ">
                 Producto
               </th>
-               <th className="bg-stone-800 text-white  "> </th>
-              <th className="bg-stone-800 text-white ">Cantidad </th>
+              <th className="bg-stone-800    border-4 border-stone-800  text-white  "></th>
+              <th className="bg-stone-800    border-4 border-stone-800   text-white ">
+                Cantidad
+              </th>
             </tr>
           </thead>
           {Comprados.length
@@ -62,14 +63,16 @@ function Historial() {
             : "no hay items aun"}
           <tfoot>
             <tr className="text-center ">
-              <th className="bg-stone-800  w-10  text-center text-white rounded-none ">
+              <th className="bg-stone-800    border-4 border-stone-800  border-l-stone-800 w-10  text-center text-white rounded-none">
                 id compra
               </th>
-              <th className="bg-stone-800 text-center text-white rounded-none ">
+              <th className="bg-stone-800 text-center  border-4 border-stone-800    text-white rounded-none ">
                 Producto
               </th>
-                 <th className="bg-stone-800 text-white  "> </th>
-              <th className="bg-stone-800 text-white ">Cantidad </th>
+              <th className="bg-stone-800 text-white   border-4 border-stone-800    "></th>
+              <th className="bg-stone-800 text-white    border-4 border-stone-800   ">
+                Cantidad
+              </th>
             </tr>
           </tfoot>
         </table>
