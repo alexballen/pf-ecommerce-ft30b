@@ -7,6 +7,7 @@ import CardG from "../components/dashboard/CardG";
 import ChartDonut from "../components/dashboard/ChartDonut";
 import UsersBanerTable from "../components/dashboard/UsersBanerTable";
 import ProductBanerTable from "../components/dashboard/ProductBanerTable";
+import Chatbot from "../components/chat/Chatbot";
 
 const DashboardAdmin = () => {
   const [view, setView] = useState(1);
@@ -27,6 +28,7 @@ const DashboardAdmin = () => {
           <Tab value={4} text="Productos Baneados" />
           <Tab value={5} text="Usuarios Baneados" />
           <Tab value={6} text="Crear Producto" />
+          <Tab value={7} text="Chatbot" />
         </TabList>
 
         {view === 1 ? (
@@ -71,6 +73,15 @@ const DashboardAdmin = () => {
           <Card marginTop="mt-6">
             <div className="h-full bg-stone-300 p-2 mb-14">
               <CreateProduct />
+            </div>
+          </Card>
+        ) : (
+          ""
+        )}
+        {view === 7 ? (
+          <Card marginTop="mt-6">
+            <div className="h-full bg-stone-300 p-2 mb-14">
+              <Chatbot />
             </div>
           </Card>
         ) : (
