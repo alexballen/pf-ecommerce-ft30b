@@ -1,7 +1,79 @@
 import { Card, DonutChart, Title } from "@tremor/react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getdataadmin } from "../../redux/actions/index";
 
-const cities = [
+const ChartDonut = () => {
+  const dispatch = useDispatch();
+  const { Comprasgenerales } = useSelector((state) => state.Comprasgenerales);
+
+  useEffect(() => {
+    dispatch(getdataadmin());
+  }, []);
+
+  return (
+    <Card marginTop="mt-6">
+      <Title>Ventas por Ciudad</Title>
+      <DonutChart
+        data={Comprasgenerales[0]}
+        category="Cantidad"
+        dataKey="Ciudad"
+        marginTop="mt-6"
+        colors={[
+          "red",
+          "fuchsia",
+          "orange",
+          "gray",
+          "pink",
+          "purple",
+          "lime",
+          "yellow",
+          "violet",
+          "red",
+          "fuchsia",
+          "orange",
+          "gray",
+          "pink",
+          "purple",
+          "lime",
+          "yellow",
+          "violet",
+          "red",
+          "fuchsia",
+          "orange",
+          "gray",
+          "pink",
+          "purple",
+          "lime",
+          "yellow",
+          "violet",
+          "red",
+          "fuchsia",
+          "orange",
+          "gray",
+          "pink",
+          "purple",
+          "lime",
+          "yellow",
+          "violet",
+          "red",
+          "fuchsia",
+          "orange",
+          "gray",
+          "pink",
+          "purple",
+          "lime",
+          "yellow",
+          "violet",
+        ]}
+      />
+    </Card>
+  );
+};
+
+export default ChartDonut;
+
+/* const cities = [
   {
     name: "New York",
     Sales: 9800,
@@ -26,21 +98,4 @@ const cities = [
     name: "Zurich",
     Sales: 6811,
   },
-];
-
-const ChartDonut = () => {
-  return (
-    <Card marginTop="mt-6">
-      <Title>Ventas por Ciudad</Title>
-      <DonutChart
-        data={cities}
-        category="Sales"
-        dataKey="name"
-        marginTop="mt-6"
-        colors={["red", "blue", "lime", "orange", "fuchsia", "yellow"]}
-      />
-    </Card>
-  );
-};
-
-export default ChartDonut;
+]; */

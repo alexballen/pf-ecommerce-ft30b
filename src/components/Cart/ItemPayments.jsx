@@ -9,7 +9,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addcomprado } from "../../redux/actions";
 
-function ItemPayments() {
+function ItemPayments()
+{
   const dispatch = useDispatch();
 
   const { loggedUser } = useSelector((state) => state.user);
@@ -33,8 +34,10 @@ function ItemPayments() {
     merchant_order_id: merchant_order_id,
   };
 
-  useEffect(() => {
-    if (userId !== undefined && datapay) {
+  useEffect(() =>
+  {
+    if (userId !== undefined && datapay)
+    {
       dispatch(addcomprado(userId, datapay));
     }
   }, [userId]);
@@ -71,7 +74,7 @@ function ItemPayments() {
                 </ul>
               </p>
 
-              <Link to={"/"}>
+              <Link to={"/home"}>
                 <button className="btn btn-accent">Ir a comprar</button>
               </Link>
             </div>

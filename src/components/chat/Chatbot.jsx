@@ -15,7 +15,7 @@ const Chatbot = () => {
     <>
       <div className="flex justify-center">
         <label htmlFor="my-modal-3" className="btn">
-          Chatbox
+          Chatbot
         </label>
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
