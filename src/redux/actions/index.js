@@ -898,15 +898,10 @@ export const getdataadmin = () => {
       0
     );
 
-    const Economia = [
-      { impuestocompra: impuestocompra },
-      { totalpagado: totalpagado },
-      { ventasnetas: ventasnetas },
-    ];
-
-    const final = [ciudades, listapaises, ciudades, Economia];
-    //dispatch(todaslascompras(final));
-    console.log(final[3].impuestocompra);
+ 
+    const final = [ciudades, listapaises, ciudades, impuestocompra,totalpagado,ventasnetas];
+     dispatch(todaslascompras(final));
+    
   };
 };
 
