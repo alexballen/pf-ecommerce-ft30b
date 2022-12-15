@@ -9,7 +9,8 @@ import { cleancart, clearlink } from "../../redux/actions";
 import { addcomprado } from "../../redux/actions";
 import { useSearchParams } from "react-router-dom";
 
-function CartPayments() {
+function CartPayments()
+{
   const dispatch = useDispatch();
 
   const { loggedUser } = useSelector((state) => state.user);
@@ -33,8 +34,10 @@ function CartPayments() {
     merchant_order_id: merchant_order_id,
   };
 
-  useEffect(() => {
-    if (userId !== undefined && datapay) {
+  useEffect(() =>
+  {
+    if (userId !== undefined && datapay)
+    {
       dispatch(addcomprado(userId, datapay));
     }
   }, [userId]);
@@ -68,7 +71,7 @@ function CartPayments() {
                 <li>Estado General: {datapay.status}</li>
               </ul>
             </p>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <button className="btn btn-accent">Ir a comprar</button>
             </Link>
           </div>
