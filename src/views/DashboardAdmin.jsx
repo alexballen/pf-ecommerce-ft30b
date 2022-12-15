@@ -8,6 +8,7 @@ import ChartDonut from "../components/dashboard/ChartDonut";
 import UsersBanerTable from "../components/dashboard/UsersBanerTable";
 import ProductBanerTable from "../components/dashboard/ProductBanerTable";
 import Chatbot from "../components/chat/Chatbot";
+import ChartDonutPais from "../components/dashboard/ChartDonutPais";
 
 const DashboardAdmin = () => {
   const [view, setView] = useState(1);
@@ -37,6 +38,9 @@ const DashboardAdmin = () => {
               <CardG />
               <Block>
                 <ChartDonut />
+              </Block>
+              <Block>
+                <ChartDonutPais />
               </Block>
             </div>
           </>

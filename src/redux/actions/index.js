@@ -233,9 +233,9 @@ export const getRelatedProducts = (product) => async (dispatch) => {
           !taggedProducts.includes(relatedProducts[j])
         ) {
           taggedProducts.push(relatedProducts[j]);
-            }
-          }
         }
+      }
+    }
     dispatch(setRelatedProducts(taggedProducts));
   } catch (error) {
     throw new Error(error);
@@ -268,15 +268,17 @@ export function getCurrentUser(user) {
 
     let json = await axios.post(`/user/login/`, user);
 
-    if(json.data.created){
-      window.location.replace(`${window.location.href}user/${json.data.data.id}`)
+    if (json.data.created) {
+      window.location.replace(
+        `${window.location.href}user/${json.data.data.id}`
+      );
     }
 
     dispatch(loggedUser(json.data?.data));
     dispatch(getusercart(json.data?.data.cart.products));
   };
 }
- 
+
 export const buyproduct = (
   quantity,
   id,
@@ -484,14 +486,14 @@ export const getdataadmin = () => {
   return async function(dispatch) {
     const response = await axios.get(
       `https://api.mercadopago.com/v1/payments/search?sort=date_created&criteria=desc&external_reference=H-COMERSEHENRY`,
- 
+
       {
         headers: {
           Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
         },
       }
     );
- 
+
     var Lima = 0;
     var Arequipa = 0;
     var Bogota = 0;
@@ -767,60 +769,61 @@ export const getdataadmin = () => {
               "Cochabamba"
             )
               Cochabamba += 1;
-            usuarios.push(
-             { Usuario: e.additional_info.payer.first_name, items:  e.additional_info.items },
-          );
+            usuarios.push({
+              Usuario: e.additional_info.payer.first_name,
+              items: e.additional_info.items,
+            });
           }
         }
       }
     }
 
     var ciudades = [
-      { Ciudad: "Bogota", Cantidad :Bogota },
-      { Ciudad: "Lima",  Cantidad: Lima },
-      { Ciudad: "Arequipa",  Cantidad: Arequipa },
-      { Ciudad: "Manta",  Cantidad:Manta },
-      { Ciudad: "Santo Domingo",  Cantidad: Santo_Domingo },
-      { Ciudad: "Cuenca",  Cantidad: Cuenca },
-      { Ciudad: "Guayaquil",  Cantidad: Guayaquil },
-      { Ciudad: "Quito",  Cantidad   :Quito },
-      { Ciudad: "Merida",  Cantidad: Merida },
-      { Ciudad: "Queretaro",  Cantidad: Queretaro },
-      { Ciudad: "Monterrey",  Cantidad: Monterrey },
-      {Ciudad:  "Guadalajara",  Cantidad: Guadalajara },
-      { Ciudad: "CDMX",  Cantidad: CDMX },
-      { Ciudad: "Tucuman",  Cantidad: Tucuman },
-      {Ciudad:  "Santa_Fe",  Cantidad: Santa_Fe },
-      {Ciudad:  "Mendoza",  Cantidad: Mendoza },
-      { Ciudad:"Cordoba",  Cantidad: Cordoba },
-      { Ciudad:"Buenos Aires",  Cantidad: Buenos_Aires },
-      { Ciudad:"Cajamarca",  Cantidad: Cajamarca },
-      { Ciudad:"Huancayo",  Cantidad: Huancayo },
-      { Ciudad:"Trujillo",  Cantidad: Trujillo },
-      { Ciudad:"Cali",  Cantidad: Cali },
-      { Ciudad:"Barranquilla",  Cantidad: Barranquilla },
-      { Ciudad:"Medellin",  Cantidad: Medellin },
-      { Ciudad:"Cartagena",  Cantidad: Cartagena },
-      { Ciudad:"Montevideo",  Cantidad: Montevideo },
-      { Ciudad: "Canelones",  Cantidad: Canelones },
-      { Ciudad: "Maldonado",  Cantidad: Maldonado },
-      { Ciudad: "Salto",  Cantidad: Salto },
-      { Ciudad: "Rivera",  Cantidad: Rivera },
-      { Ciudad: "Caracas",  Cantidad: Caracas },
-      { Ciudad: "Maracaibo",  Cantidad: Maracaibo },
-      { iudad:  "Maracay",  Cantidad: Maracay },
-      { Ciudad: "Valencia",  Cantidad: Valencia },
-      { Ciudad: "Guayana",  Cantidad: Guayana },
-      { Ciudad: "Asuncion",  Cantidad: Asuncion },
-      {Ciudad:  "Encarnacion",  Cantidad: Encarnacion },
-      {Ciudad:  "Ciudad del Este",  Cantidad: Ciudad_del_Este },
-      {Ciudad:  "San Cosme",  Cantidad: San_Cosme },
-      {Ciudad:  "San Bernardino",  Cantidad: San_Bernardino },
-      {Ciudad:  "La Paz",  Cantidad: La_Paz },
-      {Ciudad:  "Sucre",  Cantidad: Sucre },
-      {Ciudad:  "Santa Cruz",  Cantidad: Santa_Cruz },
-      {Ciudad:  "Potosi",  Cantidad: Potosi },
-      {Ciudad:  "Cochabamba",  Cantidad: Cochabamba },
+      { Ciudad: "Bogota", Cantidad: Bogota },
+      { Ciudad: "Lima", Cantidad: Lima },
+      { Ciudad: "Arequipa", Cantidad: Arequipa },
+      { Ciudad: "Manta", Cantidad: Manta },
+      { Ciudad: "Santo Domingo", Cantidad: Santo_Domingo },
+      { Ciudad: "Cuenca", Cantidad: Cuenca },
+      { Ciudad: "Guayaquil", Cantidad: Guayaquil },
+      { Ciudad: "Quito", Cantidad: Quito },
+      { Ciudad: "Merida", Cantidad: Merida },
+      { Ciudad: "Queretaro", Cantidad: Queretaro },
+      { Ciudad: "Monterrey", Cantidad: Monterrey },
+      { Ciudad: "Guadalajara", Cantidad: Guadalajara },
+      { Ciudad: "CDMX", Cantidad: CDMX },
+      { Ciudad: "Tucuman", Cantidad: Tucuman },
+      { Ciudad: "Santa_Fe", Cantidad: Santa_Fe },
+      { Ciudad: "Mendoza", Cantidad: Mendoza },
+      { Ciudad: "Cordoba", Cantidad: Cordoba },
+      { Ciudad: "Buenos Aires", Cantidad: Buenos_Aires },
+      { Ciudad: "Cajamarca", Cantidad: Cajamarca },
+      { Ciudad: "Huancayo", Cantidad: Huancayo },
+      { Ciudad: "Trujillo", Cantidad: Trujillo },
+      { Ciudad: "Cali", Cantidad: Cali },
+      { Ciudad: "Barranquilla", Cantidad: Barranquilla },
+      { Ciudad: "Medellin", Cantidad: Medellin },
+      { Ciudad: "Cartagena", Cantidad: Cartagena },
+      { Ciudad: "Montevideo", Cantidad: Montevideo },
+      { Ciudad: "Canelones", Cantidad: Canelones },
+      { Ciudad: "Maldonado", Cantidad: Maldonado },
+      { Ciudad: "Salto", Cantidad: Salto },
+      { Ciudad: "Rivera", Cantidad: Rivera },
+      { Ciudad: "Caracas", Cantidad: Caracas },
+      { Ciudad: "Maracaibo", Cantidad: Maracaibo },
+      { iudad: "Maracay", Cantidad: Maracay },
+      { Ciudad: "Valencia", Cantidad: Valencia },
+      { Ciudad: "Guayana", Cantidad: Guayana },
+      { Ciudad: "Asuncion", Cantidad: Asuncion },
+      { Ciudad: "Encarnacion", Cantidad: Encarnacion },
+      { Ciudad: "Ciudad del Este", Cantidad: Ciudad_del_Este },
+      { Ciudad: "San Cosme", Cantidad: San_Cosme },
+      { Ciudad: "San Bernardino", Cantidad: San_Bernardino },
+      { Ciudad: "La Paz", Cantidad: La_Paz },
+      { Ciudad: "Sucre", Cantidad: Sucre },
+      { Ciudad: "Santa Cruz", Cantidad: Santa_Cruz },
+      { Ciudad: "Potosi", Cantidad: Potosi },
+      { Ciudad: "Cochabamba", Cantidad: Cochabamba },
     ];
 
     var Argentina = 0;
@@ -868,18 +871,18 @@ export const getdataadmin = () => {
     }
 
     var listapaises = [
-      { Pais: "Colombia" , Cantidad: Colombia },
-      { Pais: "Argentina" , Cantidad: Argentina },
-      { Pais: "Brasil" , Cantidad: Brasil},
-      { Pais: "México ", Cantidad: México},
-      { Pais: "Uruguay" , Cantidad: Uruguay},
-      { Pais: "Chile" , Cantidad: Chile},
-      { Pais: "Perú ", Cantidad: Perú},
-      { Pais: "Bolivia" , Cantidad: Bolivia},
+      { Pais: "Colombia", Cantidad: Colombia },
+      { Pais: "Argentina", Cantidad: Argentina },
+      { Pais: "Brasil", Cantidad: Brasil },
+      { Pais: "México ", Cantidad: México },
+      { Pais: "Uruguay", Cantidad: Uruguay },
+      { Pais: "Chile", Cantidad: Chile },
+      { Pais: "Perú ", Cantidad: Perú },
+      { Pais: "Bolivia", Cantidad: Bolivia },
       { Pais: "Paraguay", Cantidad: Paraguay },
-      { Pais: "Venezuela", Cantidad: Venezuela},
+      { Pais: "Venezuela", Cantidad: Venezuela },
     ];
- 
+
     const impuestocompra = response.data.results.reduce(
       (ac, e) => ac + e.fee_details[0].amount,
       0
@@ -895,20 +898,10 @@ export const getdataadmin = () => {
       0
     );
 
-    const Economia = [
-      { impuestocompra: impuestocompra  },
-      { totalpagado: totalpagado },
-      { ventasnetas: ventasnetas },
-    ];
  
- 
-    dispatch(todaslascompras(infofinal));
- 
+    const final = [ciudades, listapaises, ciudades, impuestocompra,totalpagado,ventasnetas];
+     dispatch(todaslascompras(final));
     
-     
-      const final = [ciudades,listapaises,ciudades,Economia]
-
- 
   };
 };
 
@@ -949,19 +942,15 @@ export const deleteUserId = (id) => async (dispatch) => {
   await axios.delete(`/user/delete/${id}`);
 };
 
-
-export const updateUser = (data, id) => {
+/* export const updateUser = (data, id) => {
   return async function() {
     const response = await axios.put(`/userData/${id}`, data);
 
     return response;
   };
-};
+}; */
 
-
-export const banerUserId = (id) => async (dispatch) =>
-{
-
+export const banerUserId = (id) => async (dispatch) => {
   dispatch(baneoUser(id));
   await axios.delete(`/user/softDelete/${id}`);
 };
@@ -1013,54 +1002,43 @@ export const getBanerUser = () => async (dispatch) => {
     });
 };
 
-export const updateUserData = (data,id) => async (dispatch) => {
-
+export const updateUserData = (data, id) => async (dispatch) => {
   await axios
     .put(`user/userData/${id}`, data)
-    .then((res) => 
-    {
-    
-    dispatch(updateUser(res.data));
-
-    }
-    )
+    .then((res) => {
+      dispatch(updateUser(res.data));
+    })
     .catch((error) => {
       throw new Error(error);
     });
 };
 
 export const createAddress = (data) => async (dispatch) => {
-
   await axios
     .post(`/user/address`, data)
     .then((res) => {
-    
-    dispatch(createUserAddress(res.data));
-    }
-    )
+      dispatch(createUserAddress(res.data));
+    })
     .catch((error) => {
       throw new Error(error);
     });
 };
 
 export const deleteAddress = (addressId) => async (dispatch) => {
-  console.log("ADDRESS ID IN ACTIONS:" , addressId)
+  console.log("ADDRESS ID IN ACTIONS:", addressId);
 
   await axios
     .delete(`/user/address/${addressId}`)
     .then((res) => {
-    
-    dispatch(deleteUserAddress(res.data));
-    }
-    )
+      dispatch(deleteUserAddress(res.data));
+    })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       throw new Error(error);
     });
 };
 
-export const addReview = (productId, data) => async (dispatch) =>
-{
+export const addReview = (productId, data) => async (dispatch) => {
   await axios({
     method: "POST",
     url: `/products/${productId}/review`,
