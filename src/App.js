@@ -26,9 +26,10 @@ import ItemPayments from "./components/Cart/ItemPayments";
 import DashboardAdmin from "./views/DashboardAdmin";
 import Historial from "./components/Cart/Historial";
 import EditProduct from "./components/dashboard/EditProduct";
+import LandingPage from "./components/LandingPage/LandingPage";
 
-
-function App() {
+function App()
+{
   const dispatch = useDispatch();
   const { user, getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [open, setOpen] = React.useState(false);
@@ -36,7 +37,8 @@ function App() {
   const [footerHeight, setfooterHeigth] = React.useState(0);
   const { loggedUser } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.products);
-  const getWindowSize = () => {
+  const getWindowSize = () =>
+  {
     return window.innerWidth;
   };
   const [width, setWidth] = React.useState(getWindowSize());
@@ -47,12 +49,15 @@ function App() {
   //     }
   // }, [isAuthenticated, getAccessTokenSilently, user]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
+  useEffect(() =>
+  {
+    if (isAuthenticated)
+    {
       dispatch(getCurrentUser(user));
     }
 
-    function handleWindowreSize() {
+    function handleWindowreSize()
+    {
       setWidth(getWindowSize());
       setfooterHeigth(
         document.getElementById("footerContainer")?.getClientRects()[0].height
@@ -65,8 +70,9 @@ function App() {
     //     dispatch(getCategories())
     //     dispatch(getColors())
     //     dispatch(getBrands())
- 
-    return () => {
+
+    return () =>
+    {
       window.removeEventListener("resize", handleWindowreSize);
     };
   }, [isAuthenticated, width]);
@@ -80,14 +86,13 @@ function App() {
       }}
     >
       <BrowserRouter>
-      
+
         <Routes>
           <Route element={<BlockedUserRoutes />}>
+            <Route exact path="/" element={<LandingPage />} />
             <Route path="/" element={<Nav />}>
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/Products/:id" element={<ProductDetail />} />
-
-              {/* <Route path='/favorites' element={<Favorites />} /> */}
 
               <Route
                 path="/aboutUs"

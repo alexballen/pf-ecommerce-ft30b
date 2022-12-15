@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import UserCart from "../Cart/UserCart";
 
-const Nav = () => {
+const Nav = () =>
+{
   const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
   const { loggedUser } = useSelector((state) => state.user);
 
@@ -28,7 +29,7 @@ const Nav = () => {
         style={{ width: "100%" }}
       >
         <div style={{ width: "fit-content" }}>
-          <Link to={"/"} style={{ width: "fit-content" }}>
+          <Link to={"/home"} style={{ width: "fit-content" }}>
             <img
               className="ml-4"
               style={{
