@@ -55,7 +55,7 @@ function App()
     {
       dispatch(getCurrentUser(user));
     }
-
+    console.log(process.env)
     function handleWindowreSize()
     {
       setWidth(getWindowSize());

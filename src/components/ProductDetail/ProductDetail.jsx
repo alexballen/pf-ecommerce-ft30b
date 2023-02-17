@@ -80,7 +80,7 @@ const ProductDetail = () => {
 
  
   useEffect(() =>{
-    dispatch(getRelatedProducts(product))
+      dispatch(getRelatedProducts(product))
     if (productid !== id)
     {
       dispatch(GetProductById(id));
@@ -91,9 +91,7 @@ const ProductDetail = () => {
       dispatch(getProducts())
     }
 
-    if (products.length === 0) {
-      dispatch(getProducts());
-    }
+    
 
   }, [amoutstock, id, userId, productid]);
 
@@ -249,14 +247,14 @@ const ProductDetail = () => {
               )} */}
             </div>
 
-
-            {/* <input type="checkbox" id="Pagartodo" className="modal-toggle " />
-
             <AddComment
               modalId="addReview"
               productId={product?.id}
               userId={loggedUser?.id}
             />
+
+            {/* <input type="checkbox" id="Pagartodo" className="modal-toggle " />
+
 
   
 

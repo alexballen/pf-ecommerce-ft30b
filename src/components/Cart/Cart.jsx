@@ -15,11 +15,7 @@ function Cart() {
   const { total } = useSelector((state) => state.Cart);
   const { pagarcarrito } = useSelector((state) => state.Cart);
   const userId = loggedUser?.id;
-  const [inputs, setinputs] = useState({
-    Apellido: loggedUser.lastName ? loggedUser.lastName : "",
-
-    Nombre: loggedUser.firstName ? loggedUser.firstName : "",
-  });
+  const [inputs, setinputs] = useState({});
   const [Errors, setErrors] = useState({});
 
   function limpiarcart() {
@@ -197,7 +193,7 @@ function Cart() {
   return (
     <>
       {Cartitems.length ? (
-        <div className="overflow-x-auto w-full h-fitmt-10 font-bold">
+        <div className="overflow-x-auto w-full    mt-10 font-bold">
           <table className="table w-full   ">
             <thead>
               <tr className="text-center ">
@@ -287,7 +283,7 @@ function Cart() {
       )}
 
       {Cartitems.length && (
-        <div style={{paddingBottom: '5%'}}>
+        <>
           <div className=" bg-sky-600  flex  text-white   ">
             <label
               htmlFor="Pagartodo"
@@ -304,12 +300,12 @@ function Cart() {
               Limpiar Carrito
             </button>
           </div>
-        </div>
+        </>
       )}
 
       <input type="checkbox" id="Pagartodo" className="modal-toggle " />
-      <div className="modal h-fit ">
-        <div className="modal-box">
+      <div className="modal  ">
+        <div className="modal-box    ">
           <h3 className="font-bold text-lg">
             <div className="alert   shadow-lg">
               <div>
@@ -339,6 +335,7 @@ function Cart() {
                         </label>
                         <input
                           name="Nombre"
+                          value={inputs.Nombre ? inputs.Nombre : loggedUser.firstName}
                           onChange={guardardireccion}
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-first-name"
@@ -359,6 +356,7 @@ function Cart() {
                           Apellido
                         </label>
                         <input
+                        value={inputs.Apellido ? inputs.Apellido : loggedUser.lastName}
                           name="Apellido"
                           onChange={guardardireccion}
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -383,6 +381,7 @@ function Cart() {
                           Telefono:
                         </label>
                         <input
+                         value={inputs.Telefono ? inputs.Telefono : loggedUser.phoneNumber}
                           name="Telefono"
                           onChange={guardardireccion}
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -488,6 +487,7 @@ function Cart() {
                           Barrio
                         </label>
                         <input
+                        value={inputs.Barrio ? inputs.Barrio : loggedUser.addresses[0].nneighborhood}
                           name="Barrio"
                           onChange={guardardireccion}
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -509,6 +509,7 @@ function Cart() {
                           Calle/Carrera
                         </label>
                         <input
+                           value={inputs.tipoCalle ? inputs.tipoCalle : loggedUser.addresses[0].street}
                           name="tipoCalle"
                           onChange={guardardireccion}
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -531,6 +532,7 @@ function Cart() {
                           #
                         </label>
                         <input
+                          value={inputs.numerocalle ? inputs.numerocalle : loggedUser.addresses[0].houseNumber}
                           name="numerocalle"
                           onChange={guardardireccion}
                           className="   appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -614,6 +616,7 @@ function Cart() {
                           codigo Zip
                         </label>
                         <input
+                         value={inputs.zipcode ? inputs.zipcode : loggedUser.addresses[0].zipCode}
                           name="zipcode"
                           onChange={guardardireccion}
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

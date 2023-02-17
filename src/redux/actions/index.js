@@ -271,10 +271,11 @@ export function getCurrentUser(user) {
     };
 
     let json = await axios.post(`/user/login/`, user);
-
+      const url = window.location.href
+      const sinhome = url.split('home', 1)[0]
     if (json.data.created) {
       window.location.replace(
-        `${window.location.href}user/${json.data.data.id}`
+        `${sinhome}user/${json.data.data.id}`
       );
     }
 
@@ -453,7 +454,7 @@ export const alldatapagos = (collection_id) => {
       `https://api.mercadopago.com/v1/payments/${collection_id}`,
       {
         headers: {
-          Authorization: `Bearer ${REACT_APP_MPAGOTOKEN}`,
+          Authorization: `Bearer ${process.env.REACT_APP_MPAGOTOKEN}`,
         },
       }
     );

@@ -20,7 +20,7 @@ const CardG = () => {
     dispatch(getdataadmin());
   }, [dispatch]);
 
-  const ventaBruta = Comprasgenerales[4];
+  const ventaBruta = 129000 //Comprasgenerales[4];
   const metaMensual = 1000000;
   const ptajeCumplimiento = (ventaBruta * 100) / metaMensual;
   const ptajeACumplir = 100 - ptajeCumplimiento;

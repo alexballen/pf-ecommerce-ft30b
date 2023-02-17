@@ -17,7 +17,7 @@ const UserProfile = () => {
     phoneNumber:"",
   }
   )
-  const [allAddresses, setAllAddresses] = useState(loggedUser?.addresses)
+  const [allAddresses, setAllAddresses] = useState([])
   const [selectedCountry , setSelectedCountry] = useState()
   const [userAddress, setUserAddress] = useState(
     {
@@ -53,7 +53,6 @@ const UserProfile = () => {
 
   useEffect(()=>{
   dispatch(getCountry())
-    console.log(countries)
   },[])
   
   const dispatch = useDispatch()
@@ -119,7 +118,7 @@ const UserProfile = () => {
   //   e.preventDefault()
   //   setUserPreference({...userPreference , [e.target.name]: e.target.value === true ? false : true})
   //  }
-   console.log("ALL ADDRESSES: ", allAddresses)
+  
 
   return (
      
@@ -294,7 +293,7 @@ const UserProfile = () => {
                             <option value={""}>Seleccione un país</option>
                             {countries.map(country  =>{
                               return( 
-                              <option key={country.id} >{country.name}</option>
+                              <option key={country.id} value={country.name} >{country.name}</option>
 )
                             } )
                             

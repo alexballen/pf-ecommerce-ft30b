@@ -18,7 +18,7 @@ const Favorites = () =>
 
     return (
 
-        <div className="bg-base-200 flex flex-wrap justify-evenly items-start content-around" style={{height: window.screen.availHeight}}>
+        <div className="bg-base-200 flex flex-wrap justify-evenly items-start content-around" style={{height: window.screen.height}}>
             {favorites.map((e, i) =>
             {
                 return (

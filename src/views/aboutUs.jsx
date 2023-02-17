@@ -105,14 +105,6 @@ export function Desarrollador({open, setOpen}) {
                     <div>
                         <h1 style={{ fontSize: '3em', textAlign: 'center' }}>{desarrolladorDetails.name}</h1>
                     </div>
-                    <hr/>
-                    <div style={{height: '20em'}}>
-                        <h2>Aportes a la pagina: {desarrolladorDetails.aport }</h2>
-                    </div>
-                    <hr />
-                    <div>
-                        <p>{desarrolladorDetails.description}</p>
-                    </div>
                 </div>
                 <hr />
                 <div style={{float: 'right'}}>

@@ -1,0 +1,386 @@
+"fullName": "Felipe Akvaar Medina Carrillo",
+        "id": "559179d0-79a7-11ed-a92f-6161a95cb563",
+        "firstName": "Felipe Akvaar",
+        "lastName": "Medina Carrillo",
+        "email": "fm9408developer@gmail.com",
+        "phoneNumber": "5523098016",
+        "username": "fm9408developer",
+        "isAdmin": true,
+        "isBan": false,
+        "unitedAt": "2022-12-11T22:58:32.046Z",
+        "modifyAt": "2022-12-14T23:59:33.098Z",
+        "deletedAt": null,
+        "countryOfOriginId": "95b683d5-e1e1-4531-85ca-a5e5ec49fe24",
+        "cityOfOriginId": "e3bf7108-8e18-464f-a0f0-38a5f34aa10c",
+        "addresses": [],
+        "photo": {
+            "id": "e0148ca9-40b5-4a2a-9f6e-e84bf378df25",
+            "url": "https://lh3.googleusercontent.com/a/AEdFTp4YwCQkscAvGnFNZXmYV8qjbXNSuR4P0Slk7UyH=s96-c",
+            "productId": null,
+            "userId": "559179d0-79a7-11ed-a92f-6161a95cb563",
+            "product": null
+        },
+        "products": [],
+        "reviews": [],
+        "cart": {
+            "id": "442377b4-7718-4cf6-862f-bab55f23ef96",
+            "userId": "559179d0-79a7-11ed-a92f-6161a95cb563",
+            "products": [
+                {
+                    "id": "af13c87d-028e-4caa-be13-9b536e03006a",
+                    "name": "Maxi bag chained",
+                    "description": "Maxi bag de cuero color negro con asas de cadena y tela. Incluye guardapolvo",
+                    "stock": 500,
+                    "unitPrice": 3119,
+                    "quantity": "1",
+                    "isFeatured": false,
+                    "tags": [
+                        ""
+                    ],
+                    "isBan": false,
+                    "createdAt": "2022-11-23T04:32:54.698Z",
+                    "updatedAt": "2022-12-15T06:02:11.297Z",
+                    "deletedAt": null,
+                    "brandId": "d53ed352-6109-4832-b950-7c95894a04e4",
+                    "reviewProductId": null,
+                    "cartId": "442377b4-7718-4cf6-862f-bab55f23ef96",
+                    "reviews": [],
+                    "photos": [
+                        {
+                            "id": "68e2cbd4-03c7-48fc-a601-05a9ce2819dd",
+                            "url": "https://i.pinimg.com/564x/7c/40/1c/7c401c212ca56b4fd4dfdbed468b5222--chanel-handbags-designer-handbags.jpg",
+                            "productId": "af13c87d-028e-4caa-be13-9b536e03006a",
+                            "userId": null
+                        }
+                    ],
+                    "brand": {
+                        "id": "d53ed352-6109-4832-b950-7c95894a04e4",
+                        "name": "Chanel"
+                    },
+                    "categories": [
+                        {
+                            "id": "3942225f-b918-41ff-b8bb-5403913b15e0",
+                            "name": "Cartera",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T04:32:56.608Z",
+                                "updatedAt": "2022-11-23T04:32:56.608Z",
+                                "productId": "af13c87d-028e-4caa-be13-9b536e03006a",
+                                "categoryId": "3942225f-b918-41ff-b8bb-5403913b15e0"
+                            }
+                        },
+                        {
+                            "id": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8",
+                            "name": "Mujer",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T04:32:56.608Z",
+                                "updatedAt": "2022-11-23T04:32:56.608Z",
+                                "productId": "af13c87d-028e-4caa-be13-9b536e03006a",
+                                "categoryId": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8"
+                            }
+                        }
+                    ],
+                    "favorites": []
+                },
+                {
+                    "id": "d997f215-eee3-48a9-afe1-378673990831",
+                    "name": "bolso Shearling Crystal Fur",
+                    "description": "Delicado bolso de mano con textura de peluche blanco, broche de logo chanel con incrustaciones de cristales. Asas con cuero y metal, incluye guardapolvos",
+                    "stock": 499,
+                    "unitPrice": 3800,
+                    "quantity": "1",
+                    "isFeatured": false,
+                    "tags": [
+                        ""
+                    ],
+                    "isBan": false,
+                    "createdAt": "2022-11-23T04:50:14.476Z",
+                    "updatedAt": "2022-12-15T06:02:33.477Z",
+                    "deletedAt": null,
+                    "brandId": "d53ed352-6109-4832-b950-7c95894a04e4",
+                    "reviewProductId": null,
+                    "cartId": "442377b4-7718-4cf6-862f-bab55f23ef96",
+                    "reviews": [],
+                    "photos": [
+                        {
+                            "id": "e5ba42ab-e4bf-42ef-8398-965e4238638b",
+                            "url": "https://prod-images.fashionphile.com/main/a69d57469d2bfc94e532e3c93a41e43b/5dfa496590024a3b74b93929c14c8427.jpg",
+                            "productId": "d997f215-eee3-48a9-afe1-378673990831",
+                            "userId": null
+                        }
+                    ],
+                    "brand": {
+                        "id": "d53ed352-6109-4832-b950-7c95894a04e4",
+                        "name": "Chanel"
+                    },
+                    "categories": [
+                        {
+                            "id": "3942225f-b918-41ff-b8bb-5403913b15e0",
+                            "name": "Cartera",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T04:50:16.112Z",
+                                "updatedAt": "2022-11-23T04:50:16.112Z",
+                                "productId": "d997f215-eee3-48a9-afe1-378673990831",
+                                "categoryId": "3942225f-b918-41ff-b8bb-5403913b15e0"
+                            }
+                        },
+                        {
+                            "id": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8",
+                            "name": "Mujer",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T04:50:16.112Z",
+                                "updatedAt": "2022-11-23T04:50:16.112Z",
+                                "productId": "d997f215-eee3-48a9-afe1-378673990831",
+                                "categoryId": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8"
+                            }
+                        }
+                    ],
+                    "favorites": []
+                },
+                {
+                    "id": "6cd1e02d-627a-4f45-bd24-0f02bf4ed1ba",
+                    "name": "Lentes de sol modelo aviador",
+                    "description": "Lentes de sol tipo aviador con marco dorado",
+                    "stock": 497,
+                    "unitPrice": 740,
+                    "quantity": "1",
+                    "isFeatured": false,
+                    "tags": [
+                        "Lentes"
+                    ],
+                    "isBan": false,
+                    "createdAt": "2022-11-23T01:53:04.595Z",
+                    "updatedAt": "2022-12-15T06:02:36.253Z",
+                    "deletedAt": null,
+                    "brandId": "6fbbf177-cd8c-45a1-96e7-018e23d93c31",
+                    "reviewProductId": null,
+                    "cartId": "442377b4-7718-4cf6-862f-bab55f23ef96",
+                    "reviews": [],
+                    "photos": [
+                        {
+                            "id": "076c7187-13a3-4b06-b26f-aa47c3300923",
+                            "url": "https://ss357.liverpool.com.mx/xl/72628209.jpg",
+                            "productId": "6cd1e02d-627a-4f45-bd24-0f02bf4ed1ba",
+                            "userId": null
+                        }
+                    ],
+                    "brand": {
+                        "id": "6fbbf177-cd8c-45a1-96e7-018e23d93c31",
+                        "name": "Ray-Ban"
+                    },
+                    "categories": [
+                        {
+                            "id": "d4dc024c-1ea2-4a43-82d4-a2092349e271",
+                            "name": "Lentes",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T01:53:06.557Z",
+                                "updatedAt": "2022-11-23T01:53:06.557Z",
+                                "productId": "6cd1e02d-627a-4f45-bd24-0f02bf4ed1ba",
+                                "categoryId": "d4dc024c-1ea2-4a43-82d4-a2092349e271"
+                            }
+                        },
+                        {
+                            "id": "fd0838c1-07af-49c7-a84a-c5b98eb49522",
+                            "name": "Hombre",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T01:53:06.557Z",
+                                "updatedAt": "2022-11-23T01:53:06.557Z",
+                                "productId": "6cd1e02d-627a-4f45-bd24-0f02bf4ed1ba",
+                                "categoryId": "fd0838c1-07af-49c7-a84a-c5b98eb49522"
+                            }
+                        }
+                    ],
+                    "favorites": []
+                },
+                {
+                    "id": "9bea9e1f-be95-4dfe-8864-85fa8a8e78cf",
+                    "name": "Lentes Susi Heart ",
+                    "description": "Lentes de sol Susi Heart de acetato negro con lentes negros. Montura llamativa extragrande en forma de corazón. Montura y varillas de acetato grueso",
+                    "stock": 500,
+                    "unitPrice": 1899,
+                    "quantity": "1",
+                    "isFeatured": false,
+                    "tags": [
+                        "Lentes",
+                        "Susi"
+                    ],
+                    "isBan": false,
+                    "createdAt": "2022-11-23T03:37:21.496Z",
+                    "updatedAt": "2022-12-14T14:40:44.603Z",
+                    "deletedAt": null,
+                    "brandId": "248f0efc-42df-49a7-936f-9b6a564d1967",
+                    "reviewProductId": null,
+                    "cartId": "442377b4-7718-4cf6-862f-bab55f23ef96",
+                    "reviews": [],
+                    "photos": [
+                        {
+                            "id": "15f48ffb-2b25-4168-971c-d1f8421c1647",
+                            "url": "https://avvenice.com/60562-large_default/balenciaga-occhiali-da-sole-susi-heart-nero-occhiali-da-sole-balenciaga-eyewear.jpg",
+                            "productId": "9bea9e1f-be95-4dfe-8864-85fa8a8e78cf",
+                            "userId": null
+                        }
+                    ],
+                    "brand": {
+                        "id": "248f0efc-42df-49a7-936f-9b6a564d1967",
+                        "name": "Balenciaga"
+                    },
+                    "categories": [
+                        {
+                            "id": "d4dc024c-1ea2-4a43-82d4-a2092349e271",
+                            "name": "Lentes",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T03:37:23.179Z",
+                                "updatedAt": "2022-11-23T03:37:23.179Z",
+                                "productId": "9bea9e1f-be95-4dfe-8864-85fa8a8e78cf",
+                                "categoryId": "d4dc024c-1ea2-4a43-82d4-a2092349e271"
+                            }
+                        },
+                        {
+                            "id": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8",
+                            "name": "Mujer",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T03:37:23.179Z",
+                                "updatedAt": "2022-11-23T03:37:23.179Z",
+                                "productId": "9bea9e1f-be95-4dfe-8864-85fa8a8e78cf",
+                                "categoryId": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8"
+                            }
+                        }
+                    ],
+                    "favorites": []
+                },
+                {
+                    "id": "c151a819-8890-42bf-ab56-17402bf9813d",
+                    "name": "Cartera Calfskin S Triangle Duffle Yellow ",
+                    "description": "Este pequeño bolso geométrico está confeccionado en piel de becerro lisa en color amarillo. Este bolso cuenta con asas superiores de cuero enrollado, una correa para el hombro ajustable y removible y herrajes de metal plateado. La cremallera superior se abre a un interior de cuero negro con un bolsillo con cremallera.",
+                    "stock": 500,
+                    "unitPrice": 1659,
+                    "quantity": "1",
+                    "isFeatured": false,
+                    "tags": [
+                        ""
+                    ],
+                    "isBan": false,
+                    "createdAt": "2022-11-23T05:17:11.560Z",
+                    "updatedAt": "2022-12-14T21:33:57.385Z",
+                    "deletedAt": null,
+                    "brandId": "248f0efc-42df-49a7-936f-9b6a564d1967",
+                    "reviewProductId": null,
+                    "cartId": "442377b4-7718-4cf6-862f-bab55f23ef96",
+                    "reviews": [],
+                    "photos": [
+                        {
+                            "id": "03985724-0404-40d5-be44-97f5e90e8b24",
+                            "url": "https://prod-images.fashionphile.com/large/7acf371c43c18ff5a78c381ceb6003f4/56daab57ff874461bd89f83126c11671.jpg",
+                            "productId": "c151a819-8890-42bf-ab56-17402bf9813d",
+                            "userId": null
+                        }
+                    ],
+                    "brand": {
+                        "id": "248f0efc-42df-49a7-936f-9b6a564d1967",
+                        "name": "Balenciaga"
+                    },
+                    "categories": [
+                        {
+                            "id": "3942225f-b918-41ff-b8bb-5403913b15e0",
+                            "name": "Cartera",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T05:17:13.176Z",
+                                "updatedAt": "2022-11-23T05:17:13.176Z",
+                                "productId": "c151a819-8890-42bf-ab56-17402bf9813d",
+                                "categoryId": "3942225f-b918-41ff-b8bb-5403913b15e0"
+                            }
+                        },
+                        {
+                            "id": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8",
+                            "name": "Mujer",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T05:17:13.176Z",
+                                "updatedAt": "2022-11-23T05:17:13.176Z",
+                                "productId": "c151a819-8890-42bf-ab56-17402bf9813d",
+                                "categoryId": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8"
+                            }
+                        }
+                    ],
+                    "favorites": []
+                }
+            ]
+        },
+        "favorite": {
+            "id": "3a8da8f2-5acf-4a95-8d4e-47841f7a76a4",
+            "createdAt": "2022-12-11T22:58:32.361Z",
+            "updatedAt": "2022-12-11T22:58:32.361Z",
+            "userId": "559179d0-79a7-11ed-a92f-6161a95cb563",
+            "products": [
+                {
+                    "id": "0e79eb4e-0811-4c9c-95fe-f40fd0f5934d",
+                    "name": "Tote bag chain legacy",
+                    "description": "tote bag de cuero color naranja con asas de cuero y metal. Incluye guardapolvo",
+                    "stock": 500,
+                    "unitPrice": 2999,
+                    "quantity": "1",
+                    "isFeatured": false,
+                    "tags": [
+                        ""
+                    ],
+                    "isBan": false,
+                    "createdAt": "2022-11-23T04:46:36.604Z",
+                    "updatedAt": "2022-12-15T06:02:22.671Z",
+                    "deletedAt": null,
+                    "brandId": "d53ed352-6109-4832-b950-7c95894a04e4",
+                    "reviewProductId": null,
+                    "cartId": null,
+                    "Product_Favorite": {
+                        "createdAt": "2022-12-15T06:03:37.372Z",
+                        "updatedAt": "2022-12-15T06:03:37.372Z",
+                        "productId": "0e79eb4e-0811-4c9c-95fe-f40fd0f5934d",
+                        "favoriteId": "3a8da8f2-5acf-4a95-8d4e-47841f7a76a4"
+                    },
+                    "reviews": [],
+                    "photos": [
+                        {
+                            "id": "5e27d8ef-d41d-41f0-8219-96b70af09bc5",
+                            "url": "https://i.ebayimg.com/images/g/sj0AAOSwD75hKIVe/s-l500.jpg",
+                            "productId": "0e79eb4e-0811-4c9c-95fe-f40fd0f5934d",
+                            "userId": null
+                        }
+                    ],
+                    "brand": {
+                        "id": "d53ed352-6109-4832-b950-7c95894a04e4",
+                        "name": "Chanel"
+                    },
+                    "categories": [
+                        {
+                            "id": "3942225f-b918-41ff-b8bb-5403913b15e0",
+                            "name": "Cartera",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T04:46:38.197Z",
+                                "updatedAt": "2022-11-23T04:46:38.197Z",
+                                "productId": "0e79eb4e-0811-4c9c-95fe-f40fd0f5934d",
+                                "categoryId": "3942225f-b918-41ff-b8bb-5403913b15e0"
+                            }
+                        },
+                        {
+                            "id": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8",
+                            "name": "Mujer",
+                            "Product_Category": {
+                                "createdAt": "2022-11-23T04:46:38.197Z",
+                                "updatedAt": "2022-11-23T04:46:38.197Z",
+                                "productId": "0e79eb4e-0811-4c9c-95fe-f40fd0f5934d",
+                                "categoryId": "2929cb36-4d83-40b0-bb01-7fff2c1f3cd8"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "compras": [],
+        "CityOfOrigin": {
+            "id": "e3bf7108-8e18-464f-a0f0-38a5f34aa10c",
+            "name": "Gusdalajara",
+            "countryId": "95b683d5-e1e1-4531-85ca-a5e5ec49fe24",
+            "country": {
+                "id": "95b683d5-e1e1-4531-85ca-a5e5ec49fe24",
+                "name": "México"
+            }
+        }
+    }
+]
