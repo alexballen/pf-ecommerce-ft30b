@@ -322,309 +322,317 @@ function Cartitem({ name, image, stock, id, unitPrice, quantity }) {
                     </svg>
                     Quieres comprar este producto?
                     <form className="w-full max-w-lg">
-                      <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                          >
-                            Nombre
-                          </label>
-                          <input
-                            name="Nombre"
-                            onChange={guardardireccion}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            placeholder="juanito"
-                          ></input>
-                          {Errors.Nombre && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Nombre}
-                            </p>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-first-name"
+                        >
+                          Nombre
+                        </label>
+                        <input
+                          name="Nombre"
+                          value={inputs.Nombre ? inputs.Nombre : loggedUser.firstName}
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          id="grid-first-name"
+                          type="text"
+                          placeholder="juanito"
+                        ></input>
+                        {Errors.Nombre && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Nombre}
+                          </p>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/2 px-3">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-last-name"
+                        >
+                          Apellido
+                        </label>
+                        <input
+                        value={inputs.Apellido ? inputs.Apellido : loggedUser.lastName}
+                          name="Apellido"
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-last-name"
+                          type="text"
+                          placeholder="Peralta"
+                        ></input>
+                        {Errors.Apellido && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Apellido}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-first-name"
+                        >
+                          Telefono:
+                        </label>
+                        <input
+                         value={inputs.Telefono ? inputs.Telefono : loggedUser.phoneNumber}
+                          name="Telefono"
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          id="grid-first-name"
+                          type="number"
+                          placeholder="33032021"
+                        ></input>
+                        {Errors.Telefono && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Telefono}
+                          </p>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/2 px-3">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-last-name"
+                        >
+                          Prefijo
+                        </label>
+                        <input
+                          name="Prefijo"
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-last-name"
+                          type="number"
+                          placeholder="+57"
+                        ></input>
+                        {Errors.Prefijo && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Prefijo}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full px-3">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-password"
+                        >
+                          Pais
+                        </label>
+
+                        <select
+                          onChange={guardardireccion}
+                          name="Pais"
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        >
+                          <option disabled selected>
+                            {" "}
+                            --Pais--
+                          </option>
+                          {Pais.map((e) => {
+                            return <option> {e.Pais}</option>;
+                          })}
+                        </select>
+                        {Errors.Pais && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Pais}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-3 mb-2">
+                      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-city"
+                        >
+                          Ciudad
+                        </label>
+                        <select
+                          onChange={guardardireccion}
+                          name="Ciudad"
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        >
+                          <option disabled selected>
+                            {" "}
+                            -- Ciudad--
+                          </option>
+
+                          {Pais.map((e) =>
+                            e.Pais === inputs.Pais
+                              ? e.Ciudades.map((a) => {
+                                  return <option>{a}</option>;
+                                })
+                              : ""
                           )}
-                        </div>
-                        <div className="w-full md:w-1/2 px-3">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-last-name"
-                          >
-                            Apellido
-                          </label>
+                        </select>
+                        {Errors.Ciudad && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Ciudad}
+                          </p>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-city"
+                        >
+                          Barrio
+                        </label>
+                        <input
+                        value={inputs.Barrio ? inputs.Barrio : loggedUser.addresses[0].neighborhood}
+                          name="Barrio"
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-city"
+                          type="text"
+                          placeholder="San bernardo"
+                        ></input>
+                        {Errors.Barrio && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.Barrio}
+                          </p>
+                        )}
+                      </div>
+                      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-city"
+                        >
+                          Calle/Carrera
+                        </label>
+                        <input
+                           value={inputs.tipoCalle ? inputs.tipoCalle : loggedUser.addresses[0].street}
+                          name="tipoCalle"
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-city"
+                          type="text"
+                          placeholder="Avenida,carrera,calle"
+                        ></input>
+                        {Errors.tipoCalle && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.tipoCalle}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="w-full md:w-1/3 px-3  mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-city"
+                        >
+                          #
+                        </label>
+                        <input
+                          value={inputs.numerocalle ? inputs.numerocalle : loggedUser.addresses[0].houseNumber}
+                          name="numerocalle"
+                          onChange={guardardireccion}
+                          className="   appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-city"
+                          type="number"
+                          placeholder="21"
+                        ></input>
+                        {Errors.numerocalle && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.numerocalle}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-city"
+                        >
+                          Dirreccion
+                        </label>
+
+                        <input
+                          name="calle1"
+                          onChange={guardardireccion}
+                          className="   appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-city"
+                          type="number"
+                          placeholder="21-"
+                        ></input>
+                        {Errors.calle1 && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.calle1}
+                          </p>
+                        )}
+
+                        <input
+                          name="calle2"
+                          onChange={guardardireccion}
+                          className="mt-2 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-city"
+                          type="number"
+                          placeholder="15"
+                        ></input>
+                        {Errors.calle2 && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.calle2}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-state"
+                        >
+                          Estado/Departamento.
+                        </label>
+                        <div className="relative">
                           <input
-                            name="Apellido"
+                            name="Estado"
                             onChange={guardardireccion}
                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-last-name"
+                            id="grid-city"
                             type="text"
-                            placeholder="Peralta"
+                            placeholder="Cordoba"
                           ></input>
-                          {Errors.Apellido && (
+
+                          {Errors.Estado && (
                             <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Apellido}
+                              {Errors.Estado}
                             </p>
                           )}
                         </div>
                       </div>
-
-                      <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                          >
-                            Telefono:
-                          </label>
-                          <input
-                            name="Telefono"
-                            onChange={guardardireccion}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="number"
-                            placeholder="33032021"
-                          ></input>
-                          {Errors.Telefono && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Telefono}
-                            </p>
-                          )}
-                        </div>
-                        <div className="w-full md:w-1/2 px-3">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-last-name"
-                          >
-                            Prefijo
-                          </label>
-                          <input
-                            name="Prefijo"
-                            onChange={guardardireccion}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-last-name"
-                            type="number"
-                            placeholder="+57"
-                          ></input>
-                          {Errors.Prefijo && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Prefijo}
-                            </p>
-                          )}
-                        </div>
+                      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5 ">
+                        <label
+                          className="block ml-4 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          for="grid-zip"
+                        >
+                          codigo Zip
+                        </label>
+                        <input
+                         value={inputs.zipcode ? inputs.zipcode : loggedUser.addresses[0].zipCode}
+                          name="zipcode"
+                          onChange={guardardireccion}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-zip"
+                          type="number"
+                          placeholder="54321"
+                        ></input>
+                        {Errors.zipcode && (
+                          <p className="text-gray-600 text-xs italic  text-red-500">
+                            {Errors.zipcode}
+                          </p>
+                        )}
                       </div>
 
-                      <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-password"
-                          >
-                            Pais
-                          </label>
-
-                          <select
-                            onChange={guardardireccion}
-                            name="Pais"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                          >
-                            <option disabled selected>
-                              {" "}
-                              --Pais--
-                            </option>
-                            {Pais.map((e) => {
-                              return <option> {e.Pais}</option>;
-                            })}
-                          </select>
-                          {Errors.Pais && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Pais}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap -mx-3 mb-2">
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-city"
-                          >
-                            Ciudad
-                          </label>
-                          <select
-                            onChange={guardardireccion}
-                            name="Ciudad"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                          >
-                            <option disabled selected>
-                              {" "}
-                              -- Ciudad--
-                            </option>
-
-                            {Pais.map((e) =>
-                              e.Pais === inputs.Pais
-                                ? e.Ciudades.map((a) => {
-                                    return <option>{a}</option>;
-                                  })
-                                : ""
-                            )}
-                          </select>
-                          {Errors.Ciudad && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Ciudad}
-                            </p>
-                          )}
-                        </div>
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-city"
-                          >
-                            Barrio
-                          </label>
-                          <input
-                            name="Barrio"
-                            onChange={guardardireccion}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-city"
-                            type="text"
-                            placeholder="San bernardo"
-                          ></input>
-                          {Errors.Barrio && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.Barrio}
-                            </p>
-                          )}
-                        </div>
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-city"
-                          >
-                            Calle/Carrera
-                          </label>
-                          <input
-                            name="tipoCalle"
-                            onChange={guardardireccion}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-city"
-                            type="text"
-                            placeholder="Avenida,carrera,calle"
-                          ></input>
-                          {Errors.tipoCalle && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.tipoCalle}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="w-full md:w-1/3 px-3  mb-6 md:mb-0">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-city"
-                          >
-                            #
-                          </label>
-                          <input
-                            name="numerocalle"
-                            onChange={guardardireccion}
-                            className="   appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-city"
-                            type="number"
-                            placeholder="21"
-                          ></input>
-                          {Errors.numerocalle && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.numerocalle}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-city"
-                          >
-                            Dirreccion
-                          </label>
-
-                          <input
-                            name="calle1"
-                            onChange={guardardireccion}
-                            className="   appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-city"
-                            type="number"
-                            placeholder="21-"
-                          ></input>
-                          {Errors.calle1 && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.calle1}
-                            </p>
-                          )}
-
-                          <input
-                            name="calle2"
-                            onChange={guardardireccion}
-                            className="mt-2 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-city"
-                            type="number"
-                            placeholder="15"
-                          ></input>
-                          {Errors.calle2 && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.calle2}
-                            </p>
-                          )}
-                        </div>
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5">
-                          <label
-                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-state"
-                          >
-                            Estado/Departamento.
-                          </label>
-                          <div className="relative">
-                            <input
-                              name="Estado"
-                              onChange={guardardireccion}
-                              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="grid-city"
-                              type="text"
-                              placeholder="Cordoba"
-                            ></input>
-
-                            {Errors.Estado && (
-                              <p className="text-gray-600 text-xs italic  text-red-500">
-                                {Errors.Estado}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-5 ">
-                          <label
-                            className="block ml-4 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-zip"
-                          >
-                            codigo Zip
-                          </label>
-                          <input
-                            name="zipcode"
-                            onChange={guardardireccion}
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-zip"
-                            type="number"
-                            placeholder="54321"
-                          ></input>
-                          {Errors.zipcode && (
-                            <p className="text-gray-600 text-xs italic  text-red-500">
-                              {Errors.zipcode}
-                            </p>
-                          )}
-                        </div>
-
-                        <p className=" text-gray-600 text-sm italic  text-red-500">
-                          Asegurate de que todos los datos esten correctos.
-                        </p>
-                      </div>
-                    </form>
+                      <p className="text-gray-600 text-sm italic  text-red-500">
+                        Asegurate de que todos los datos esten correctos.
+                      </p>
+                    </div>
+                  </form>
                   </p>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { deleteFavorites, addFavorites } from "../../redux/actions"
+import { deleteFavorites, addFavorites, addtocart } from "../../redux/actions"
 
 
 
@@ -84,7 +84,7 @@ export function RelatedProduct({product, componentId}) {
                             </button>
                             
                             <div className='addToCart'>
-                                <button className='addToCartButton'>
+                                <button onClick={() => dispatch(addtocart(loggedUser.id, product.id, 1, product))}className='addToCartButton'>
                                     <img
                                         src='/assets/icons/addToCart.svg'
                                         alt='add to cart'

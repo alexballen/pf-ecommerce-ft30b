@@ -22,163 +22,69 @@
 
 
 
-@media (max-width: 1100px) {
-  #relatedProuctsContainer {
-    width: 25%;
-    height: 25em;
-    margin-bottom: 15%;
+
+  #relatedProductsContainer {
+    width: 100%;
     display: inline-flex;
-    margin-top: 12%;
+    height: 25em;
+    padding-bottom: 3%;
+    overflow-x: scroll;
+    user-select: none;
+    overflow-y: hidden;
+  }
+  #relatedProductsContainer::-webkit-scrollbar {
+    -webkit-appearance: none;
+    touch-action: cross-slide-x;
+   
   }
   
   .relatedProducts {
     width: 25%;
     height: 25em;
-    margin-bottom: 15%;
+    margin: auto;
     display: inline-flex;
-    margin-top: 12%;
+    justify-content: center;
+    
   }
     #muestra3 {
-     
-     
       position: relative;
       transition: all 1s ease-in-out;
       width: 10em;
       height: 15em;
       overflow: hidden;
       border-radius: 10px;  
+      
     }
     
         .cardImage {
-          
+         pointer-events: none;
           z-index: 0;
           height: 15em;
             width: 10em;
             object-fit: cover;
             object-position: center;
         }
-                #muestra3:hover {
-                  height: 25em;
-                }
-                .imageContainer {
-                  width: 10em;
-                  overflow: hidden;
-                  height: fit-content;
-                  width: 100%;
-                    height: 15em;
-                    transition: all 1s ease-in-out;
-                }
-                .imageContainer:hover {
-                  overflow: visible;
-                  height: 15em;
-                  width: 10em;
-                }
-  
-}
-
-@media (min-width: 1101px) {
-  #relatedProductsContainer {
-    width: 20%;
-    height: 45em;
-    float: right;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-    
-  
-  }
-  #relatedProductsContainer::-webkit-scrollbar {
-    -webkit-appearance: none;
-   
-    
-  
-  }
-  #relatedProductsContainer::-webkit-scrollbar:vertical{
-    width: 0;
-    position: absolute;
-  
-  }
-
-  #relatedProductsContainer:hover::-webkit-scrollbar:vertical {
-    width: 5px;
-  
-  }
-
-  #relatedProductsContainer::-webkit-scrollbar-button:increment, #relatedProductsContainer::-webkit-scrollbar:decrement {
-    display: none;
-  }
-  #relatedProductsContainer::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.473);
-    border-radius: 20px;
-    border: 1px solid #f1f2f3;
-
-  
-  }
-  #relatedProductsContainer::-webkit-scrollbar-track {
-    border-radius: 20px;
-    
-  }
-
-  
-  .relatedProducts {
-    overflow: hidden;
-   
-    height: fit-content;
-      -ms-box-orient: horizontal;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -moz-flex;
-      display: -webkit-flex;
-      display: flex;
-    
-      -webkit-justify-content: space-around;
-      justify-content: space-around;
-      -webkit-flex-flow: column wrap;
-      flex-flow: column wrap;
-      -webkit-align-items: stretch;
-      align-items: stretch;
-    
-  }
-    .cardImage {
-      width: 20em;
-      height: 15em;
-      z-index: 1;
-        object-fit: cover;
-        object-position: center;
-        transition: all 1s ease-in-out;
-    }
-    .cardImage:hover {
-      height: 15em;
-      z-index: 1;
-     
-    }
+        #muestra3:hover {
+          height: 25em;
+        }
         .imageContainer {
-          width: fit-content;
+          width: 10em;
+          user-select: none;
           overflow: hidden;
-          height: 10em;
-          transition: all 1s ease-in-out;
-
+          height: fit-content;
+          width: 100%;
+            height: 15em;
+            transition: all 1s ease-in-out;
         }
         .imageContainer:hover {
-          
+          overflow: visible;
           height: 15em;
+          width: 10em;
         }
-        #muestra3 {
-          margin: auto;
-          position: relative;
-          width: 100%;
-          height: 15em;
-          border-radius: 10px;
-          align-self: center;
-          flex-grow: 1;
-
-
-
-        }
-
   
-}
+
+
+
 
 
 .likeAndViewButton,

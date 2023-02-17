@@ -79,9 +79,8 @@ const ProductDetail = () => {
   }
 
  
-  useEffect(() =>
-  {
-    dispatch(getRelatedProducts(product))
+  useEffect(() =>{
+      dispatch(getRelatedProducts(product))
     if (productid !== id)
     {
       dispatch(GetProductById(id));
@@ -92,19 +91,17 @@ const ProductDetail = () => {
       dispatch(getProducts())
     }
 
-    if (products.length === 0) {
-      dispatch(getProducts());
-    }
+    
 
   }, [amoutstock, id, userId, productid]);
 
   return (
     <section
       onLoad={() => setqty(product)}
-      className="body-font overflow-hidden bg-base-500 lg:h-screen sm:h-fit"
+      className="body-font overflow-hidden bg-base-500 h-screen"
     >
       <div
-        className="sm:w-fill lg:w-4/5  flex-column  m-auto w-fit md:h-screen"
+        className="w-4/5  flex-column  m-auto "
         style={{ float: "left", alignItems: "center" }}
       >
         <div className="w-full mx-auto flex flex-wrap px-5 py-10 justify-center">
@@ -250,14 +247,14 @@ const ProductDetail = () => {
               )} */}
             </div>
 
-
-            {/* <input type="checkbox" id="Pagartodo" className="modal-toggle " />
-
             <AddComment
               modalId="addReview"
               productId={product?.id}
               userId={loggedUser?.id}
             />
+
+            {/* <input type="checkbox" id="Pagartodo" className="modal-toggle " />
+
 
   
 
@@ -327,7 +324,7 @@ const ProductDetail = () => {
       <div id='relatedProductsContainer'>
 
         {
-          relatedProducts.slice(0, products.length / 2).map(p =>
+          relatedProducts.slice(0, 4).map(p =>
           {
             return (
               <RelatedProduct key={p.id} product={p} componentId={id} />

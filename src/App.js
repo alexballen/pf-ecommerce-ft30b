@@ -55,7 +55,7 @@ function App()
     {
       dispatch(getCurrentUser(user));
     }
-
+    console.log(process.env)
     function handleWindowreSize()
     {
       setWidth(getWindowSize());
@@ -83,6 +83,7 @@ function App()
         width: "100%",
         overflow: "hidden",
         position: "relative",
+        paddingBottom: '2%'
       }}
     >
       <BrowserRouter>

@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000
 const client = express()
 client.use(express.static("build"))
 
-
+console.log(process.env)
 client.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "build", 'index.html'))
 })

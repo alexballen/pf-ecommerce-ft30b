@@ -6,6 +6,10 @@ import stylesLanding from './LandingPage.module.css'
 
 const LandingPage = () =>
 {
+React.useEffect(() => {
+    document.getElementById('footerContainer').style.opacity = '0%'
+})
+
     return (
         <div>
             <div className={stylesLanding.background}></div>
